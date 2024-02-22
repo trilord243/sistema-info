@@ -1,9 +1,18 @@
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import AppLayout from "./features/layout/AppLayout";
+import ErrorPage from "./ui/ErrorPage";
+import HomePage from "./ui/HomePage";
+
 function App() {
-  return (
-    <>
-      <h1 className="text-red-500">Super blog de agrupaciones</h1>
-    </>
-  );
+  const router = createBrowserRouter([
+    {
+      element: <AppLayout />,
+      errorElement: <ErrorPage />,
+      children: [{ path: "/", element: <HomePage /> }],
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
 }
 
 export default App;
