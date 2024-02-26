@@ -1,8 +1,7 @@
 import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
-import LogoUnimet from "./LogoUnimet";
-
+import logoUnimet from "../assets/unimet-blanco.svg";
 const navigation = [
   { name: "Agrupaciones", href: "#", current: true },
   { name: "Noticias", href: "#", current: false },
@@ -17,11 +16,11 @@ const Navbar: React.FC = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-primary custom-shadow border border-solid border-black "
+      className="bg-primary  custom-shadow border border-solid border-black"
     >
       {({ open }) => (
         <>
-          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8  ">
+          <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
                 {/* Mobile menu button*/}
@@ -35,9 +34,15 @@ const Navbar: React.FC = () => {
                   )}
                 </Disclosure.Button>
               </div>
-              <div className="flex flex-1 items-center  justify-between  sm:justify-start">
-                <LogoUnimet />
-                <div className="hidden sm:ml-6 sm:block">
+              <div className="flex flex-1 items-center justify-center sm:justify-start">
+                <div className="flex flex-shrink-0 items-center">
+                  <img
+                    className="h-16 w-auto"
+                    src={logoUnimet}
+                    alt="Your Company"
+                  />
+                </div>
+                <div className="hidden sm:ml-6  sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
                       <a
@@ -45,8 +50,8 @@ const Navbar: React.FC = () => {
                         href={item.href}
                         className={classNames(
                           item.current
-                            ? "bg-primary-hover text-white"
-                            : "text-gray-300 hover:bg-primary-hover hover:text-white",
+                            ? "bg-gray-900 text-white"
+                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
                           "rounded-md px-3 py-2 text-sm font-medium"
                         )}
                         aria-current={item.current ? "page" : undefined}
@@ -57,30 +62,19 @@ const Navbar: React.FC = () => {
                   </div>
                 </div>
               </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="relative rounded-full bg-primary p-1 text-gray-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                >
-                  Iniciar sesión
-                </button>
+              <div className=" absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                <h3 className="hidden md:block lg:block  text-white">
+                  {" "}
+                  Iniciar sesion
+                </h3>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
-                  <div>
-                    {/* <Menu.Button className="hidden sm:flex relative rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                      <span className="absolute -inset-1.5" />
-                      <span className="sr-only">Open user menu</span>
-                      <img
-                        className="h-8 w-8 rounded-full"
-                        src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                        alt=""
-                      />
-                    </Menu.Button> */}
-                    <div className="w-[118px] h-[42px] px-[17px] py-[9px] bg-orange-500 rounded-md shadow justify-center items-center inline-flex">
-                      <div className="text-white text-base font-medium font-['Inter'] leading-normal">
+                  <div className="">
+                    <div className="hidden md:block lg:block  text-white">
+                      <button className=" w-full h-full py-2 px-4 rounded-md bg-secondary ">
                         Registrate!
-                      </div>
+                      </button>
                     </div>
                   </div>
                   <Transition
