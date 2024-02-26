@@ -5,9 +5,9 @@ const MainPageComponent = () => {
     <>
       {/* Desktop  */}
       <div className="hidden lg:flex w-full h-[52rem]">
-        <div className="flex flex-col justify-center items-center text-center md:items-start md:text-left p-12 space-y-6 bg-primary text-white md:w-1/2">
+        <div className="flex flex-col justify-center items-center text-center md:items-start md:text-left p-14 space-y-6 bg-primary text-white md:w-1/2">
           <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-            ¡Únete!
+            <span className="text-secondary">¡Únete!</span>
             <br /> dolor sit amet consectetur.
             <br /> netus egestas
           </h1>
