@@ -1,43 +1,16 @@
-import image from "../assets/group.png";
-import creacion from "../assets/creacion-proyecto.svg";
-import organizate from "../assets/organizate.svg";
-import social from "../assets/social.svg";
 import { TextButtonContainer } from "./TextButtonContainer";
-
+import { InformationBar } from "./InformationBar";
+import { HeroImage } from "./HeroImage";
+import image from "../assets/group.png";
 const MainPageComponent = () => {
   return (
     <>
       {/* Desktop  */}
       <div className="hidden lg:flex w-full h-[52rem] relative">
         <TextButtonContainer />
-
-        <div
-          className="md:w-1/2 w-full h-1/2 md:h-full bg-cover bg-center"
-          style={{ backgroundImage: `url(${image})` }}
-        />
-        <div className="absolute w-2/3 h-36 bg-white gap-4 bottom-0 flex  py-7 pl-12">
-          <div className="w-24 h-full lg:w-64  ">
-            <img src={creacion} alt="xd" />
-            <h3 className="text- font-bold">Creacion de proyectos </h3>
-            <p className="text-sm">
-              Crea proyectos con tus compaleros en la universidad
-            </p>
-          </div>
-          <div className="w-24 h-full lg:w-64  ">
-            <img src={social} alt="xd" />
-            <h3 className="text- font-bold">Conecta compañeros </h3>
-            <p className="text-sm">
-              Haz una agrupacion con los compañeros cpon los mismos intereses
-            </p>
-          </div>
-          <div className="w-24 h-full lg:w-64  ">
-            <img src={organizate} alt="xd" />
-            <h3 className="text- font-bold">Organizate </h3>
-            <p className="text-sm">Organiza los proyectos con tu agrupacion</p>
-          </div>
-        </div>
+        <HeroImage />
+        <InformationBar />
       </div>
-
       {/* Mobile  */}
       <div className="relative lg:hidden w-full h-[60vh] md:h-[75vh]">
         <div className="absolute inset-0 w-full h-full">
