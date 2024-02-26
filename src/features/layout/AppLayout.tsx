@@ -1,11 +1,13 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import { Navbar } from "../../ui/Navbar";
+import { Navbar } from "./Navbar";
 
 const AppLayout: React.FC = () => {
   return (
     <>
-      <Navbar />
+      <div className="sticky top-0 z-50">
+        <Navbar />
+      </div>
       <Outlet />
     </>
   );

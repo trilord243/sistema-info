@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logoUnimet from "../assets/unimet-blanco.svg";
 const navigation = [
-  { name: "Agrupaciones", href: "#", current: true },
+  { name: "Agrupaciones", href: "#", current: false },
   { name: "Noticias", href: "#", current: false },
   { name: "Top 4 agrupaciones", href: "#", current: false },
 ];
@@ -16,7 +16,7 @@ const Navbar: React.FC = () => {
   return (
     <Disclosure
       as="nav"
-      className="bg-primary  custom-shadow border border-solid border-black"
+      className="bg-primary  custom-shadow border border-solid border-black "
     >
       {({ open }) => (
         <>
