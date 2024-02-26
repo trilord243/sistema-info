@@ -1,10 +1,9 @@
-import { Navbar } from "./Navbar";
-
+import MainPageComponent from "./MainPageComponent";
 
 const HomePage: React.FC = () => {
   return (
     <>
-      <Navbar />
+      <MainPageComponent />
     </>
   );
 };
