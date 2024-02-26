@@ -37,7 +37,6 @@ const HomePage: React.FC = () => {
         <h4 className="text-center mt-10 text-6xl text-primary font-semibold ">
           NOTICIAS
         </h4>
-        <Carousel images={imageUrls} />
       </div>
     </>
   );
