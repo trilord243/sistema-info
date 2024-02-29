@@ -1,5 +1,5 @@
 import Card from "../../ui/Card";
-import Carousel from "./Carrousel";
+/* import Carousel from "./Carrousel"; */
 import MainPageComponent from "./MainPageComponent";
 
 const imageUrls = [
@@ -34,9 +34,12 @@ const HomePage: React.FC = () => {
       </div>
 
       <div>
-        <h4 className="text-center mt-10 text-6xl text-primary font-semibold ">
+        <h4 className="text-center mt-10 text-6xl text-primary font-semibold mb-5 ">
           NOTICIAS
         </h4>
+
+        <div className="mt-2 w-full h-[30rem] bg-blue-500"></div>
+        <div className=" w-full h-10 mt-24 bg-red-600"></div>
       </div>
     </>
   );

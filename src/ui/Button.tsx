@@ -3,6 +3,7 @@ interface ButtonProps {
 }
 
 export const Button: React.FC<ButtonProps> = ({ name }) => {
+  /* export function Button({ name }: ButtonProps) { */
   return (
     <button
       type="button"
