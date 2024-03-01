@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logoUnimet from "../assets/unimet-blanco.svg";
+import { Link } from "react-router-dom";
 const navigation = [
   { name: "Agrupaciones", href: "#", current: false },
   { name: "Noticias", href: "#", current: false },
@@ -63,10 +64,13 @@ const Navbar: React.FC = () => {
                 </div>
               </div>
               <div className=" absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <h3 className="hidden md:block lg:block  text-white">
+                <Link
+                  to="login"
+                  className="hidden md:block lg:block  text-white"
+                >
                   {" "}
                   Iniciar sesion
-                </h3>
+                </Link>
 
                 {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">

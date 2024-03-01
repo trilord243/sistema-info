@@ -6,7 +6,7 @@ const MainPageComponent = () => {
   return (
     <>
       {/* Desktop  */}
-      <div className="hidden lg:flex w-full h-[52rem] relative">
+      <div className="hidden lg:flex w-full h-[55rem] relative">
         <TextButtonContainer />
         <HeroImage />
         <InformationBar />

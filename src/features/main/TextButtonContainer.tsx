@@ -2,7 +2,7 @@ export const TextButtonContainer = () => {
   return (
     <>
       <div className="flex flex-col items-center text-center md:items-start md:text-left px-14 space-y-6 bg-primary text-white md:w-1/2">
-        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mt-20">
+        <h1 className="text-4xl md:text-6xl font-extrabold leading-tight mt-32">
           <span className="text-secondary">¡Únete!</span>
           <br /> dolor sit amet consectetur.
           <br /> netus egestas

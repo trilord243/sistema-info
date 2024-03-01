@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
   return (
     <>
       <MainPageComponent />
-      <div className="w-full lg:mt-32 mt-12">
+      <div className="w-full lg:mt-32 mt-12 ">
         <h3 className="text-center lg:text-6xl text-3xl   ">
           <span className="font-bold text-black"> CONOZCA NUESTRAS </span>{" "}
           <br />
@@ -43,6 +43,7 @@ const HomePage: React.FC = () => {
               foto_agrupacion={agrupacion.foto_agrupacion}
               mision={agrupacion.mision}
               tag={agrupacion.tag}
+              nombre_agrupacion={agrupacion.nombre_agrupacion}
             />
           ))}
         </div>
