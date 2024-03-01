@@ -22,7 +22,6 @@ const HomePage: React.FC = () => {
   const { agrupaciones = [] } = useLoaderData() as {
     agrupaciones: Agrupacion[];
   };
-  console.log(agrupaciones);
 
   return (
     <>

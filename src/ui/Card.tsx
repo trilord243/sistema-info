@@ -11,9 +11,6 @@ const Card: React.FC<CardProps> = ({
 
   nombre_agrupacion,
 }) => {
-  if (nombre_agrupacion === "UNIMET Fitness") {
-    console.log(mision);
-  }
   return (
     <div className="w-[326px] h-[380px] bg-white rounded-2xl flex flex-col items-center p-6 shadow-xl shadow-gray-500/50">
       <img

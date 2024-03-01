@@ -76,9 +76,12 @@ const Navbar: React.FC = () => {
                 <Menu as="div" className="relative ml-3">
                   <div className="">
                     <div className="hidden md:block lg:block  text-white">
-                      <button className=" w-full h-full py-2 px-4 rounded-md bg-secondary ">
+                      <Link
+                        to="/register"
+                        className=" w-full h-full py-2 px-4 rounded-md bg-secondary "
+                      >
                         Registrate!
-                      </button>
+                      </Link>
                     </div>
                   </div>
                   <Transition
