@@ -1,26 +1,34 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
+import fetchStudentByEmail from "../../api/Estudiantes";
+import { getUserName } from "../user/userSlice";
+
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      console.log(currentUser);
+    onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-        console.log(currentUser);
+        const email = currentUser.email || "";
+        const student = await fetchStudentByEmail(db, email);
+        console.log(student);
       }
     });
   }, [dispatch]);
 
+  const showNavbar = location.pathname !== "/profile";
   return (
     <>
-      <div className="sticky top-0 z-50">
-        <Navbar />
-      </div>
+      {showNavbar && (
+        <div className="sticky top-0 z-50">
+          <Navbar />
+        </div>
+      )}
       <Outlet />
     </>
   );

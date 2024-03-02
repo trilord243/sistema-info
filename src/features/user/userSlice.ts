@@ -6,6 +6,7 @@ interface UserState {
   imagen_perfil: string;
   login: boolean;
   sobre_mi: string;
+  rol: string;
 }
 
 const initialState = {
@@ -16,6 +17,7 @@ const initialState = {
   login: false,
   credential: {},
   sobre_mi: "",
+  rol: "",
 };
 
 const userSlice = createSlice({

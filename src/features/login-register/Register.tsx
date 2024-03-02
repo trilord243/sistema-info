@@ -159,7 +159,7 @@ export async function action({ request }: ActionParams) {
       password.toString()
     );
 
-    return redirect("/login");
+    return redirect("/");
   } catch (error) {
     console.log(error);
     return null;
