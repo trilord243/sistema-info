@@ -24,6 +24,7 @@ const initialState = {
   sobre_mi: "",
   rol: "",
   banner: "",
+  email: "",
 };
 
 const userSlice = createSlice({
@@ -74,10 +75,18 @@ const userSlice = createSlice({
     updateBanner: (state, action) => {
       state.banner = action.payload;
     },
+
+    updateEmail: (state, action) => {
+      state.email = action.payload;
+    },
+    resetUserState: () => {
+      return initialState;
+    },
   },
 });
 
 export const getUserName = (state: { user: UserState }) => state.user.nombre;
+export const getUserEmail = (state: { user: UserState }) => state.user.email;
 export const getUserApellido = (state: { user: UserState }) =>
   state.user.apellido;
 export const getUserAgrupaciones = (state: { user: UserState }) =>
@@ -93,6 +102,7 @@ export const getUserId = (state: { user: UserState }) => state.user.id;
 export const getBannerImage = (state: { user: UserState }) => state.user.banner;
 export const getUserLogin = (state: { user: UserState }) => state.user.login;
 export const {
+  updateEmail,
   updateName,
   updateApellido,
   updateAgrupaciones,
@@ -101,6 +111,7 @@ export const {
   updateCredential,
   updateSobreMi,
   updateUser,
+  resetUserState,
 } = userSlice.actions;
 
 export default userSlice.reducer;

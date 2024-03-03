@@ -15,6 +15,7 @@ function App() {
     { path: "/register", element: <Register />, action: registerAction },
     {
       element: <AppLayout />,
+
       errorElement: <ErrorPage />,
       children: [
         { path: "/", element: <HomePage />, loader: menuLoader },

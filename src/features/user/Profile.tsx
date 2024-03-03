@@ -1,12 +1,15 @@
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import ProfileUI from "../../ui/ProfileUI";
 
 import ProfileBannerPhoto from "./ProfileBannerPhoto";
-import { PhotoIcon, UserCircleIcon } from "@heroicons/react/24/solid";
+import { PhotoIcon } from "@heroicons/react/24/solid";
 import { useSelector } from "react-redux";
 import {
+  getBannerImage,
   getUserApellido,
+  getUserEmail,
   getUserId,
+  getUserImagenPerfil,
   getUserName,
   getUserSobreMi,
   updateUser,
@@ -15,15 +18,41 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase/firebase";
 import store from "../../store";
+import { ChangeEvent, useState } from "react";
 
 type ActionParams = {
   request: Request;
 };
 export default function Profile() {
+  const email = useSelector(getUserEmail);
   const nombre = useSelector(getUserName);
   const apellido = useSelector(getUserApellido);
   const sobreMi = useSelector(getUserSobreMi);
   const id = useSelector(getUserId);
+  const navigate = useNavigate();
+  const profilePhoto = useSelector(getUserImagenPerfil);
+  const banner = useSelector(getBannerImage);
+
+  const [previewPhoto, setPreviewPhoto] = useState<string | null>(null);
+  const [coverPhoto, setcoverPhoto] = useState<string | null>(null);
+
+  const handleFileChangeProfile = (
+    event: ChangeEvent<HTMLInputElement>,
+    type: string
+  ) => {
+    const file = event.target.files ? event.target.files[0] : null;
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === "string") {
+          type === "profile"
+            ? setPreviewPhoto(reader.result)
+            : setcoverPhoto(reader.result);
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <div className="">
@@ -60,8 +89,10 @@ export default function Profile() {
                           type="email"
                           autoComplete="email"
                           required
-                          className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                          placeholder="asdasdasd@gmail"
+                          readOnly
+                          className="block flex-1 border-0 bg-gray-200 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
+                          placeholder="usuario@correo.unimet.edu.ve"
+                          value={email}
                         />
                       </div>
                     </div>
@@ -138,9 +169,14 @@ export default function Profile() {
                       Foto de perfil
                     </label>
                     <div className="mt-2 flex items-center gap-x-3">
-                      <UserCircleIcon
+                      {/*  <UserCircleIcon
                         className="h-12 w-12 text-gray-300"
                         aria-hidden="true"
+                      /> */}
+                      <img
+                        src={previewPhoto || profilePhoto}
+                        className="h-16 w-16 rounded-full"
+                        alt="Profile foto"
                       />
                       <label
                         htmlFor="profile-photo"
@@ -153,6 +189,9 @@ export default function Profile() {
                           type="file"
                           accept="image/*"
                           className="sr-only"
+                          onChange={(e) =>
+                            handleFileChangeProfile(e, "profile")
+                          }
                         />
                       </label>
                     </div>
@@ -165,29 +204,41 @@ export default function Profile() {
                     >
                       Foto de portada
                     </label>
-                    <div className="mt-2 flex justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10">
+                    <div
+                      style={{
+                        backgroundImage: "url(" + (coverPhoto || banner) + ")",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                      }}
+                      className="mt-2 flex justify-center rounded-lg border border-dashed  border-gray-900/25 px-6 py-10"
+                    >
                       <div className="text-center">
                         <PhotoIcon
-                          className="mx-auto h-12 w-12 text-gray-300"
+                          className="mx-auto h-12 w-12 text-secondary"
                           aria-hidden="true"
                         />
                         <div className="mt-4 flex text-sm leading-6 text-gray-600">
                           <label
                             htmlFor="cover-photo"
-                            className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
+                            className="relative cursor-pointer rounded-md  font-semibold text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
-                            <span>Sube tu foto de portada </span>
+                            <span className="">Sube tu foto de portada </span>
                             <input
                               id="cover-photo"
                               name="cover-photo"
                               type="file"
                               accept="image/*"
                               className="sr-only"
+                              onChange={(e) =>
+                                handleFileChangeProfile(e, "cover")
+                              }
                             />
                           </label>
-                          <p className="pl-1">O arrastrala </p>
+                          <p className="pl-1 text-white font-bold ">
+                            O arrastrala{" "}
+                          </p>
                         </div>
-                        <p className="text-xs leading-5 text-gray-600">
+                        <p className="text-xs leading-5 text-gray-600 font-semibold">
                           PNG, JPG de hasta 10MB
                         </p>
                       </div>
@@ -203,6 +254,9 @@ export default function Profile() {
 
             <div className="mt-6 flex items-center justify-end gap-x-6 mb-3">
               <button
+                onClick={() => {
+                  navigate("/");
+                }}
                 type="button"
                 className="text-sm font-semibold leading-6 text-gray-900"
               >
@@ -231,8 +285,9 @@ export async function action({ request }: ActionParams) {
   const sobreMi = formData.get("sobre_mi")?.toString();
   const profilePhotoFile = formData.get("profile-photo");
   const coverPhotoFile = formData.get("cover-photo");
-  console.log(coverPhotoFile);
 
+  console.log(profilePhotoFile);
+  console.log(coverPhotoFile);
   if (!id) {
     console.error("ID no proporcionado");
     return null;
@@ -252,7 +307,7 @@ export async function action({ request }: ActionParams) {
     );
 
     // Subir y actualizar la foto de perfil
-    if (profilePhotoFile instanceof File) {
+    if (profilePhotoFile instanceof File && profilePhotoFile.name !== "") {
       const profilePhotoRef = ref(storage, `estudiantes/${id}/profile-photo`);
       const uploadResult = await uploadBytes(profilePhotoRef, profilePhotoFile);
       if (uploadResult) {
@@ -265,7 +320,7 @@ export async function action({ request }: ActionParams) {
     }
 
     // Subir y actualizar la foto de portada
-    if (coverPhotoFile instanceof File) {
+    if (coverPhotoFile instanceof File && coverPhotoFile.name !== "") {
       const coverPhotoRef = ref(storage, `estudiantes/${id}/cover-photo`);
       const uploadResult = await uploadBytes(coverPhotoRef, coverPhotoFile);
       if (uploadResult) {

@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import fetchStudentByEmail from "../../api/Estudiantes";
-import { updateUser } from "../user/userSlice";
+import { resetUserState, updateEmail, updateUser } from "../user/userSlice";
 
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,11 @@ const AppLayout: React.FC = () => {
         const email = currentUser.email || "";
         fetchStudentByEmail(db, email).then((student) => {
           console.log(student);
+          dispatch(updateEmail(email));
           dispatch(updateUser(student));
         });
+      } else {
+        dispatch(resetUserState());
       }
     });
   }, [dispatch]);
@@ -36,5 +39,3 @@ const AppLayout: React.FC = () => {
 };
 
 export default AppLayout;
-/* const email = currentUser.email || "";
-const student = await fetchStudentByEmail(db, email); */
