@@ -38,7 +38,7 @@ const userSlice = createSlice({
         apellido,
         agrupaciones,
         imagen_perfil,
-        sobre_mi,
+        sobre_ti,
         banner,
       } = action.payload;
       state.nombre = nombre;
@@ -47,7 +47,7 @@ const userSlice = createSlice({
       state.agrupaciones = agrupaciones;
       state.imagen_perfil = imagen_perfil;
       state.login = true;
-      state.sobre_mi = sobre_mi;
+      state.sobre_mi = sobre_ti;
       state.banner = banner;
     },
 

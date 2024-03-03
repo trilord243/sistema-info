@@ -28,6 +28,7 @@ export default function Profile() {
   const nombre = useSelector(getUserName);
   const apellido = useSelector(getUserApellido);
   const sobreMi = useSelector(getUserSobreMi);
+  console.log(sobreMi);
   const id = useSelector(getUserId);
   const navigate = useNavigate();
   const profilePhoto = useSelector(getUserImagenPerfil);

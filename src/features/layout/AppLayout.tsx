@@ -16,7 +16,6 @@ const AppLayout: React.FC = () => {
       if (currentUser) {
         const email = currentUser.email || "";
         fetchStudentByEmail(db, email).then((student) => {
-          console.log(student);
           dispatch(updateEmail(email));
           dispatch(updateUser(student));
         });

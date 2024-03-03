@@ -2,7 +2,7 @@ import { Fragment, useEffect, useReducer } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logoUnimet from "../assets/unimet-blanco.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
@@ -26,6 +26,7 @@ function classNames(...classes: string[]) {
 }
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
   const image = useSelector(getUserImagenPerfil);
 
   const initialState: State = {
@@ -83,13 +84,15 @@ const Navbar: React.FC = () => {
                 </Disclosure.Button>
               </div>
               <div className="flex flex-1 items-center justify-center sm:justify-start">
-                <div className="flex flex-shrink-0 items-center">
-                  <img
-                    className="h-16 w-auto"
-                    src={logoUnimet}
-                    alt="Your Company"
-                  />
-                </div>
+                <Link to="/">
+                  <div className="flex flex-shrink-0 items-center">
+                    <img
+                      className="h-16 w-auto"
+                      src={logoUnimet}
+                      alt="Your Company"
+                    />
+                  </div>
+                </Link>
                 <div className="hidden sm:ml-6  sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
@@ -247,26 +250,46 @@ const Navbar: React.FC = () => {
             </div>
           </div>
 
-          <Disclosure.Panel className="sm:hidden">
-            <div className="space-y-1 px-2 pb-3 pt-2">
-              {navigation.map((item) => (
+          {!login ? (
+            <Disclosure.Panel className="sm:hidden">
+              <div className="space-y-1 px-2 pb-3 pt-2 flex flex-col  gap-3">
                 <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                    "block rounded-md px-3 py-2 text-base font-medium"
-                  )}
-                  aria-current={item.current ? "page" : undefined}
+                  onClick={() => navigate("/login")}
+                  className="bg-blue-400 rounded-full p-1"
                 >
-                  {item.name}
+                  Inicia Sesion!
                 </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel>
+
+                <Disclosure.Button
+                  onClick={() => navigate("/login")}
+                  className="bg-secondary rounded-full p-1"
+                >
+                  Registrate
+                </Disclosure.Button>
+              </div>
+            </Disclosure.Panel>
+          ) : (
+            <Disclosure.Panel className="sm:hidden">
+              <div className="space-y-1 px-2 pb-3 pt-2">
+                {navigation.map((item) => (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium"
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                ))}
+              </div>
+            </Disclosure.Panel>
+          )}
         </>
       )}
     </Disclosure>

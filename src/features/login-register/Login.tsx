@@ -1,7 +1,7 @@
 import imagen from "../assets/image 11.jpeg";
 import arrow from "../assets/Arrow.svg";
 import { Form, Link, redirect } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 type ActionParams = {
   request: Request;
@@ -151,4 +151,27 @@ export async function action({ request }: ActionParams) {
     console.log(error);
     return null;
   }
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function loader() {
+  const checkAuth = new Promise((resolve, reject) => {
+    const unsubscribe = onAuthStateChanged(
+      auth,
+      (currentUser) => {
+        unsubscribe();
+        if (currentUser) {
+          resolve(redirect("/"));
+        } else {
+          resolve(null);
+        }
+      },
+      reject
+    );
+  });
+
+  return checkAuth.catch((error) => {
+    console.error("Error checking auth state", error);
+    return redirect("/login");
+  });
 }
