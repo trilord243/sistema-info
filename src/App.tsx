@@ -6,7 +6,7 @@ import Login, { action as loginAction } from "./features/login-register/Login";
 import Register, {
   action as registerAction,
 } from "./features/login-register/Register";
-import { ProtectedRoute } from "./features/layout/ProtectedRoute";
+import { ProtectedRoute, loader as protectedLoader } from "./features/layout/ProtectedRoute";
 import Profile, { action as ProfieAction } from "./features/user/Profile";
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
 
         {
           element: <ProtectedRoute />,
+          loader: protectedLoader,
           children: [
             { path: "/profile", element: <Profile />, action: ProfieAction },
           ],
