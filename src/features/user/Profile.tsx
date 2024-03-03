@@ -10,7 +10,9 @@ import {
   getUserName,
   getUserSobreMi,
 } from "./userSlice";
-
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { db, storage } from "../../firebase/firebase";
 type ActionParams = {
   request: Request;
 };
@@ -126,19 +128,26 @@ export default function Profile() {
                       htmlFor="photo"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Foto
+                      Foto de perfil
                     </label>
                     <div className="mt-2 flex items-center gap-x-3">
                       <UserCircleIcon
                         className="h-12 w-12 text-gray-300"
                         aria-hidden="true"
                       />
-                      <button
-                        type="button"
-                        className="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
+                      <label
+                        htmlFor="profile-photo"
+                        className="relative cursor-pointer rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50"
                       >
                         Cambiar
-                      </button>
+                        <input
+                          id="profile-photo"
+                          name="profile-photo"
+                          type="file"
+                          accept="image/*"
+                          className="sr-only"
+                        />
+                      </label>
                     </div>
                   </div>
 
@@ -207,8 +216,64 @@ export default function Profile() {
 
 export async function action({ request }: ActionParams) {
   const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  console.log(data);
+  const id = formData.get("id")?.toString();
+  const nombre = formData.get("nombre")?.toString();
+  const apellido = formData.get("apellido")?.toString();
+  const sobreMi = formData.get("sobre_mi")?.toString();
+  const profilePhotoFile = formData.get("profile-photo");
+  const coverPhotoFile = formData.get("cover-photo");
+
+  if (!id) {
+    console.error("ID no proporcionado");
+    return null;
+  }
+
+  try {
+    const studentRef = doc(db, "estudiantes", id);
+    const studentDoc = await getDoc(studentRef);
+    if (!studentDoc.exists()) {
+      console.error("El documento del estudiante no existe");
+      return null;
+    }
+    const studentData = studentDoc.data();
+
+    // Subir y actualizar la foto de perfil
+    if (profilePhotoFile instanceof File) {
+      const profilePhotoRef = ref(storage, `estudiantes/${id}/profile-photo`);
+      const uploadResult = await uploadBytes(profilePhotoRef, profilePhotoFile);
+      if (uploadResult) {
+        const profilePhotoURL = await getDownloadURL(profilePhotoRef);
+        studentData.imagen_perfil = profilePhotoURL;
+      } else {
+        console.error("La subida de la foto de perfil ha fallado");
+      }
+    }
+
+    // Subir y actualizar la foto de portada
+    if (coverPhotoFile instanceof File) {
+      const coverPhotoRef = ref(storage, `estudiantes/${id}/cover-photo`);
+      const uploadResult = await uploadBytes(coverPhotoRef, coverPhotoFile);
+      if (uploadResult) {
+        const coverPhotoURL = await getDownloadURL(coverPhotoRef);
+        studentData.banner = coverPhotoURL;
+      } else {
+        console.error("La subida de la foto de portada ha fallado");
+      }
+    }
+
+    // Actualizar los datos del estudiante
+    await updateDoc(studentRef, {
+      nombre: nombre || studentData.nombre,
+      apellido: apellido || studentData.apellido,
+      sobre_ti: sobreMi || studentData.sobre_ti,
+      imagen_perfil: studentData.imagen_perfil,
+      banner: studentData.banner,
+    });
+
+    console.log("El perfil del estudiante se ha actualizado con éxito");
+  } catch (error) {
+    console.error("Error al actualizar el perfil del estudiante:", error);
+  }
 
   return null;
 }
