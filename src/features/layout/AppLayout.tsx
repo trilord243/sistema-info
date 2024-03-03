@@ -1,11 +1,10 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { Navbar } from "./Navbar";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import fetchStudentByEmail from "../../api/Estudiantes";
-import { getUserName } from "../user/userSlice";
 
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch();

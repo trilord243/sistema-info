@@ -7,7 +7,7 @@ import Register, {
   action as registerAction,
 } from "./features/login-register/Register";
 import { ProtectedRoute } from "./features/layout/ProtectedRoute";
-import Profile from "./features/user/Profile";
+import Profile, { action as ProfieAction } from "./features/user/Profile";
 
 function App() {
   const router = createBrowserRouter([
@@ -21,7 +21,9 @@ function App() {
 
         {
           element: <ProtectedRoute />,
-          children: [{ path: "/profile", element: <Profile /> }],
+          children: [
+            { path: "/profile", element: <Profile />, action: ProfieAction },
+          ],
         },
       ],
     },

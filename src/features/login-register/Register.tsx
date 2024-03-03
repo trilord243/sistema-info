@@ -2,7 +2,10 @@ import imagen from "../assets/image 11.jpeg";
 import arrow from "../assets/Arrow.svg";
 import { Form, Link, redirect } from "react-router-dom";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
+import { doc, setDoc } from "firebase/firestore";
+import store from "../../store";
+import { updateUser } from "../user/userSlice";
 
 type ActionParams = {
   request: Request;
@@ -61,7 +64,7 @@ const Register = () => {
                       <div className="mt-2">
                         <input
                           id="confirm-password"
-                          name="password"
+                          name="confirm-password"
                           type="password"
                           autoComplete="current-password"
                           required
@@ -152,18 +155,45 @@ export default Register;
 export async function action({ request }: ActionParams) {
   try {
     const formData = await request.formData();
-    const { email, password } = Object.fromEntries(formData);
-    await createUserWithEmailAndPassword(
+    const email = formData.get("email")?.toString();
+    const password = formData.get("password")?.toString();
+    const confirmPassword = formData.get("confirm-password")?.toString();
+    console.log(email, password, confirmPassword);
+    if (password !== confirmPassword) {
+      throw new Error("Las contraseñas no coinciden");
+    }
+
+    if (!email || !password) {
+      throw new Error("Email y contraseña son requeridos");
+    }
+
+    const userCredential = await createUserWithEmailAndPassword(
       auth,
-      email.toString(),
-      password.toString()
+      email,
+      password
     );
 
-    return redirect("/");
+    const uid = userCredential.user.uid;
+    const student = {
+      agrupaciones: [],
+      id: uid,
+      email: email,
+      nombre: email,
+      apellido: email,
+      rol: "usuario",
+      sobre_ti: "Me encanta la unimet!",
+      banner:
+        "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+      imagen_perfil:
+        "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Avatar%20profile.png?alt=media&token=f15c43a4-663d-464b-8499-911c6196a684",
+    };
+
+    await setDoc(doc(db, "estudiantes", uid), student);
+    store.dispatch(updateUser(student));
+    return redirect("/profile");
   } catch (error) {
-    console.log(error);
+    console.error("Error al crear el usuario:", error);
+
     return null;
-  } finally {
-    alert("Usuario creado con exito");
   }
 }
