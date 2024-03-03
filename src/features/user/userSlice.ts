@@ -49,6 +49,7 @@ const userSlice = createSlice({
       state.sobre_mi = sobre_mi;
       state.banner = banner;
     },
+
     updateName: (state, action) => {
       state.nombre = action.payload;
     },

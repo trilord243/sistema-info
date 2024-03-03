@@ -5,21 +5,23 @@ import { useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import fetchStudentByEmail from "../../api/Estudiantes";
+import { updateUser } from "../user/userSlice";
 
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch();
   const location = useLocation();
 
   useEffect(() => {
-    onAuthStateChanged(auth, async (currentUser) => {
+    onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         const email = currentUser.email || "";
-        const student = await fetchStudentByEmail(db, email);
-        console.log(student);
+        fetchStudentByEmail(db, email).then((student) => {
+          console.log(student);
+          dispatch(updateUser(student));
+        });
       }
     });
   }, [dispatch]);
-
   const showNavbar = location.pathname !== "/profile";
   return (
     <>
@@ -34,3 +36,5 @@ const AppLayout: React.FC = () => {
 };
 
 export default AppLayout;
+/* const email = currentUser.email || "";
+const student = await fetchStudentByEmail(db, email); */

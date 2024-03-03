@@ -1,15 +1,6 @@
 import { useSelector } from "react-redux";
 import { getBannerImage, getUserImagenPerfil, getUserName } from "./userSlice";
 
-const profile = {
-  name: "Ricardo Cooper",
-  email: "ricardo.cooper@example.com",
-  avatar:
-    "https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=1024&h=1024&q=80",
-  backgroundImage:
-    "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-};
-
 export default function ProfileBannerPhoto() {
   const name = useSelector(getUserName);
   const bannerImage = useSelector(getUserImagenPerfil);
@@ -42,9 +33,7 @@ export default function ProfileBannerPhoto() {
           </div>
         </div>
         <div className="mt-6 hidden min-w-0 flex-1 sm:block md:hidden">
-          <h1 className="truncate text-2xl font-bold text-gray-900">
-            {profile.name}
-          </h1>
+          <h1 className="truncate text-2xl font-bold text-gray-900"></h1>
         </div>
       </div>
     </div>

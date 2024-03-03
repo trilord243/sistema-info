@@ -3,6 +3,9 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logoUnimet from "../assets/unimet-blanco.svg";
 import { Link } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+
 const navigation = [
   { name: "Agrupaciones", href: "#", current: false },
   { name: "Noticias", href: "#", current: false },

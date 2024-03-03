@@ -1,6 +1,11 @@
 import imagen from "../assets/image 11.jpeg";
 import arrow from "../assets/Arrow.svg";
-import { Link } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../firebase/firebase";
+type ActionParams = {
+  request: Request;
+};
 const Login = () => {
   return (
     <div className="h-screen w-screen bg-gradient-to-t from-blue-300 via-blue-100 to-transparent flex justify-center items-center">
@@ -22,7 +27,7 @@ const Login = () => {
 
               <div className="">
                 <div>
-                  <form action="#" method="POST" className="space-y-6">
+                  <Form action="#" method="POST" className="space-y-6">
                     <div>
                       <div className="mt-2">
                         <input
@@ -59,7 +64,7 @@ const Login = () => {
                         Inicia Sesion
                       </button>
                     </div>
-                  </form>
+                  </Form>
                 </div>
 
                 <div className="mt-2">
@@ -127,3 +132,23 @@ const Login = () => {
   );
 };
 export default Login;
+
+// eslint-disable-next-line react-refresh/only-export-components
+export async function action({ request }: ActionParams) {
+  try {
+    const formData = await request.formData();
+    const email = formData.get("email") as string;
+    const password = formData.get("password") as string;
+
+    const userCredentials = await signInWithEmailAndPassword(
+      auth,
+      email,
+      password
+    );
+    console.log(userCredentials);
+    return redirect("/");
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+}

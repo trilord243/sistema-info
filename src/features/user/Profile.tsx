@@ -9,10 +9,13 @@ import {
   getUserId,
   getUserName,
   getUserSobreMi,
+  updateUser,
 } from "./userSlice";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase/firebase";
+import store from "../../store";
+
 type ActionParams = {
   request: Request;
 };
@@ -34,7 +37,11 @@ export default function Profile() {
         </div>
 
         <div className="flex-1   justify-center lg:justify-normal  ">
-          <Form method="POST" className="flex flex-col lg:ml-14 px-6  ">
+          <Form
+            method="POST"
+            encType="multipart/form-data"
+            className="flex flex-col lg:ml-14 px-6  "
+          >
             <div className="space-y-12 ">
               <div className="border-b border-gray-900/10 pb-12">
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -166,14 +173,15 @@ export default function Profile() {
                         />
                         <div className="mt-4 flex text-sm leading-6 text-gray-600">
                           <label
-                            htmlFor="file-upload"
+                            htmlFor="cover-photo"
                             className="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500"
                           >
                             <span>Sube tu foto de portada </span>
                             <input
-                              id="file-upload"
-                              name="file-upload"
+                              id="cover-photo"
+                              name="cover-photo"
                               type="file"
+                              accept="image/*"
                               className="sr-only"
                             />
                           </label>
@@ -214,6 +222,7 @@ export default function Profile() {
   );
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export async function action({ request }: ActionParams) {
   const formData = await request.formData();
   const id = formData.get("id")?.toString();
@@ -222,6 +231,7 @@ export async function action({ request }: ActionParams) {
   const sobreMi = formData.get("sobre_mi")?.toString();
   const profilePhotoFile = formData.get("profile-photo");
   const coverPhotoFile = formData.get("cover-photo");
+  console.log(coverPhotoFile);
 
   if (!id) {
     console.error("ID no proporcionado");
@@ -236,6 +246,10 @@ export async function action({ request }: ActionParams) {
       return null;
     }
     const studentData = studentDoc.data();
+    console.log(
+      profilePhotoFile instanceof File,
+      coverPhotoFile instanceof File
+    );
 
     // Subir y actualizar la foto de perfil
     if (profilePhotoFile instanceof File) {
@@ -244,6 +258,7 @@ export async function action({ request }: ActionParams) {
       if (uploadResult) {
         const profilePhotoURL = await getDownloadURL(profilePhotoRef);
         studentData.imagen_perfil = profilePhotoURL;
+        console.log("La URL de la foto de perfil es:", profilePhotoURL);
       } else {
         console.error("La subida de la foto de perfil ha fallado");
       }
@@ -270,7 +285,16 @@ export async function action({ request }: ActionParams) {
       banner: studentData.banner,
     });
 
-    console.log("El perfil del estudiante se ha actualizado con éxito");
+    store.dispatch(
+      updateUser({
+        id: id,
+        nombre: nombre || studentData.nombre,
+        apellido: apellido || studentData.apellido,
+        sobre_mi: sobreMi || studentData.sobre_ti,
+        imagen_perfil: studentData.imagen_perfil,
+        banner: studentData.banner,
+      })
+    );
   } catch (error) {
     console.error("Error al actualizar el perfil del estudiante:", error);
   }
