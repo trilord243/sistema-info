@@ -1,10 +1,17 @@
 import imagen from "../assets/image 11.jpeg";
 import arrow from "../assets/Arrow.svg";
-import { Form, Link, redirect, useNavigation } from "react-router-dom";
+import {
+  Form,
+  Link,
+  redirect,
+  useActionData,
+  useNavigation,
+} from "react-router-dom";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import Loader from "../../ui/loader/Loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 type ActionParams = {
   request: Request;
 };
@@ -12,7 +19,20 @@ const Login = () => {
   const [error, setError] = useState("");
   const navigate = useNavigation();
   const isSubmiting = navigate.state === "submitting";
-  console.log(navigate);
+
+  const formErrors = useActionData();
+
+  const isFormError = formErrors !== null;
+  const isCredential =
+    "Firebase: Error (auth/invalid-credential)." === formErrors;
+
+  useEffect(() => {
+    isFormError
+      ? isCredential
+        ? setError("Credenciales invalidas email o contraseña incorrecta")
+        : setError("Error al iniciar sesion")
+      : setError("");
+  }, [isFormError, formErrors, isCredential]);
 
   return (
     <>
@@ -38,6 +58,13 @@ const Login = () => {
                     Empieza con una agrupacion!
                   </p>
                 </div>
+                <div>
+                  {isFormError && (
+                    <p className=" text-center text-xl text-red-400 ">
+                      {error}
+                    </p>
+                  )}
+                </div>
 
                 <div className="">
                   <div>
@@ -52,6 +79,7 @@ const Login = () => {
                             required
                             className="block mx-auto w-3/4 bg-[#DDE5Ff]  rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             placeholder="Usuario "
+                            onChange={() => setError("")}
                           />
                         </div>
                       </div>
@@ -163,8 +191,7 @@ export async function action({ request }: ActionParams) {
     console.log(userCredentials);
     return redirect("/");
   } catch (error) {
-    console.log(error.message);
-    return null;
+    return error.message;
   }
 }
 
