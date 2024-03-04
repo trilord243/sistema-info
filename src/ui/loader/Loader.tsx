@@ -22,13 +22,13 @@ const Loader = () => {
       });
 
       currentSvg = (currentSvg + 1) % svgs.length;
-    }, 1000);
+    }, 900);
 
     return () => clearInterval(interval);
   }, [svgs.length]);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center">
+    <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
       <div className="relative w-48 h-48">
         {" "}
         {/* Ajusta el tamaño según sea necesario */}
@@ -41,7 +41,7 @@ const Loader = () => {
               transition: "opacity 500ms ease-in-out",
               width: "100%",
               height: "100%",
-            }} // Asegúrate de que los SVGs llenen el contenedor
+            }}
           >
             {SvgComponent}
           </div>
