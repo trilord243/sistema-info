@@ -14,6 +14,7 @@ import {
   loader as protectedLoader,
 } from "./features/layout/ProtectedRoute";
 import Profile, { action as ProfieAction } from "./features/user/Profile";
+import { Test } from "./ui/Test";
 
 function App() {
   const router = createBrowserRouter([
@@ -22,6 +23,10 @@ function App() {
       element: <Login />,
       action: loginAction,
       loader: loginLoader,
+    },
+    {
+      path: "/test",
+      element: <Test />,
     },
     {
       path: "/register",
