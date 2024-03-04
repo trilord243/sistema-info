@@ -22,7 +22,8 @@ const Login = () => {
 
   const formErrors = useActionData();
 
-  const isFormError = formErrors !== null;
+  const isFormError = formErrors !== undefined;
+
   const isCredential =
     "Firebase: Error (auth/invalid-credential)." === formErrors;
 
@@ -32,6 +33,10 @@ const Login = () => {
         ? setError("Credenciales invalidas email o contraseña incorrecta")
         : setError("Error al iniciar sesion")
       : setError("");
+
+    return () => {
+      setError("");
+    };
   }, [isFormError, formErrors, isCredential]);
 
   return (
@@ -191,7 +196,7 @@ export async function action({ request }: ActionParams) {
     console.log(userCredentials);
     return redirect("/");
   } catch (error) {
-    return error.message;
+    return (error as Error).message;
   }
 }
 
