@@ -21,6 +21,7 @@ type ActionParams = {
 interface ActionErrors {
   message?: string;
 }
+
 const Register = () => {
   const formErrors = useActionData();
   const navigate = useNavigation();

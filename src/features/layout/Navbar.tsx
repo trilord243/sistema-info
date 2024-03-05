@@ -4,10 +4,11 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logoUnimet from "../assets/unimet-blanco.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import { auth, db } from "../../firebase/firebase";
 import { useSelector } from "react-redux";
 import { getUserImagenPerfil } from "../user/userSlice";
 import { getProhilePhoto } from "../admin/adminSlice";
+import fetchStudentByEmail from "../../api/Estudiantes";
 
 type State = {
   login: boolean;
@@ -72,16 +73,16 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
+      fetchStudentByEmail(db, currentUser?.email ?? "").then((student) => {
+        setImage(student?.imagen_perfil || "");
+      });
       if (currentUser?.email === "admin@admin.com") {
         dispatch({ type: "admin" });
-        setImage(imagenPerfilAdmin);
 
         return null;
       }
 
       if (currentUser) {
-        setImage(imagenPerfilUser);
-
         dispatch({ type: "login" });
       } else {
         dispatch({ type: "logout" });

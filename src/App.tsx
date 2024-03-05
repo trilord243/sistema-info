@@ -21,6 +21,7 @@ import {
   AdminLayout,
   loader as adminLoader,
 } from "./features/admin/AdminLayout";
+import { CrearAgrupacion } from "./features/admin/CrearAgrupacion";
 
 function App() {
   const router = createBrowserRouter([
@@ -62,6 +63,14 @@ function App() {
                   element: <Profile />,
                   action: ProfieAction,
                 },
+                {
+                  path: "/mis-agrupaciones",
+                  element: <div>mis-agrupaciones</div>,
+                },
+                {
+                  path: "/buscar-agrupaciones",
+                  element: <div>Dashboard</div>,
+                },
               ],
             },
             {
@@ -69,8 +78,8 @@ function App() {
               loader: adminLoader,
               children: [
                 {
-                  path: "/admin",
-                  element: <div>Admin</div>,
+                  path: "/crear-agrupacion",
+                  element: <CrearAgrupacion />,
                 },
               ],
             },
