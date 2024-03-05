@@ -80,6 +80,8 @@ const Navbar: React.FC = () => {
       }
 
       if (currentUser) {
+        setImage(imagenPerfilUser);
+
         dispatch({ type: "login" });
       } else {
         dispatch({ type: "logout" });

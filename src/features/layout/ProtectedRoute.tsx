@@ -4,6 +4,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 
 export const ProtectedRoute = () => {
+
   return (
     <>
       <Outlet />
@@ -11,7 +12,6 @@ export const ProtectedRoute = () => {
   );
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
   const checkAuth = new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(

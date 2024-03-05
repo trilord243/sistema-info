@@ -16,8 +16,11 @@ import {
 
 import Profile, { action as ProfieAction } from "./features/user/Profile";
 import { Test } from "./ui/Test";
-import { UserLayout } from "./features/user/UserLayout";
-import { AdminLayout } from "./features/admin/AdminLayout";
+import { UserLayout, loader as userLoader } from "./features/user/UserLayout";
+import {
+  AdminLayout,
+  loader as adminLoader,
+} from "./features/admin/AdminLayout";
 
 function App() {
   const router = createBrowserRouter([
@@ -51,6 +54,7 @@ function App() {
           children: [
             {
               element: <UserLayout />,
+              loader: userLoader,
 
               children: [
                 {
@@ -62,6 +66,7 @@ function App() {
             },
             {
               element: <AdminLayout />,
+              loader: adminLoader,
               children: [
                 {
                   path: "/admin",
