@@ -13,6 +13,7 @@ const AppLayout: React.FC = () => {
   const location = useLocation();
 
   useEffect(() => {
+    console.log("first time");
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         const email = currentUser.email || "";
@@ -43,3 +44,7 @@ const AppLayout: React.FC = () => {
 };
 
 export default AppLayout;
+
+export async function loader() {
+  return null;
+}

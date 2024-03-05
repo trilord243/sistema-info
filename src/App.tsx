@@ -1,5 +1,5 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import AppLayout from "./features/layout/AppLayout";
+import AppLayout, { loader as layoutLoader } from "./features/layout/AppLayout";
 import ErrorPage from "./ui/ErrorPage";
 import HomePage, { loader as menuLoader } from "./features/main/HomePage";
 import Login, {
@@ -13,8 +13,11 @@ import {
   ProtectedRoute,
   loader as protectedLoader,
 } from "./features/layout/ProtectedRoute";
+
 import Profile, { action as ProfieAction } from "./features/user/Profile";
 import { Test } from "./ui/Test";
+import { UserLayout } from "./features/user/UserLayout";
+import { AdminLayout } from "./features/admin/AdminLayout";
 
 function App() {
   const router = createBrowserRouter([
@@ -36,6 +39,7 @@ function App() {
     },
     {
       element: <AppLayout />,
+      loader: layoutLoader,
 
       errorElement: <ErrorPage />,
       children: [
@@ -45,7 +49,26 @@ function App() {
           element: <ProtectedRoute />,
           loader: protectedLoader,
           children: [
-            { path: "/profile", element: <Profile />, action: ProfieAction },
+            {
+              element: <UserLayout />,
+
+              children: [
+                {
+                  path: "/profile",
+                  element: <Profile />,
+                  action: ProfieAction,
+                },
+              ],
+            },
+            {
+              element: <AdminLayout />,
+              children: [
+                {
+                  path: "/admin",
+                  element: <div>Admin</div>,
+                },
+              ],
+            },
           ],
         },
       ],
