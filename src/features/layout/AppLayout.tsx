@@ -6,6 +6,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import fetchStudentByEmail from "../../api/Estudiantes";
 import { resetUserState, updateEmail, updateUser } from "../user/userSlice";
+import { updateAdmin } from "../admin/adminSlice";
 
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch();
@@ -16,8 +17,12 @@ const AppLayout: React.FC = () => {
       if (currentUser) {
         const email = currentUser.email || "";
         fetchStudentByEmail(db, email).then((student) => {
-          dispatch(updateEmail(email));
-          dispatch(updateUser(student));
+          if (student?.rol === "admin") {
+            dispatch(updateAdmin(student?.nombre));
+          } else {
+            dispatch(updateEmail(email));
+            dispatch(updateUser(student));
+          }
         });
       } else {
         dispatch(resetUserState());

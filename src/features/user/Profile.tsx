@@ -28,7 +28,6 @@ export default function Profile() {
   const nombre = useSelector(getUserName);
   const apellido = useSelector(getUserApellido);
   const sobreMi = useSelector(getUserSobreMi);
-  console.log(sobreMi);
   const id = useSelector(getUserId);
   const navigate = useNavigate();
   const profilePhoto = useSelector(getUserImagenPerfil);
@@ -277,7 +276,6 @@ export default function Profile() {
   );
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export async function action({ request }: ActionParams) {
   const formData = await request.formData();
   const id = formData.get("id")?.toString();

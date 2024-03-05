@@ -10,34 +10,20 @@ import {
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import Loader from "../../ui/loader/Loader";
-import { useEffect, useState } from "react";
 
 type ActionParams = {
   request: Request;
 };
+
+interface ActionErrors {
+  credential?: string;
+}
+
 const Login = () => {
-  const [error, setError] = useState("");
   const navigate = useNavigation();
   const isSubmiting = navigate.state === "submitting";
 
   const formErrors = useActionData();
-
-  const isFormError = formErrors !== undefined;
-
-  const isCredential =
-    "Firebase: Error (auth/invalid-credential)." === formErrors;
-
-  useEffect(() => {
-    isFormError
-      ? isCredential
-        ? setError("Credenciales invalidas email o contraseña incorrecta")
-        : setError("Error al iniciar sesion")
-      : setError("");
-
-    return () => {
-      setError("");
-    };
-  }, [isFormError, formErrors, isCredential]);
 
   return (
     <>
@@ -63,13 +49,11 @@ const Login = () => {
                     Empieza con una agrupacion!
                   </p>
                 </div>
-                <div>
-                  {isFormError && (
-                    <p className=" text-center text-xl text-red-400 ">
-                      {error}
-                    </p>
-                  )}
-                </div>
+                {(formErrors as ActionErrors)?.credential && (
+                  <p className="text-center text-red-400 ">
+                    {(formErrors as ActionErrors).credential}
+                  </p>
+                )}
 
                 <div className="">
                   <div>
@@ -84,7 +68,6 @@ const Login = () => {
                             required
                             className="block mx-auto w-3/4 bg-[#DDE5Ff]  rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-black focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                             placeholder="Usuario "
-                            onChange={() => setError("")}
                           />
                         </div>
                       </div>
@@ -181,26 +164,28 @@ const Login = () => {
 };
 export default Login;
 
-// eslint-disable-next-line react-refresh/only-export-components
 export async function action({ request }: ActionParams) {
   try {
     const formData = await request.formData();
     const email = formData.get("email") as string;
     const password = formData.get("password") as string;
 
-    const userCredentials = await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
-    console.log(userCredentials);
+    await signInWithEmailAndPassword(auth, email, password);
+
     return redirect("/");
-  } catch (error) {
-    return (error as Error).message;
+  } catch (error: unknown) {
+    const errors: ActionErrors = {};
+    if (error instanceof Error) {
+      error.message === "Firebase: Error (auth/invalid-credential)."
+        ? (errors.credential =
+            "Credencial invalida Email o password incorretos. Intenta denuevo ")
+        : (errors.credential = error.message);
+
+      return errors;
+    }
   }
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 export async function loader() {
   const checkAuth = new Promise((resolve, reject) => {
     const unsubscribe = onAuthStateChanged(
