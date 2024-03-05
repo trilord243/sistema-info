@@ -2,6 +2,7 @@ import { TextButtonContainer } from "./TextButtonContainer";
 import { InformationBar } from "./InformationBar";
 import { HeroImage } from "./HeroImage";
 import image from "../assets/group.png";
+import { Link } from "react-router-dom";
 const MainPageComponent = () => {
   return (
     <>
@@ -34,9 +35,12 @@ const MainPageComponent = () => {
             sit eget convallis ridiculus nunc. Sclerisque egestas vitae eget
             est.
           </p>
-          <button className="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded transition duration-300">
+          <Link
+            to="/register"
+            className="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+          >
             Regístrate!! <span>&#10132;</span>
-          </button>
+          </Link>
         </div>
       </div>
     </>
