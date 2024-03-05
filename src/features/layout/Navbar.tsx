@@ -75,6 +75,11 @@ const Navbar: React.FC = () => {
     onAuthStateChanged(auth, (currentUser) => {
       fetchStudentByEmail(db, currentUser?.email ?? "").then((student) => {
         setImage(student?.imagen_perfil || "");
+
+        if (student?.rol === "admin") {
+          setImage(student?.foto || "");
+          return null;
+        }
       });
       if (currentUser?.email === "admin@admin.com") {
         dispatch({ type: "admin" });

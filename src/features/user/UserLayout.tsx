@@ -1,12 +1,14 @@
 import { onAuthStateChanged } from "firebase/auth";
 
-import { Outlet, redirect, useLoaderData } from "react-router-dom";
+import { Outlet, redirect } from "react-router-dom";
 import { auth, db } from "../../firebase/firebase";
 import fetchStudentByEmail from "../../api/Estudiantes";
+import { useTransition } from "react";
 
 export const UserLayout = () => {
-  const loading = useLoaderData();
-  console.log(loading);
+  const transition = useTransition();
+  console.log(transition);
+
   return (
     <>
       <Outlet />

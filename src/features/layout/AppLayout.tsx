@@ -15,7 +15,6 @@ const AppLayout: React.FC = () => {
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        console.log(currentUser);
         const email = currentUser.email || "";
         fetchStudentByEmail(db, email).then((student) => {
           if (student?.rol === "admin") {

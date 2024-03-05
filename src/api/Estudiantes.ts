@@ -15,6 +15,7 @@ export interface Student {
   rol: string;
   sobre_ti: string;
   agrupaciones: string[];
+  foto?: string;
 }
 
 export async function fetchStudentByEmail(
