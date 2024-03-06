@@ -27,7 +27,7 @@ const Login = () => {
 
   return (
     <>
-      {isSubmiting && <Loader />}
+      {isSubmiting && <Loader message="Verificando credenciales " />}
 
       <div className="h-screen w-screen bg-gradient-to-t from-blue-300 via-blue-100 to-transparent flex justify-center items-center">
         <div className="bg-white w-3/4 h-5/6 rounded-3xl shadow-xl shadow-gray-500/50 flex ">

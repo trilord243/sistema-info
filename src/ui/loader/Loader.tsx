@@ -5,7 +5,7 @@ import { Svg3 } from "./Svg3";
 import { Svg4 } from "./Svg4";
 import { Svg5 } from "./Svg.5";
 
-const Loader = () => {
+const Loader = ({ message = "Cargando..." }) => {
   const svgs = [<Svg1 />, <Svg2 />, <Svg3 />, <Svg4 />, <Svg5 />];
   const [opacities, setOpacities] = useState([1, 0, 0, 0, 0]);
 
@@ -28,26 +28,36 @@ const Loader = () => {
   }, [svgs.length]);
 
   return (
-    <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
-      <div className="relative w-48 h-48">
-        {" "}
-        {/* Ajusta el tamaño según sea necesario */}
-        {svgs.map((SvgComponent, index) => (
-          <div
-            key={index}
-            className="absolute duration-500 ease-in-out"
-            style={{
-              opacity: opacities[index],
-              transition: "opacity 500ms ease-in-out",
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            {SvgComponent}
-          </div>
-        ))}
+    <>
+      <div className="fixed top-0 left-0 w-full h-full bg-gray-700 bg-opacity-50 flex justify-center items-center z-50">
+        <div className="relative lg:w-48 lg:h-48 w-32 h-32 mx-6 ">
+          {" "}
+          {/* Ajusta el tamaño según sea necesario */}
+          {svgs.map((SvgComponent, index) => (
+            <div
+              key={index}
+              className="absolute duration-500 ease-in-out"
+              style={{
+                opacity: opacities[index],
+                transition: "opacity 500ms ease-in-out",
+                width: "100%",
+                height: "100%",
+              }}
+            >
+              {SvgComponent}
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-col ">
+          <p className="lg:text-5xl text-3xl text-black font-bold animate-bounce animate-infinite">
+            {message}
+          </p>
+          <p className="mt-5 lg:text-xl text-md animate-pulse animate-infinite ">
+            Porfavor espere un momento...
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -1,4 +1,9 @@
-import { Form, useNavigate } from "react-router-dom";
+import {
+  Form,
+  useActionData,
+  useNavigate,
+  useNavigation,
+} from "react-router-dom";
 import ProfileUI from "../../ui/ProfileUI";
 
 import ProfileBannerPhoto from "./ProfileBannerPhoto";
@@ -19,10 +24,17 @@ import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase/firebase";
 import store from "../../store";
 import { ChangeEvent, useState } from "react";
+import Loader from "../../ui/loader/Loader";
+import SuccessModal from "../../ui/SuccessModal";
 
 type ActionParams = {
   request: Request;
 };
+
+type ActionData = {
+  mensaje?: string;
+};
+
 export default function Profile() {
   const email = useSelector(getUserEmail);
   const nombre = useSelector(getUserName);
@@ -32,9 +44,14 @@ export default function Profile() {
   const navigate = useNavigate();
   const profilePhoto = useSelector(getUserImagenPerfil);
   const banner = useSelector(getBannerImage);
+  const navigate1 = useNavigation();
+  const isSubmiting = navigate1.state === "submitting";
 
   const [previewPhoto, setPreviewPhoto] = useState<string | null>(null);
   const [coverPhoto, setcoverPhoto] = useState<string | null>(null);
+  const formData = useActionData() as ActionData | undefined;
+
+  const isFormdata = formData?.mensaje === "Perfil actualizado";
 
   const handleFileChangeProfile = (
     event: ChangeEvent<HTMLInputElement>,
@@ -56,7 +73,11 @@ export default function Profile() {
 
   return (
     <div className="">
+      {isSubmiting && <Loader message="Guardando cambios perfil" />}
+
+      {isFormdata && <SuccessModal />}
       <ProfileBannerPhoto />
+
       <div className="text-center lg:hidden mt-8">
         <ProfileUI />
       </div>
@@ -75,6 +96,11 @@ export default function Profile() {
               <div className="border-b border-gray-900/10 pb-12">
                 <div className="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                   <div className="sm:col-span-4">
+                    {/* {isFormdata && (
+                      <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xl mb-6 font-medium text-green-700  ">
+                        Se cambio exitosamente
+                      </span>
+                    )} */}
                     <label
                       htmlFor="username"
                       className="block text-sm font-medium leading-6 text-gray-900"
@@ -285,8 +311,8 @@ export async function action({ request }: ActionParams) {
   const profilePhotoFile = formData.get("profile-photo");
   const coverPhotoFile = formData.get("cover-photo");
 
-  console.log(profilePhotoFile);
-  console.log(coverPhotoFile);
+  /*   console.log(profilePhotoFile);
+  console.log(coverPhotoFile); */
   if (!id) {
     console.error("ID no proporcionado");
     return null;
@@ -300,10 +326,10 @@ export async function action({ request }: ActionParams) {
       return null;
     }
     const studentData = studentDoc.data();
-    console.log(
+    /*  console.log(
       profilePhotoFile instanceof File,
       coverPhotoFile instanceof File
-    );
+    ); */
 
     // Subir y actualizar la foto de perfil
     if (profilePhotoFile instanceof File && profilePhotoFile.name !== "") {
@@ -312,7 +338,7 @@ export async function action({ request }: ActionParams) {
       if (uploadResult) {
         const profilePhotoURL = await getDownloadURL(profilePhotoRef);
         studentData.imagen_perfil = profilePhotoURL;
-        console.log("La URL de la foto de perfil es:", profilePhotoURL);
+        /*  console.log("La URL de la foto de perfil es:", profilePhotoURL); */
       } else {
         console.error("La subida de la foto de perfil ha fallado");
       }
@@ -349,6 +375,8 @@ export async function action({ request }: ActionParams) {
         banner: studentData.banner,
       })
     );
+
+    return { mensaje: "Perfil actualizado" };
   } catch (error) {
     console.error("Error al actualizar el perfil del estudiante:", error);
   }

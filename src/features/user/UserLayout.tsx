@@ -3,12 +3,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { Outlet, redirect } from "react-router-dom";
 import { auth, db } from "../../firebase/firebase";
 import fetchStudentByEmail from "../../api/Estudiantes";
-import { useTransition } from "react";
 
 export const UserLayout = () => {
-  const transition = useTransition();
-  console.log(transition);
-
   return (
     <>
       <Outlet />
