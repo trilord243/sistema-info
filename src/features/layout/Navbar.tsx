@@ -25,7 +25,7 @@ const loginNavigation = [
 ];
 
 const adminNavigation = [
-  { name: "Agrupaciones", href: "#", current: false },
+  { name: "Agrupaciones", href: "administrar-agrupaciones", current: false },
   { name: "Crear agrupacion", href: "crear-agrupacion", current: false },
   { name: "Ver registro de usuarios", href: "#", current: false },
 ];
@@ -265,7 +265,8 @@ const Navbar: React.FC = () => {
 
                         <Menu.Item>
                           {({ active }) => (
-                            <button
+                            <Link
+                              to="/"
                               onClick={() => {
                                 signOut(auth);
                               }}
@@ -275,7 +276,7 @@ const Navbar: React.FC = () => {
                               )}
                             >
                               Sign out
-                            </button>
+                            </Link>
                           )}
                         </Menu.Item>
                       </Menu.Items>

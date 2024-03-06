@@ -33,7 +33,7 @@ export async function fetchStudentByEmail(
 
       return studentData;
     } else {
-      console.log("No se encontró un estudiante con ese email.");
+      /* console.log("No se encontró un estudiante con ese email."); */
       return null;
     }
   } catch (error) {

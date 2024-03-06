@@ -51,13 +51,13 @@ export const CrearAgrupacion = () => {
     <>
       {isSubmiting && <Loader message="Subiendo datos agrupacion..." />}
 
-      <div className="w-full h-full flex ">
-        <div className="w-full   ">
-          <div className="w-full  p-9 mb-6">
-            <h3 className="lg:text-4xl text-3xl lg:text-start text-center font-bold mb-2 ">
+      <div className="w-full h-full flex  ">
+        <div className="w-full h-full   ">
+          <div className="w-full  p-9 mb-">
+            <h3 className="lg:text-4xl text-3xl text-center font-bold mb-2 ">
               Crear una <span className="text-primary">agrupacion</span>
             </h3>
-            <p className="text-lg text-gray-500 font-normal leading-7 lg:text-start text-center">
+            <p className="text-lg text-gray-500 font-normal leading-7  text-center">
               Pon toda la información que necesita de la agrupacion
             </p>
           </div>
@@ -207,13 +207,13 @@ export const CrearAgrupacion = () => {
           </Form>
         </div>
 
-        <div className="w-full h-screen lg:block hidden  ">
+        {/*       <div className="  lg:block hidden  ">
           <img
             src="https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/gropu.png?alt=media&token=dc98dedc-5d6a-48fc-b5fa-ca5237804345"
             alt="asdasd"
             className="w-full h-full object-cover"
           />
-        </div>
+        </div> */}
       </div>
     </>
   );
@@ -260,7 +260,7 @@ export async function action({ request }: ActionParams) {
 
       await setDoc(doc(db, "agrupaciones_estudiantiles", id), agrupacionData);
 
-      return redirect("/");
+      return redirect("/administrar-agrupaciones");
     } else {
       console.error("Error al subir la imagen de portada.");
       return { error: "Error al subir la imagen de portada." };

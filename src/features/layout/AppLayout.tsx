@@ -37,7 +37,9 @@ const AppLayout: React.FC = () => {
           <Navbar />
         </div>
       )}
-      <Outlet />
+      <div className="text-black">
+        <Outlet />
+      </div>
     </>
   );
 };

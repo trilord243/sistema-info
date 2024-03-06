@@ -5,12 +5,19 @@ import {
   getUserImagenPerfil,
   getUserName,
 } from "./userSlice";
+import { useEffect, useState } from "react";
 
 export default function ProfileBannerPhoto() {
   const name = useSelector(getUserName);
   const bannerImage = useSelector(getUserImagenPerfil);
   const profileImage = useSelector(getBannerImage);
   const apellido = useSelector(getUserApellido);
+  const [napellido, setnapellido] = useState(apellido);
+
+  useEffect(() => {
+    name === apellido ? setnapellido("") : setnapellido(apellido);
+    console.log(name === apellido);
+  }, [name, apellido]);
 
   return (
     <div>
@@ -33,7 +40,7 @@ export default function ProfileBannerPhoto() {
           <div className="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
             <div className="mt-6 min-w-0 flex-1 sm:hidden md:block">
               <h1 className="truncate text-2xl font-bold text-gray-900">
-                {name} {apellido}
+                {name} {napellido}
               </h1>
             </div>
           </div>

@@ -16,5 +16,9 @@ export default {
     },
   },
   // eslint-disable-next-line no-undef
-  plugins: [require("@tailwindcss/forms"), require("tailwindcss-animated")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("tailwindcss-animated"),
+    require("daisyui"),
+  ],
 };
