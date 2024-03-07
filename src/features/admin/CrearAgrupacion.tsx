@@ -256,6 +256,7 @@ export async function action({ request }: ActionParams) {
         estudiantes_registrados: [],
         fecha_creacion: fechaCreacion,
         redes_sociales: [],
+        puntuacion: 0,
       };
 
       await setDoc(doc(db, "agrupaciones_estudiantiles", id), agrupacionData);

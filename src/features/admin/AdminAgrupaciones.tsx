@@ -1,16 +1,49 @@
-import { Link } from "react-router-dom";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Link, useLoaderData } from "react-router-dom";
 import CardAgrupacionAdmin from "./CardAgrupacionAdmin";
+import { getAgrupacionesEstudiantiles } from "../../api/Agrupaciones";
+export interface Timestamp {
+  nanoseconds: number;
+  seconds: number;
+}
+export interface Agrupacion {
+  id: string;
+  estudiantes_registradors: string[];
+  foto_agrupacion: string;
+  mision: string;
+  nombre_agrupacion: string;
+  redes_sociales: string[];
+  vision: string;
+  tag: string;
+  fecha_creacion: Timestamp;
+  puntuacion: number;
+}
+
+export interface AgrupacionCard {
+  id: string;
+  foto_agrupacion: string;
+  mision: string;
+  nombre_agrupacion: string;
+  tag: string;
+  fecha_creacion: Timestamp;
+}
 
 export const AdminAgrupaciones = () => {
+  const { agrupaciones = [] } = useLoaderData() as {
+    agrupaciones: Agrupacion[];
+  };
+
+  console.log(agrupaciones);
+
   return (
     <div>
       <div>
-        <h3 className="text-center font-bold mt-6 text-4xl">
+        <h3 className="text-center font-bold mt-12 text-4xl">
           Agrupaciones <span className="text-primary">UNIMET</span>
         </h3>
       </div>
 
-      <div className="flex lg:justify-between flex-col lg:flex-row justify-center items-center lg:gap-0 gap-6 mt-6 lg:px-20 mb-7 lg:mt-5">
+      <div className="flex lg:justify-between flex-col lg:flex-row justify-center items-center lg:gap-0 gap-6 mt-6 lg:px-36 2xl:px-80 mb-7 lg:mt-5">
         <div>
           <label
             htmlFor="tag"
@@ -53,16 +86,37 @@ export const AdminAgrupaciones = () => {
           </svg>
         </Link>
       </div>
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-7 lg:gap-x justify-items-center">
-        <CardAgrupacionAdmin />
-        <CardAgrupacionAdmin />
-        <CardAgrupacionAdmin />
-        <CardAgrupacionAdmin />
-        <CardAgrupacionAdmin />
-        <CardAgrupacionAdmin />
-        <CardAgrupacionAdmin />
-        <CardAgrupacionAdmin />
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-7 lg:gap-x-0 justify-items-center 2xl:px-60 lg:px-12">
+        {agrupaciones.map((agrupacion) => (
+          <CardAgrupacionAdmin
+            id={agrupacion.id}
+            key={agrupacion.id}
+            foto_agrupacion={agrupacion.foto_agrupacion}
+            mision={agrupacion.mision}
+            nombre_agrupacion={agrupacion.nombre_agrupacion}
+            tag={agrupacion.tag}
+            fecha_creacion={agrupacion.fecha_creacion}
+          />
+        ))}
       </div>
     </div>
   );
 };
+
+export async function loader(): Promise<
+  { agrupaciones: Agrupacion[] } | { error: string }
+> {
+  try {
+    const agrupaciones = await getAgrupacionesEstudiantiles();
+    if (agrupaciones instanceof Error) {
+      console.error(agrupaciones.message);
+
+      return { error: agrupaciones.message };
+    }
+
+    return { agrupaciones: agrupaciones as Agrupacion[] };
+  } catch (error: any) {
+    console.error("Error cargando las agrupaciones estudiantiles:", error);
+    return { error: error.message || "Error desconocido" };
+  }
+}

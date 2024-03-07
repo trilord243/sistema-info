@@ -16,6 +16,8 @@ interface Agrupacion {
   redes_sociales: string[];
   vision: string;
   tag: string;
+  puntuacion: number;
+  fecha_creacion: string;
 }
 
 const HomePage: React.FC = () => {
@@ -24,7 +26,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <>
+    <div className="bg-gray-50">
       <MainPageComponent />
       <div className="w-full lg:mt-32 mt-12 ">
         <h3 className="text-center lg:text-6xl text-3xl   ">
@@ -56,7 +58,7 @@ const HomePage: React.FC = () => {
         <div className="mt-2 w-full h-[35rem] bg-blue-500"></div>
         <div className=" w-full h-10 mt-24 bg-red-600"></div>
       </div>
-    </>
+    </div>
   );
 };
 

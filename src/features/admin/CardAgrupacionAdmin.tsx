@@ -1,10 +1,21 @@
-export default function CardAgrupacionAdmin() {
+import { formatTimestampToDate } from "../../utils/DateConverter";
+import { AgrupacionCard } from "./AdminAgrupaciones";
+
+const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
+  foto_agrupacion,
+  mision,
+  nombre_agrupacion,
+  tag,
+  fecha_creacion,
+  id,
+}) => {
+  console.log(id);
   return (
-    <div className="card w-72  shadow-xl">
+    <div className="card w-80  shadow-xl">
       <figure className="h-48">
         <img
-          className="w-full h-full object-cover" // Asegura que la imagen cubra proporcionalmente
-          src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg"
+          className="w-full h-full object-cover"
+          src={foto_agrupacion}
           alt="Shoes"
         />
       </figure>
@@ -12,7 +23,7 @@ export default function CardAgrupacionAdmin() {
       <div className="card-body p-3">
         <div className="flex gap-4">
           <div>
-            <p className="text-primary font-semibold">Tecnlogia</p>
+            <p className="text-primary font-semibold">{tag}</p>
           </div>
 
           {false && (
@@ -26,14 +37,14 @@ export default function CardAgrupacionAdmin() {
                 >
                   <circle cx={3} cy={3} r={3} />
                 </svg>
-                Badge
+                Badgre
               </span>
             </div>
           )}
         </div>
         <div className="flex w-full  justify-between">
           <div>
-            <h2 className="text-black font-semibold">Metrotech</h2>
+            <h2 className="text-black font-semibold">{nombre_agrupacion}</h2>
           </div>
 
           <div>
@@ -45,24 +56,12 @@ export default function CardAgrupacionAdmin() {
               >
                 <circle cx={3} cy={3} r={3} />
               </svg>
-              Badge
+              Creado {formatTimestampToDate(fecha_creacion)}
             </span>
           </div>
         </div>
 
-        <p className="text-sm line-clamp-3 text-black mb-3 mt-5">
-          The World Before the Flood (en español: El mundo antes del diluvio) es
-          un óleo sobre lienzo del artista inglés William Etty, expuesto por
-          primera vez en 1828 y a 2022 en la Galería de Arte de la ciudad de
-          Southampton. Representa una escena de El paraíso perdido de John
-          Milton en la que, entre una serie de visiones del futuro mostradas a
-          Adán, ve el mundo inmediatamente antes de la gran inundación. La
-          pintura ilustra las etapas del cortejo descritas por Milton: un grupo
-          de hombres elige esposa entre un grupo de bailarinas, arrastra a la
-          mujer elegida del grupo y se instala en la vida matrimonial. Detrás
-          del grupo de cortejo se avecina una tormenta que presagia la
-          destrucción que los bailarines y amantes están a punto de acarrearse.
-        </p>
+        <p className="text-sm line-clamp-3 text-black mb-3 mt-5">{mision}</p>
         <div className="flex justify-between my-4 ">
           <button
             type="button"
@@ -80,4 +79,5 @@ export default function CardAgrupacionAdmin() {
       </div>
     </div>
   );
-}
+};
+export default CardAgrupacionAdmin;

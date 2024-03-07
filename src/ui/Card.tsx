@@ -12,30 +12,29 @@ const Card: React.FC<CardProps> = ({
   nombre_agrupacion,
 }) => {
   return (
-    <div className="w-[326px] h-[380px] bg-white rounded-2xl flex flex-col items-center p-6 shadow-xl shadow-gray-500/50">
-      <img
-        className="w-full h-40 object-cover rounded-t-2xl"
-        src={foto_agrupacion}
-        alt="Descripción de la imagen"
-      />
+    <div className="card w-80   bg-white shadow-2xl">
+      <figure className="h-48 p-4 ">
+        <img
+          className="w-full h-full rounded-2xl object-cover shadow-lg"
+          src={foto_agrupacion}
+          alt={nombre_agrupacion}
+        />
+      </figure>
 
-      <div>EUGENIO</div>
-      <h3 className="text-2xl font-bold mt-2 text-center ">
-        {nombre_agrupacion}
-      </h3>
+      <div className="card-body p-3">
+        <h2 className="text-black text-2xl text-center font-semibold">
+          {nombre_agrupacion}
+        </h2>
 
-      <div className="w-full h-20 overflow-hidden mt-2">
-        <p className="text-sm break-words overflow-ellipsis text-center">
-          {mision}
-        </p>
-      </div>
-
-      <div
-        className="flex gap-8 mt-3 bg-orange-50
-      "
-      >
-        <h4 className="text-secondary">Más información</h4>
-        <div className="text-lg text-secondary">&#10132;</div>
+        <p className="text-sm line-clamp-3 text-black mb-3 mt-2">{mision}</p>
+        <div className="flex justify-center ">
+          <button
+            type="button"
+            className="rounded-md bg-orange-600 px-2 py-1 mb-3 text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
+          >
+            Mas informacion
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -25,7 +25,10 @@ import {
   CrearAgrupacion,
   action as groupAction,
 } from "./features/admin/CrearAgrupacion";
-import { AdminAgrupaciones } from "./features/admin/AdminAgrupaciones";
+import {
+  AdminAgrupaciones,
+  loader as adminGroupLoader,
+} from "./features/admin/AdminAgrupaciones";
 
 function App() {
   const router = createBrowserRouter([
@@ -89,6 +92,7 @@ function App() {
                 {
                   path: "/administrar-agrupaciones",
                   element: <AdminAgrupaciones />,
+                  loader: adminGroupLoader,
                 },
               ],
             },
