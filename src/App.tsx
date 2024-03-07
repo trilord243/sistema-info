@@ -29,7 +29,7 @@ import {
   AdminAgrupaciones,
   loader as adminGroupLoader,
 } from "./features/admin/AdminAgrupaciones";
-import { AgrupacionPage } from "./features/agrupacion/AgrupacionPage";
+import AgrupacionPage from "./features/agrupacion/AgrupacionPage";
 
 function App() {
   const router = createBrowserRouter([
