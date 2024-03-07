@@ -1,7 +1,5 @@
-import { db } from "../../firebase/firebase";
 import { formatTimestampToDate } from "../../utils/DateConverter";
 import { AgrupacionCard } from "./AdminAgrupaciones";
-import { doc, deleteDoc } from "firebase/firestore";
 
 const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
   setNombreAgrupacion,

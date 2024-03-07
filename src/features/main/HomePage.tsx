@@ -41,6 +41,7 @@ const HomePage: React.FC = () => {
           {agrupaciones.map((agrupacion: Agrupacion) => (
             <Card
               key={agrupacion.id}
+              id={agrupacion.id}
               foto_agrupacion={agrupacion.foto_agrupacion}
               mision={agrupacion.mision}
               tag={agrupacion.tag}

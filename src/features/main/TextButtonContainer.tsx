@@ -11,8 +11,7 @@ export const TextButtonContainer = () => {
 
   const isLogged = admin || estudiante;
   const isStudiante = estudiante;
-  const isAdmin = admin;
-  console.log(isLogged, isStudiante, isAdmin);
+
   return (
     <>
       <div className="flex flex-col items-center text-center md:items-start md:text-left px-14 space-y-6 bg-primary text-white md:w-1/2">

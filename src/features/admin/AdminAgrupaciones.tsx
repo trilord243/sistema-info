@@ -3,7 +3,8 @@ import { Link, useLoaderData } from "react-router-dom";
 import CardAgrupacionAdmin from "./CardAgrupacionAdmin";
 import { getAgrupacionesEstudiantiles } from "../../api/Agrupaciones";
 import { ModalEliminate } from "./ModalEliminate";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import Succes from "./Succes";
 export interface Timestamp {
   nanoseconds: number;
   seconds: number;
@@ -35,12 +36,31 @@ export interface AgrupacionCard {
 }
 
 export const AdminAgrupaciones = () => {
-  const { agrupaciones = [] } = useLoaderData() as {
-    agrupaciones: Agrupacion[];
-  };
+  const [agrupaciones, setAgrupaciones] = useState<Agrupacion[]>([]);
+
   const [modal, setModal] = useState(false);
   const [nombreAgrupacion, setNombreAgrupacion] = useState("");
   const [id, setId] = useState("");
+  const [success, setShowSuccess] = useState(false);
+
+  const cargarAgrupaciones = async () => {
+    try {
+      const resultado = await getAgrupacionesEstudiantiles();
+      if (resultado instanceof Error) {
+        console.error(resultado.message);
+        setAgrupaciones([]);
+      } else {
+        setAgrupaciones(resultado as Agrupacion[]);
+      }
+    } catch (error) {
+      console.error("Error cargando las agrupaciones estudiantiles:", error);
+      setAgrupaciones([]);
+    }
+  };
+
+  useEffect(() => {
+    cargarAgrupaciones();
+  }, [modal, id]);
 
   return (
     <>
@@ -52,9 +72,11 @@ export const AdminAgrupaciones = () => {
           modal={modal}
           setModal={setModal}
           setNombreAgrupacion={setNombreAgrupacion}
+          setShowSuccess={setShowSuccess}
         />
       )}
 
+      {success && <Succes />}
       <div>
         <div>
           <h3 className="text-center font-bold mt-12 text-4xl">
