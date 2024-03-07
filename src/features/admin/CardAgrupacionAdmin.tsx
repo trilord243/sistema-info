@@ -1,15 +1,28 @@
+import { db } from "../../firebase/firebase";
 import { formatTimestampToDate } from "../../utils/DateConverter";
 import { AgrupacionCard } from "./AdminAgrupaciones";
+import { doc, deleteDoc } from "firebase/firestore";
 
 const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
+  setNombreAgrupacion,
   foto_agrupacion,
   mision,
   nombre_agrupacion,
   tag,
   fecha_creacion,
   id,
+  estudiantes_registrados,
+  setModal,
+  setId,
 }) => {
-  console.log(id);
+  const agrupacionesVacias = estudiantes_registrados.length === 0;
+
+  const deleteButton = () => {
+    setModal(true);
+    setNombreAgrupacion(nombre_agrupacion);
+    setId(id);
+  };
+
   return (
     <div className="card w-80  shadow-xl">
       <figure className="h-48">
@@ -21,12 +34,12 @@ const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
       </figure>
 
       <div className="card-body p-3">
-        <div className="flex gap-4">
+        <div className="flex justify-between">
           <div>
             <p className="text-primary font-semibold">{tag}</p>
           </div>
 
-          {false && (
+          {agrupacionesVacias && (
             <div>
               {" "}
               <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-700">
@@ -37,7 +50,7 @@ const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
                 >
                   <circle cx={3} cy={3} r={3} />
                 </svg>
-                Badgre
+                Grupo vacio
               </span>
             </div>
           )}
@@ -62,13 +75,28 @@ const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
         </div>
 
         <p className="text-sm line-clamp-3 text-black mb-3 mt-5">{mision}</p>
-        <div className="flex justify-between my-4 ">
-          <button
-            type="button"
-            className="rounded-md bg-blue-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-          >
-            Ver miembros
-          </button>{" "}
+
+        <div
+          className={`flex justify-between ${
+            agrupacionesVacias ? "flex-row-reverse" : ""
+          }  my-4 `}
+        >
+          {!agrupacionesVacias ? (
+            <button
+              type="button"
+              className="rounded-md bg-blue-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            >
+              Ver miembros
+            </button>
+          ) : (
+            <button
+              onClick={deleteButton}
+              type="button"
+              className="rounded-md bg-red-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+            >
+              Eliminar agrupacion
+            </button>
+          )}
           <button
             type="button"
             className="rounded-md bg-green-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"

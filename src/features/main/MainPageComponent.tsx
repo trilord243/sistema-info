@@ -3,6 +3,7 @@ import { InformationBar } from "./InformationBar";
 import { HeroImage } from "./HeroImage";
 import image from "../assets/group.png";
 import { Link } from "react-router-dom";
+import Loader from "../../ui/loader/Loader";
 const MainPageComponent = () => {
   return (
     <>

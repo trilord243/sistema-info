@@ -31,7 +31,7 @@ const Register = () => {
     <>
       {isSubmiting && <Loader />}
 
-      <div className="h-screen w-screen bg-gradient-to-t from-blue-300 via-blue-100 to-transparent flex justify-center items-center">
+      <div className="h-screen w-screen bg-gradient-to-t from-blue-300 via-blue-100 to-transparent flex justify-center items-center text-black">
         <div className="bg-white w-3/4 h-5/6 rounded-3xl shadow-xl shadow-gray-500/50 flex ">
           <div className="flex min-h-full flex-1">
             <div className="flex flex-1 flex-col justify-center  px-4  py-4 sm:px-6 lg:flex-none lg:px-20 xl:px-24">
@@ -128,7 +128,7 @@ const Register = () => {
                       </div>
                     </div>
 
-                    <div className="mt-6 mx-auto gap-4">
+                    <div className="mt-2 mx-auto gap-4">
                       <a
                         href="#"
                         className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 focus-visible:ring-transparent"

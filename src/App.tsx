@@ -29,6 +29,7 @@ import {
   AdminAgrupaciones,
   loader as adminGroupLoader,
 } from "./features/admin/AdminAgrupaciones";
+import { AgrupacionPage } from "./features/agrupacion/AgrupacionPage";
 
 function App() {
   const router = createBrowserRouter([
@@ -55,6 +56,8 @@ function App() {
       errorElement: <ErrorPage />,
       children: [
         { path: "/", element: <HomePage />, loader: menuLoader },
+
+        { path: "/agrupacion/:id", element: <AgrupacionPage /> },
 
         {
           element: <ProtectedRoute />,

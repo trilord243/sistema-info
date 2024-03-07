@@ -199,8 +199,9 @@ export default function Profile() {
                         className="h-12 w-12 text-gray-300"
                         aria-hidden="true"
                       /> */}
+
                       <img
-                        src={previewPhoto || profilePhoto}
+                        src={profilePhoto || profilePhoto}
                         className="h-16 w-16 rounded-full"
                         alt="Profile foto"
                       />

@@ -5,9 +5,9 @@ import logoUnimet from "../assets/unimet-blanco.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
-import { useSelector } from "react-redux";
-import { getUserImagenPerfil } from "../user/userSlice";
-import { getProhilePhoto } from "../admin/adminSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserImagenPerfil, resetUserState } from "../user/userSlice";
+import { getProhilePhoto, logout } from "../admin/adminSlice";
 import fetchStudentByEmail from "../../api/Estudiantes";
 
 type State = {
@@ -35,8 +35,17 @@ function classNames(...classes: string[]) {
 }
 
 const Navbar: React.FC = () => {
-  const navigate = useNavigate();
+  const event = useDispatch();
 
+  const resetProfile = () => {
+    signOut(auth);
+    event(logout());
+    event(resetUserState());
+  };
+  const navigate = useNavigate();
+  /*   const adminLogged = useSelector(getIsLogged);
+  const isuserLogged = useSelector(userLogged);
+ */
   const imagenPerfilUser = useSelector(getUserImagenPerfil);
   const imagenPerfilAdmin = useSelector(getProhilePhoto);
 
@@ -267,9 +276,7 @@ const Navbar: React.FC = () => {
                           {({ active }) => (
                             <Link
                               to="/"
-                              onClick={() => {
-                                signOut(auth);
-                              }}
+                              onClick={resetProfile}
                               className={classNames(
                                 active ? "bg-gray-100" : "",
                                 "block px-4 py-2 text-sm text-gray-700"
