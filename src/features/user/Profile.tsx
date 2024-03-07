@@ -47,7 +47,6 @@ export default function Profile() {
   const navigate1 = useNavigation();
   const isSubmiting = navigate1.state === "submitting";
 
-  const [previewPhoto, setPreviewPhoto] = useState<string | null>(null);
   const [coverPhoto, setcoverPhoto] = useState<string | null>(null);
   const formData = useActionData() as ActionData | undefined;
 
@@ -62,9 +61,7 @@ export default function Profile() {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (typeof reader.result === "string") {
-          type === "profile"
-            ? setPreviewPhoto(reader.result)
-            : setcoverPhoto(reader.result);
+          type === "profile" ? "" : setcoverPhoto(reader.result);
         }
       };
       reader.readAsDataURL(file);

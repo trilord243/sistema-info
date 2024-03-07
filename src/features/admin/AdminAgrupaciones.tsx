@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, useLoaderData } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardAgrupacionAdmin from "./CardAgrupacionAdmin";
 import { getAgrupacionesEstudiantiles } from "../../api/Agrupaciones";
 import { ModalEliminate } from "./ModalEliminate";

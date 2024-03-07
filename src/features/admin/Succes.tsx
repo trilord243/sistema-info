@@ -1,11 +1,8 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { Transition } from "@headlessui/react";
 import { CheckCircleIcon } from "@heroicons/react/24/outline";
-import { XMarkIcon } from "@heroicons/react/20/solid";
 
 export default function Succes() {
-  const [show, setShow] = useState(true);
-
   return (
     <>
       <div
@@ -14,7 +11,6 @@ export default function Succes() {
       >
         <div className="flex w-full flex-col items-center space-y-4 sm:items-end">
           <Transition
-            show={show}
             as={Fragment}
             enter="transform ease-out duration-300 transition"
             enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
