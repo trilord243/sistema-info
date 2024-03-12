@@ -16,7 +16,6 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   estudiantes_registrados,
   nombre_agrupacion,
 }) => {
-  console.log(estudiantes_registrados);
   const navigate = useNavigate();
   return (
     <div className="card w-80   bg-white shadow-2xl">

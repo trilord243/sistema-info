@@ -57,7 +57,7 @@ export const MobileNavbar = () => {
         )}
       </NavLink>
       <NavLink
-        to="ver-usuario"
+        to="/registro-usuario"
         className="flex flex-col items-center justify-center px-2 py-1 border-r bg-white border-gray-200"
       >
         {({ isActive }) => (

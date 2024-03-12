@@ -4,7 +4,7 @@ export const UserMobileNavbar = () => {
   return (
     <div className="btm-nav bg-white flex justify-between border-t border-b border-gray-200 md:hidden">
       <NavLink
-        to="administrar-agrupaciones"
+        to="/mis-agrupaciones"
         className="flex flex-col items-center justify-center px-2 py-1 border-r bg-white border-gray-200"
       >
         {({ isActive }) => (
@@ -30,7 +30,7 @@ export const UserMobileNavbar = () => {
       </NavLink>
 
       <NavLink
-        to="/asd"
+        to="/buscar-agrupaciones"
         className="flex flex-col items-center justify-center px-2 py-1 border-r bg-white border-gray-200"
       >
         {({ isActive }) => (
@@ -57,7 +57,7 @@ export const UserMobileNavbar = () => {
         )}
       </NavLink>
       <NavLink
-        to="ver-usuario"
+        to="/"
         className="flex flex-col items-center justify-center px-2 py-1 border-r bg-white border-gray-200"
       >
         {({ isActive }) => (

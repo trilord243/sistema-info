@@ -3,8 +3,16 @@ import { InformationBar } from "./InformationBar";
 import { HeroImage } from "./HeroImage";
 import image from "../assets/group.png";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { getIsLogged } from "../admin/adminSlice";
+import { getUserLogin } from "../user/userSlice";
 
 const MainPageComponent = () => {
+  const admin = useSelector(getIsLogged);
+  const estudiante = useSelector(getUserLogin);
+
+  const isLogged = admin || estudiante;
+  const isStudiante = estudiante;
   return (
     <>
       {/* Desktop  */}
@@ -36,12 +44,28 @@ const MainPageComponent = () => {
             sit eget convallis ridiculus nunc. Sclerisque egestas vitae eget
             est.
           </p>
-          <Link
-            to="/register"
-            className="mt-6 bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded transition duration-300"
-          >
-            Regístrate!! <span>&#10132;</span>
-          </Link>
+          {!isLogged ? (
+            <Link
+              to="/register"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold p-5 rounded-xl transition duration-300 mt-6 "
+            >
+              Regístrate! <span className="ml-4">&#10132;</span>
+            </Link>
+          ) : isStudiante ? (
+            <Link
+              to="/buscar-agrupaciones"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold p-5 rounded-xl transition duration-300 mt-6 "
+            >
+              Busca agrupaciones! <span className="ml-4">&#10132;</span>
+            </Link>
+          ) : (
+            <Link
+              to="/administrar-agrupaciones"
+              className="bg-orange-500 hover:bg-orange-600 text-white font-bold p-5 rounded-xl transition duration-300 mt-6 "
+            >
+              Administrar agrupaciones <span className="ml-4">&#10132;</span>
+            </Link>
+          )}
         </div>
       </div>
     </>
