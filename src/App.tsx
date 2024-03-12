@@ -30,6 +30,11 @@ import {
   loader as adminGroupLoader,
 } from "./features/admin/AdminAgrupaciones";
 import AgrupacionPage from "./features/agrupacion/AgrupacionPage";
+import {
+  ModificarAgrupacion,
+  action as modicarAction,
+  loader as modificarLoader,
+} from "./features/admin/ModificarAgrupacion";
 
 function App() {
   const router = createBrowserRouter([
@@ -96,6 +101,12 @@ function App() {
                   path: "/administrar-agrupaciones",
                   element: <AdminAgrupaciones />,
                   loader: adminGroupLoader,
+                },
+                {
+                  path: "/actualizar-agrupacion/:id",
+                  element: <ModificarAgrupacion />,
+                  action: modicarAction,
+                  loader: modificarLoader,
                 },
               ],
             },

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { formatTimestampToDate } from "../../utils/DateConverter";
 import { AgrupacionCard } from "./AdminAgrupaciones";
 
@@ -14,7 +15,7 @@ const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
   setId,
 }) => {
   const agrupacionesVacias = estudiantes_registrados.length === 0;
-
+  const navigate = useNavigate();
   const deleteButton = () => {
     setModal(true);
     setNombreAgrupacion(nombre_agrupacion);
@@ -98,6 +99,7 @@ const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
           <button
             type="button"
             className="rounded-md bg-green-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+            onClick={() => navigate(`/actualizar-agrupacion/${id}`)}
           >
             Actualizar datos
           </button>

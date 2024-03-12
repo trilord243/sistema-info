@@ -7,22 +7,43 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { Form, redirect, useNavigation } from "react-router-dom";
+import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
 import { db, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 import { ChangeEvent, useState } from "react";
 import Loader from "../../ui/loader/Loader";
-
+import { getAgrupacionById } from "../../api/Agrupaciones";
+import { LoaderFunctionArgs } from "react-router-dom";
 type ActionParams = {
   request: Request;
 };
-export const CrearAgrupacion = () => {
+
+export interface Agrupacion {
+  id: string;
+  estudiantes_registrados: string[];
+  foto_agrupacion: string;
+  mision: string;
+  nombre_agrupacion: string;
+  redes_sociales: string[];
+  vision: string;
+  tag: string;
+  fecha_creacion: Timestamp;
+  puntuacion: number;
+}
+
+export interface Timestamp {
+  nanoseconds: number;
+  seconds: number;
+}
+export const ModificarAgrupacion = () => {
+  const loader = useLoaderData() as Agrupacion | undefined;
+
   const navigata = useNavigation();
 
   const isSubmiting = navigata.state === "submitting";
 
-  const [coverPhoto, setcoverPhoto] = useState<string | null>(null);
+  const [coverPhoto, setcoverPhoto] = useState(loader?.foto_agrupacion);
 
   const handleFileChangeProfile = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files ? event.target.files[0] : null;
@@ -44,11 +65,11 @@ export const CrearAgrupacion = () => {
       <div className="w-full h-full flex  ">
         <div className="w-full h-full   ">
           <div className="w-full  p-9 mb-">
-            <h3 className="lg:text-4xl text-3xl text-center font-bold mb-2 ">
-              Crear una <span className="text-primary">agrupacion</span>
+            <h3 className="lg:text-4xl text-3xl text-center font-bold mb-2 text-primary ">
+              {loader?.nombre_agrupacion || "Crear agrupacion"}
             </h3>
             <p className="text-lg text-gray-500 font-normal leading-7  text-center">
-              Pon toda la información que necesita de la agrupacion
+              Modifica la agrupacion con la informacion que desees
             </p>
           </div>
 
@@ -68,6 +89,7 @@ export const CrearAgrupacion = () => {
                     id="nombre-agrupacion"
                     className="block  w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Club de moda"
+                    defaultValue={loader?.nombre_agrupacion || ""}
                     required
                   />
                 </div>
@@ -84,7 +106,7 @@ export const CrearAgrupacion = () => {
                   id="tag-agrupacion"
                   name="tag-agrupacion"
                   className="block w-52 rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue="Social"
+                  defaultValue={loader?.tag || "Social"}
                 >
                   <option>Social</option>
                   <option>Tecnologia</option>
@@ -107,7 +129,7 @@ export const CrearAgrupacion = () => {
                     name="mision"
                     id="mision"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={""}
+                    defaultValue={loader?.mision || ""}
                     required
                   />
                 </div>
@@ -126,7 +148,7 @@ export const CrearAgrupacion = () => {
                     name="vision"
                     id="vision"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    defaultValue={""}
+                    defaultValue={loader?.vision || ""}
                     required
                   />
                 </div>
@@ -259,5 +281,18 @@ export async function action({ request }: ActionParams) {
   } catch (error) {
     console.error("Error al crear la agrupación: ", error);
     return { error: "Error al crear la agrupación." };
+  }
+}
+
+export async function loader({ params }: LoaderFunctionArgs) {
+  try {
+    if (typeof params.id === "string") {
+      const data = await getAgrupacionById(params.id);
+      return data;
+    }
+    return new Error("El ID proporcionado no es válido");
+  } catch (error) {
+    console.error(error);
+    return new Error("Error al cargar los datos de la agrupación");
   }
 }

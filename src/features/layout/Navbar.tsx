@@ -2,7 +2,7 @@ import { Fragment, useEffect, useReducer, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import logoUnimet from "../assets/unimet-blanco.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth, db } from "../../firebase/firebase";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,7 +27,7 @@ const loginNavigation = [
 const adminNavigation = [
   { name: "Agrupaciones", href: "administrar-agrupaciones", current: false },
   { name: "Crear agrupacion", href: "crear-agrupacion", current: false },
-  { name: "Ver registro de usuarios", href: "#", current: false },
+  { name: "Ver registro de usuarios", href: "/all-user", current: false },
 ];
 
 function classNames(...classes: string[]) {
@@ -139,19 +139,20 @@ const Navbar: React.FC = () => {
                 <div className="hidden sm:ml-6  sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <Link
+                      <NavLink
                         key={item.name}
                         to={item.href}
-                        className={classNames(
-                          item.current
-                            ? "bg-gray-900 text-white"
-                            : "text-gray-300 hover:bg-gray-700 hover:text-white",
-                          "rounded-md px-3 py-2 text-sm font-medium"
-                        )}
+                        className={({ isActive }) =>
+                          `${
+                            isActive
+                              ? "bg-blue-950 text-white"
+                              : "text-gray-300 hover:bg-blue-950 hover:text-white"
+                          } rounded-md px-3 py-2 text-sm font-medium`
+                        }
                         aria-current={item.current ? "page" : undefined}
                       >
                         {item.name}
-                      </Link>
+                      </NavLink>
                     ))}
                   </div>
                 </div>
