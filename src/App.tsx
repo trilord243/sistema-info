@@ -29,12 +29,20 @@ import {
   AdminAgrupaciones,
   loader as adminGroupLoader,
 } from "./features/admin/AdminAgrupaciones";
-import AgrupacionPage from "./features/agrupacion/AgrupacionPage";
+import AgrupacionPage, {
+  loader as agrupacionIdLoader,
+} from "./features/agrupacion/AgrupacionPage";
 import {
   ModificarAgrupacion,
   action as modicarAction,
   loader as modificarLoader,
 } from "./features/admin/ModificarAgrupacion";
+
+import { MisAgrupaciones } from "./features/user/MisAgrupaciones";
+import { BuscarAgrupaciones } from "./features/user/BuscarAgrupaciones";
+import UsuariosRegistrados, {
+  loader as registerUserLoader,
+} from "./features/admin/UsariosRegistrados";
 
 function App() {
   const router = createBrowserRouter([
@@ -62,7 +70,11 @@ function App() {
       children: [
         { path: "/", element: <HomePage />, loader: menuLoader },
 
-        { path: "/agrupacion/:id", element: <AgrupacionPage /> },
+        {
+          path: "/agrupacion/:id",
+          element: <AgrupacionPage />,
+          loader: agrupacionIdLoader,
+        },
 
         {
           element: <ProtectedRoute />,
@@ -80,11 +92,12 @@ function App() {
                 },
                 {
                   path: "/mis-agrupaciones",
-                  element: <div>mis-agrupaciones</div>,
+                  element: <MisAgrupaciones />,
                 },
                 {
                   path: "/buscar-agrupaciones",
-                  element: <div>Dashboard</div>,
+                  element: <BuscarAgrupaciones />,
+                  loader: menuLoader,
                 },
               ],
             },
@@ -107,6 +120,12 @@ function App() {
                   element: <ModificarAgrupacion />,
                   action: modicarAction,
                   loader: modificarLoader,
+                },
+
+                {
+                  path: "/registro-usuario",
+                  element: <UsuariosRegistrados />,
+                  loader: registerUserLoader,
                 },
               ],
             },

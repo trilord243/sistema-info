@@ -33,9 +33,7 @@ const getAgrupacionesEstudiantiles = async (): Promise<
   }
 };
 
-export const getAgrupacionById = async (
-  id: string
-): Promise<Agrupacion | Error> => {
+const getAgrupacionById = async (id: string): Promise<Agrupacion | Error> => {
   try {
     const docRef = doc(db, "agrupaciones_estudiantiles", id);
     const docSnap = await getDoc(docRef);
@@ -46,15 +44,12 @@ export const getAgrupacionById = async (
         ...docSnap.data(),
       } as Agrupacion;
     } else {
-      console.error(
-        "No se encontró la agrupación estudiantil con el ID proporcionado."
-      );
-      return new Error("Agrupación estudiantil no encontrada");
+      throw new Error("No existe una agrupación con el ID proporcionado");
     }
   } catch (error) {
-    console.error("Error al obtener la agrupación estudiantil:", error);
-    return new Error("Error al obtener la agrupación estudiantil");
+    console.error("Error al obtener la agrupación:", error);
+    return new Error("Error al obtener la agrupación");
   }
 };
 
-export { getAgrupacionesEstudiantiles };
+export { getAgrupacionesEstudiantiles, getAgrupacionById };
