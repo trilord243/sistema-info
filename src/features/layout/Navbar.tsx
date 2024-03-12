@@ -19,15 +19,19 @@ type State = {
 type Action = { type: "login" | "logout" | "admin" };
 
 const loginNavigation = [
-  { name: "Mis agrupaciones", href: "#", current: false },
-  { name: "Buscar Agrupaciones", href: "#", current: false },
-  { name: "Principal", href: "#", current: false },
+  { name: "Mis agrupaciones", href: "mis-agrupaciones", current: false },
+  { name: "Buscar Agrupaciones", href: "buscar-agrupaciones", current: false },
+  { name: "Principal", href: "/", current: false },
 ];
 
 const adminNavigation = [
   { name: "Agrupaciones", href: "administrar-agrupaciones", current: false },
   { name: "Crear agrupacion", href: "crear-agrupacion", current: false },
-  { name: "Ver registro de usuarios", href: "#", current: false },
+  {
+    name: "Ver registro de usuarios",
+    href: "registro-usuario",
+    current: false,
+  },
 ];
 
 function classNames(...classes: string[]) {

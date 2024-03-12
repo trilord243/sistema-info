@@ -7,7 +7,7 @@ import Card from "../../ui/Card";
 
 import MainPageComponent from "./MainPageComponent";
 
-interface Agrupacion {
+export interface Agrupacion {
   id: string;
   estudiantes_registradors: string[];
   foto_agrupacion: string;

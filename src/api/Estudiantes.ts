@@ -43,3 +43,19 @@ export async function fetchStudentByEmail(
 }
 
 export default fetchStudentByEmail;
+
+export async function fetchStudents(db: Firestore): Promise<Student[]> {
+  try {
+    const querySnapshot = await getDocs(collection(db, "estudiantes"));
+    const students: Student[] = querySnapshot.docs.map((doc) => {
+      return {
+        id: doc.id,
+        ...doc.data(),
+      } as unknown as Student;
+    });
+    return students;
+  } catch (error) {
+    console.error("Error al buscar los estudiantes:", error);
+    throw new Error("Error al buscar los estudiantes");
+  }
+}

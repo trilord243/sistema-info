@@ -1,20 +1,22 @@
 import { useNavigate } from "react-router-dom";
 
-interface CardProps {
+interface StudentCardProps {
   foto_agrupacion: string;
   mision: string;
   tag: string;
   nombre_agrupacion: string;
   id: string;
+  estudiantes_registrados: string[];
 }
 
-const Card: React.FC<CardProps> = ({
+const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   foto_agrupacion,
   mision,
   id,
-
+  estudiantes_registrados,
   nombre_agrupacion,
 }) => {
+  console.log(estudiantes_registrados);
   const navigate = useNavigate();
   return (
     <div className="card w-80   bg-white shadow-2xl">
@@ -32,7 +34,7 @@ const Card: React.FC<CardProps> = ({
         </h2>
 
         <p className="text-sm line-clamp-3 text-black mb-3 mt-2">{mision}</p>
-        <div className="flex justify-center ">
+        <div className="flex justify-between px-4">
           <button
             onClick={() => navigate(`/agrupacion/${id}`)}
             type="button"
@@ -40,9 +42,17 @@ const Card: React.FC<CardProps> = ({
           >
             Mas informacion
           </button>
+
+          <button
+            onClick={() => navigate(`/agrupacion/${id}`)}
+            type="button"
+            className="rounded-md bg-green-600 px-2 py-1 mb-3 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600"
+          >
+            Unete!
+          </button>
         </div>
       </div>
     </div>
   );
 };
-export default Card;
+export { UserCardAgrupacion };

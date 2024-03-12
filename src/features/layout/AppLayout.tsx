@@ -51,7 +51,7 @@ const AppLayout: React.FC = () => {
         <Outlet />
       </div>
 
-      <div className="bottom-0 z-50 sticky ">
+      <div className="bottom-0 z-50 sticky p-36 lg:p-3 ">
         {isAdmin && <MobileNavbar />}
         {isUser && <UserMobileNavbar />}
       </div>
