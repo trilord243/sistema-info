@@ -4,6 +4,8 @@ import {
   getDocs,
   QueryDocumentSnapshot,
   DocumentData,
+  getDoc,
+  doc,
 } from "firebase/firestore";
 
 interface Agrupacion {
@@ -31,4 +33,23 @@ const getAgrupacionesEstudiantiles = async (): Promise<
   }
 };
 
-export { getAgrupacionesEstudiantiles };
+const getAgrupacionById = async (id: string): Promise<Agrupacion | Error> => {
+  try {
+    const docRef = doc(db, "agrupaciones_estudiantiles", id);
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      return {
+        id: docSnap.id,
+        ...docSnap.data(),
+      } as Agrupacion;
+    } else {
+      throw new Error("No existe una agrupación con el ID proporcionado");
+    }
+  } catch (error) {
+    console.error("Error al obtener la agrupación:", error);
+    return new Error("Error al obtener la agrupación");
+  }
+};
+
+export { getAgrupacionesEstudiantiles, getAgrupacionById };

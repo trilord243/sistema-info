@@ -29,7 +29,9 @@ import {
   AdminAgrupaciones,
   loader as adminGroupLoader,
 } from "./features/admin/AdminAgrupaciones";
-import AgrupacionPage from "./features/agrupacion/AgrupacionPage";
+import AgrupacionPage, {
+  loader as agrupacionIdLoader,
+} from "./features/agrupacion/AgrupacionPage";
 import { MisAgrupaciones } from "./features/user/MisAgrupaciones";
 import { BuscarAgrupaciones } from "./features/user/BuscarAgrupaciones";
 import UsuariosRegistrados, {
@@ -62,7 +64,11 @@ function App() {
       children: [
         { path: "/", element: <HomePage />, loader: menuLoader },
 
-        { path: "/agrupacion/:id", element: <AgrupacionPage /> },
+        {
+          path: "/agrupacion/:id",
+          element: <AgrupacionPage />,
+          loader: agrupacionIdLoader,
+        },
 
         {
           element: <ProtectedRoute />,
