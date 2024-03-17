@@ -11,6 +11,8 @@ import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import Loader from "../../ui/loader/Loader";
 
+import store from "../../store";
+
 type ActionParams = {
   request: Request;
 };
@@ -171,7 +173,9 @@ export async function action({ request }: ActionParams) {
     const password = formData.get("password") as string;
 
     await signInWithEmailAndPassword(auth, email, password);
-
+    if (store.getState().history.routes.includes("/agrupacion")) {
+      return redirect(store.getState().history.routes);
+    }
     return redirect("/");
   } catch (error: unknown) {
     const errors: ActionErrors = {};

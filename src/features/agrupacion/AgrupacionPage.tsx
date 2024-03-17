@@ -53,6 +53,7 @@ export default function AgrupacionPage() {
     </div>
   );
 }
+
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
     if (typeof params.id === "string") {

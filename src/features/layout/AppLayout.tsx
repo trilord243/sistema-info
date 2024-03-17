@@ -9,6 +9,7 @@ import { resetUserState, updateEmail, updateUser } from "../user/userSlice";
 import { updateAdmin } from "../admin/adminSlice";
 import { MobileNavbar } from "../../ui/MobileNavbar";
 import { UserMobileNavbar } from "../../ui/UserMobileNavbar";
+import { TrackRoute } from "../../TrackRoute";
 
 const AppLayout: React.FC = () => {
   const dispatch = useDispatch();
@@ -42,6 +43,7 @@ const AppLayout: React.FC = () => {
   const showNavbar = location.pathname !== "/profile";
   return (
     <>
+      <TrackRoute />
       {showNavbar && (
         <div className="sticky top-0 z-50">
           <Navbar />
