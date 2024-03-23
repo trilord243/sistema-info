@@ -149,7 +149,7 @@ const Navbar: React.FC = () => {
                         className={({ isActive }) =>
                           `${
                             isActive
-                              ? "bg-blue-950 text-white"
+                              ? "bg-orange-500 text-white"
                               : "text-gray-300 hover:bg-blue-950 hover:text-white"
                           } rounded-md px-3 py-2 text-sm font-medium`
                         }
@@ -179,7 +179,7 @@ const Navbar: React.FC = () => {
                           to="/register"
                           className=" w-full h-full py-2 px-4 rounded-md bg-secondary "
                         >
-                          Registrate!
+                          Registrate
                         </Link>
                       </div>
                     </div>

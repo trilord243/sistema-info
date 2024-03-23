@@ -8,7 +8,7 @@ export const InformationBar = () => {
         <img src={creacion} alt="xd" />
         <h3 className="text-black font-bold">Creacion de proyectos </h3>
         <p className="text-sm">
-          Crea proyectos con tus compaleros en la universidad
+          Crea proyectos con tus compañeros en la universidad
         </p>
       </div>
       <div className="w-24 h-full lg:w-64  ">

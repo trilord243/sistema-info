@@ -43,7 +43,9 @@ const Register = () => {
     
       const uid = user.uid;
       const email = user.email;
-
+      
+      console.log(email);
+      
       if (email && !email.includes("unimet.edu.ve")) {
         throw new Error("El correo debe ser de la Universidad Metropolitana");
       } 

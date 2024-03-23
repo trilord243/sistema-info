@@ -42,6 +42,7 @@ export default function Profile() {
   const sobreMi = useSelector(getUserSobreMi);
   const id = useSelector(getUserId);
   const navigate = useNavigate();
+
   const profilePhoto = useSelector(getUserImagenPerfil);
   const banner = useSelector(getBannerImage);
   const navigate1 = useNavigation();
@@ -67,6 +68,13 @@ export default function Profile() {
       reader.readAsDataURL(file);
     }
   };
+
+  const handleClick = () => {
+    setTimeout(() => {
+      navigate("/mis-agrupaciones");
+    }, 1000);
+    
+  }
 
   return (
     <div className="">
@@ -289,6 +297,7 @@ export default function Profile() {
               <button
                 type="submit"
                 className="rounded-md bg-secondary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                onClick={handleClick}
               >
                 Salvar
               </button>

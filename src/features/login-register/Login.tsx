@@ -5,12 +5,13 @@ import {
   Link,
   redirect,
   useActionData,
+  useNavigate,
   useNavigation,
+  
 } from "react-router-dom";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
+import { GoogleAuthProvider, onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
-// import { googleProvider} from "../../firebase/firebase";
-// import { signInWithPopup } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 import Loader from "../../ui/loader/Loader";
 
 import store from "../../store";
@@ -26,8 +27,44 @@ interface ActionErrors {
 const Login = () => {
   const navigate = useNavigation();
   const isSubmiting = navigate.state === "submitting";
-
+  const navigator = useNavigate();
   const formErrors = useActionData();
+
+  const handleSignInWithGoogle = async () => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const  email = user.email as string;
+      console.log("user", user);
+      // navigator(user);
+
+      
+      // Check if the email exists in Firebase
+      
+        const emailExists = await checkIfEmailExists(email);
+        
+        if (emailExists) {
+          // Email exists, proceed with sign in
+          console.log("Email exists, proceed with sign in");
+        } else {
+          // Email does not exist, show error message or redirect to sign up page
+          navigator("/register");
+          return;
+        }
+    } catch (error) {
+      console.error("Error signing in with Google", error);
+    }
+  };
+
+  const checkIfEmailExists = async (email: string) => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, "dummyPassword");
+      return !!userCredential.user;
+    } catch (error) {
+      return false;
+    }
+  };
 
 
 
@@ -120,7 +157,7 @@ const Login = () => {
 
                     <div className="mt-6 mx-auto gap-4">
                       <button 
-                        // onClick={handleSignInWithGoogle}
+                        onClick={handleSignInWithGoogle}
                         className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 focus-visible:ring-transparent"
                       >
                         <svg
@@ -186,7 +223,7 @@ export async function action({ request }: ActionParams) {
     if (error instanceof Error) {
       error.message === "Firebase: Error (auth/invalid-credential)."
         ? (errors.credential =
-            "Credencial invalida Email o password incorretos. Intenta denuevo ")
+            "Credencial invalida Email o password incorrectos. Intenta de nuevo")
         : (errors.credential = error.message);
 
       return errors;
