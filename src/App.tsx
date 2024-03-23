@@ -4,7 +4,7 @@ import ErrorPage from "./ui/ErrorPage";
 import HomePage, { loader as menuLoader } from "./features/main/HomePage";
 import Login, {
   action as loginAction,
-  loader as loginLoader,
+  loader as loginLoader
 } from "./features/login-register/Login";
 import Register, {
   action as registerAction,

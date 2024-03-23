@@ -5,10 +5,11 @@ import {
   Link,
   redirect,
   useActionData,
+  useNavigate,
   useNavigation,
 } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../../firebase/firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, db, googleProvider } from "../../firebase/firebase";
 import { doc, setDoc } from "firebase/firestore";
 import store from "../../store";
 import { updateUser } from "../user/userSlice";
@@ -26,6 +27,62 @@ const Register = () => {
   const formErrors = useActionData();
   const navigate = useNavigation();
   const isSubmiting = navigate.state === "submitting";
+  const navigation = useNavigate();
+
+
+
+
+  const registerWithGoogle = async () => {
+    const errors: ActionErrors = {};
+    try {
+      const provider = googleProvider;
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      
+
+    
+      const uid = user.uid;
+      const email = user.email;
+
+      if (email && !email.includes("unimet.edu.ve")) {
+        throw new Error("El correo debe ser de la Universidad Metropolitana");
+      } 
+
+      
+      const student = {
+        agrupaciones: [],
+        id: uid,
+        email: email,
+        nombre: email,
+        apellido: email,
+        rol: "usuario",
+        sobre_ti: "Me encanta la unimet!",
+        banner:
+          "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+        imagen_perfil:
+          "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Avatar%20profile.png?alt=media&token=f15c43a4-663d-464b-8499-911c6196a684",
+      };
+
+
+        console.log(student);
+        await setDoc(doc(db, "estudiantes", uid), student);
+        store.dispatch(updateUser(student));
+        navigation("/profile");
+
+    }
+
+  catch (error: unknown) {
+      if (error instanceof Error) {
+        error.message === "Firebase: Error (auth/email-already-in-use)."
+          ? (errors.message = "El correo ya esta en uso")
+          : (errors.message = error.message);
+      }
+
+
+
+  }
+  };
+
 
   return (
     <>
@@ -39,7 +96,7 @@ const Register = () => {
                 <div>
                   <Link to="/">
                     <img
-                      className="h-10 w-auto"
+                      className="h-10 w-auto "
                       src={arrow}
                       alt="Your Company"
                     />
@@ -57,9 +114,9 @@ const Register = () => {
                   </p>
                 )}
 
-                <div className="">
+                <div className="text-2">
                   <div>
-                    <Form method="POST" className="space-y-6">
+                    <Form method="POST" className="space-y-6 ">
                       <div>
                         <div className="mt-2">
                           <input
@@ -123,20 +180,20 @@ const Register = () => {
                       </div>
                       <div className="relative flex justify-center text-sm font-medium leading-6">
                         <span className="bg-white px-6 text-gray-900 font-bold text-xl mt-5">
-                          Registrate con
+                          Registrarse con
                         </span>
                       </div>
                     </div>
 
                     <div className="mt-2 mx-auto gap-4">
-                      <a
-                        href="#"
-                        className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 focus-visible:ring-transparent"
+                      <button
+                        onClick={registerWithGoogle}
+                        className="bg-blue-200 flex w-full items-center justify-center gap-3 rounded-md  px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 focus-visible:ring-transparent"
                       >
                         <svg
                           className="h-5 w-5"
                           aria-hidden="true"
-                          viewBox="0 0 24 24"
+                          viewBox="0 0 20 24"
                         >
                           <path
                             d="M12.0003 4.75C13.7703 4.75 15.3553 5.36002 16.6053 6.54998L20.0303 3.125C17.9502 1.19 15.2353 0 12.0003 0C7.31028 0 3.25527 2.69 1.28027 6.60998L5.27028 9.70498C6.21525 6.86002 8.87028 4.75 12.0003 4.75Z"
@@ -155,11 +212,11 @@ const Register = () => {
                             fill="#34A853"
                           />
                         </svg>
-                        <span className="text-sm font-semibold leading-6">
-                          Registrate con
-                          <span className="font-bold"> google</span>
+                        <span className="text-2xl font-semibold leading-6
+                                          ">
+                            Google
                         </span>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -182,6 +239,8 @@ export default Register;
 
 export async function action({ request }: ActionParams) {
   const errors: ActionErrors = {};
+
+
   try {
     const formData = await request.formData();
     const email = formData.get("email")?.toString();
