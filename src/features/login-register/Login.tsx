@@ -9,6 +9,8 @@ import {
 } from "react-router-dom";
 import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
+// import { googleProvider} from "../../firebase/firebase";
+// import { signInWithPopup } from "firebase/auth";
 import Loader from "../../ui/loader/Loader";
 
 import store from "../../store";
@@ -26,6 +28,8 @@ const Login = () => {
   const isSubmiting = navigate.state === "submitting";
 
   const formErrors = useActionData();
+
+
 
   return (
     <>
@@ -109,14 +113,14 @@ const Login = () => {
                       </div>
                       <div className="relative flex justify-center text-sm font-medium leading-6">
                         <span className="bg-white px-6 text-gray-900 font-bold text-xl mt-5">
-                          inicia sesion con
+                          Inicia sesion con:
                         </span>
                       </div>
                     </div>
 
                     <div className="mt-6 mx-auto gap-4">
-                      <a
-                        href="#"
+                      <button 
+                        // onClick={handleSignInWithGoogle}
                         className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 focus-visible:ring-transparent"
                       >
                         <svg
@@ -143,9 +147,9 @@ const Login = () => {
                         </svg>
                         <span className="text-sm font-semibold leading-6">
                           Inicia sesion con
-                          <span className="font-bold">google</span>
+                          <span className="font-bold"> Google</span>
                         </span>
-                      </a>
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -189,6 +193,11 @@ export async function action({ request }: ActionParams) {
     }
   }
 }
+
+//Google
+
+
+
 
 export async function loader() {
   const checkAuth = new Promise((resolve, reject) => {
