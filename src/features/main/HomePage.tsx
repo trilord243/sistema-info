@@ -52,7 +52,7 @@ const HomePage: React.FC = () => {
       </div>
 
       <div>
-        <h4 className="text-center mt-10 text-6xl text-primary font-semibold mb-5 ">
+        <h4 className="text-center mt-10 text-6xl text-primary font-semibold mb-5 " id="Noticias">
           NOTICIAS
         </h4>
 
