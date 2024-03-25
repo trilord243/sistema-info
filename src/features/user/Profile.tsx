@@ -180,7 +180,7 @@ export default function Profile() {
                       />
                     </div>
                     <p className="mt-3 text-sm leading-6 text-gray-600">
-                      Escrieb una breve descipción sobre ti.
+                      Escribe una breve descripción sobre ti
                     </p>
                   </div>
 

@@ -58,8 +58,8 @@ const Navbar: React.FC = () => {
   const initialState: State = {
     login: false,
     navigation: [
-      { name: "Agrupaciones", href: "#hola", current: false },
-      { name: "Noticias", href: "#", current: false },
+      { name: "Agrupaciones", href: "#Agrupaciones", current: false },
+      { name: "Noticias", href: "#Noticias", current: false },
       { name: "Top 4 agrupaciones", href: "#", current: false },
     ],
     admin: false,
