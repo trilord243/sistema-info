@@ -26,7 +26,7 @@ const HomePage: React.FC = () => {
   };
 
   return (
-    <div className="bg-gray-50">
+    <div className="bg-gray-50" id="hola">
       <MainPageComponent />
       <div className="w-full lg:mt-32 mt-12 ">
         <h3 className="text-center lg:text-6xl text-3xl   ">

@@ -58,7 +58,7 @@ const Navbar: React.FC = () => {
   const initialState: State = {
     login: false,
     navigation: [
-      { name: "Agrupaciones", href: "#", current: false },
+      { name: "Agrupaciones", href: "#hola", current: false },
       { name: "Noticias", href: "#", current: false },
       { name: "Top 4 agrupaciones", href: "#", current: false },
     ],
@@ -141,24 +141,39 @@ const Navbar: React.FC = () => {
                   </div>
                 </Link>
                 <div className="hidden sm:ml-6  sm:block">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <NavLink
-                        key={item.name}
-                        to={item.href}
-                        className={({ isActive }) =>
-                          `${
-                            isActive
-                              ? "bg-blue-950 text-white"
-                              : "text-gray-300 hover:bg-blue-950 hover:text-white"
-                          } rounded-md px-3 py-2 text-sm font-medium`
-                        }
-                        aria-current={item.current ? "page" : undefined}
-                      >
-                        {item.name}
-                      </NavLink>
-                    ))}
-                  </div>
+                  {login ? (
+                    <div className="flex space-x-4">
+                      {navigation.map((item) => (
+                        <NavLink
+                          key={item.name}
+                          to={item.href}
+                          className={({ isActive }) =>
+                            `${
+                              isActive
+                                ? "bg-blue-950 text-white"
+                                : "text-gray-300 hover:bg-blue-950 hover:text-white"
+                            } rounded-md px-3 py-2 text-sm font-medium`
+                          }
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </NavLink>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex space-x-4">
+                      {navigation.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          aria-current={item.current ? "page" : undefined}
+                          className=" text-white  rounded-md px-3 py-2 text-sm font-medium hover:bg-blue-950"
+                        >
+                          {item.name}
+                        </a>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
               {!login ? (

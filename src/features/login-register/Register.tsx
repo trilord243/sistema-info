@@ -29,26 +29,21 @@ const Register = () => {
   const isSubmiting = navigate.state === "submitting";
   const navigation = useNavigate();
 
-
-
-
   const registerWithGoogle = async () => {
     const errors: ActionErrors = {};
     try {
       const provider = googleProvider;
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      
 
-    
       const uid = user.uid;
       const email = user.email;
 
+      console.log(first);
       if (email && !email.includes("unimet.edu.ve")) {
         throw new Error("El correo debe ser de la Universidad Metropolitana");
-      } 
+      }
 
-      
       const student = {
         agrupaciones: [],
         id: uid,
@@ -63,26 +58,18 @@ const Register = () => {
           "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Avatar%20profile.png?alt=media&token=f15c43a4-663d-464b-8499-911c6196a684",
       };
 
-
-        console.log(student);
-        await setDoc(doc(db, "estudiantes", uid), student);
-        store.dispatch(updateUser(student));
-        navigation("/profile");
-
-    }
-
-  catch (error: unknown) {
+      console.log(student);
+      await setDoc(doc(db, "estudiantes", uid), student);
+      store.dispatch(updateUser(student));
+      navigation("/profile");
+    } catch (error: unknown) {
       if (error instanceof Error) {
         error.message === "Firebase: Error (auth/email-already-in-use)."
           ? (errors.message = "El correo ya esta en uso")
           : (errors.message = error.message);
       }
-
-
-
-  }
+    }
   };
-
 
   return (
     <>
@@ -212,9 +199,11 @@ const Register = () => {
                             fill="#34A853"
                           />
                         </svg>
-                        <span className="text-2xl font-semibold leading-6
-                                          ">
-                            Google
+                        <span
+                          className="text-2xl font-semibold leading-6
+                                          "
+                        >
+                          Google
                         </span>
                       </button>
                     </div>
@@ -239,7 +228,6 @@ export default Register;
 
 export async function action({ request }: ActionParams) {
   const errors: ActionErrors = {};
-
 
   try {
     const formData = await request.formData();
