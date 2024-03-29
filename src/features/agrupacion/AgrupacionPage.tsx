@@ -1,5 +1,10 @@
 import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { getAgrupacionById } from "../../api/Agrupaciones";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserAgrupaciones, getUserId, updateAgrupaciones } from "../user/userSlice";
+import { useEffect, useState } from "react";
+import { doc, updateDoc, arrayUnion } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
 export interface Agrupacion {
   id: string;
   estudiantes_registradors: string[];
@@ -15,6 +20,35 @@ export interface Agrupacion {
 
 export default function AgrupacionPage() {
   const data = useLoaderData() as Agrupacion;
+  const idUser = useSelector(getUserId);
+  const miembros = useSelector(getUserAgrupaciones);
+  const [isMember, setIsMember] = useState(false)
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const checkMembership =()=> {setIsMember(miembros.includes(data.id as never))}
+    checkMembership();
+  }, []);
+
+  console.log("is member" + isMember)
+
+  const handleJoinClub = async () => {
+  if (!isMember) {
+
+        const userRef = doc(db, "estudiantes", idUser);
+        try {
+            await updateDoc(userRef, {
+                miembroClub: arrayUnion(data.id)
+
+            });
+            const array = [...miembros, data.id];
+            dispatch(updateAgrupaciones(array));
+
+
+            setIsMember(true);
+        } catch (error) {
+            console.error("Error al unirse al club:", error);
+        }}
+      }
 
   return (
     <div className="overflow-hidden bg-white py-32">
@@ -53,7 +87,6 @@ export default function AgrupacionPage() {
     </div>
   );
 }
-
 export async function loader({ params }: LoaderFunctionArgs) {
   try {
     if (typeof params.id === "string") {

@@ -6,6 +6,7 @@ import { getAgrupacionesEstudiantiles } from "../../api/Agrupaciones";
 import Card from "../../ui/Card";
 
 import MainPageComponent from "./MainPageComponent";
+import Carrousel from "./Carrousel";
 
 export interface Agrupacion {
   id: string;
@@ -24,6 +25,14 @@ const HomePage: React.FC = () => {
   const { agrupaciones = [] } = useLoaderData() as {
     agrupaciones: Agrupacion[];
   };
+
+  const images = [
+    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-FERIA-DE-EMPLEO-2024-6-980x653.jpg", 
+    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-2-980x653.jpg",
+    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-5-980x653.jpg",
+    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-CONVERSATORIO-DE-NIXON-8-980x653.jpg",
+    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-CONVERSATORIO-DE-NIXON-4-980x653.jpg",
+  ];
 
   return (
     <div className="bg-gray-50" id="hola">
@@ -55,8 +64,9 @@ const HomePage: React.FC = () => {
         <h4 className="text-center mt-10 text-6xl text-primary font-semibold mb-5 " id="Noticias">
           NOTICIAS
         </h4>
-
-        <div className="mt-2 w-full h-[35rem] bg-blue-500"></div>
+        <div className="bg-blue-600 drop-shadow-xl p-3" style={{ boxSizing: 'border-box' }}>
+        <Carrousel images={images}></Carrousel>
+        </div>
         <div className=" w-full h-10 mt-24 bg-red-600"></div>
       </div>
     </div>
