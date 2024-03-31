@@ -20,8 +20,8 @@ interface StudentCardProps {
   id: string;
   estudiantes_registrados: string[];
   dashed?: boolean;
-  setAgrupacionPuntuar: (id: string) => void;
-  setOpen: (open: boolean) => void;
+  setAgrupacionPuntuar?: (id: string) => void;
+  setOpen?: (open: boolean) => void;
 }
 
 const UserCardAgrupacion: React.FC<StudentCardProps> = ({
@@ -30,8 +30,8 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   id,
   nombre_agrupacion,
   dashed = false,
-  setAgrupacionPuntuar,
-  setOpen,
+  setAgrupacionPuntuar = () => {},
+  setOpen = () => {},
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
