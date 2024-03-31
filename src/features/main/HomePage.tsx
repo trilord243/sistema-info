@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
   };
 
   const images = [
-    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-FERIA-DE-EMPLEO-2024-6-980x653.jpg", 
+    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-FERIA-DE-EMPLEO-2024-6-980x653.jpg",
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-2-980x653.jpg",
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-5-980x653.jpg",
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-CONVERSATORIO-DE-NIXON-8-980x653.jpg",
@@ -39,7 +39,10 @@ const HomePage: React.FC = () => {
       <MainPageComponent />
       <div className="w-full lg:mt-32 mt-12 ">
         <h3 className="text-center lg:text-6xl text-3xl   ">
-          <span id="Agrupaciones" className="font-bold text-black"> CONOZCA NUESTRAS </span>{" "}
+          <span id="Agrupaciones" className="font-bold text-black">
+            {" "}
+            CONOZCA NUESTRAS{" "}
+          </span>{" "}
           <br />
           <span className="text-primary font-medium">AGRUPACIONES</span>
         </h3>
@@ -61,11 +64,17 @@ const HomePage: React.FC = () => {
       </div>
 
       <div>
-        <h4 className="text-center mt-10 text-6xl text-primary font-semibold mb-5 " id="Noticias">
+        <h4
+          className="text-center mt-10 text-6xl text-primary font-semibold mb-5 "
+          id="Noticias"
+        >
           NOTICIAS
         </h4>
-        <div className="bg-blue-600 drop-shadow-xl p-3" style={{ boxSizing: 'border-box' }}>
-        <Carrousel images={images}></Carrousel>
+        <div
+          className="bg-blue-600 drop-shadow-xl p-3"
+          style={{ boxSizing: "border-box" }}
+        >
+          <Carrousel images={images}></Carrousel>
         </div>
         <div className=" w-full h-10 mt-24 bg-red-600"></div>
       </div>

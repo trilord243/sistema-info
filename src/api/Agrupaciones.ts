@@ -45,7 +45,7 @@ const getAgrupacionesEstudiantiles = async (): Promise<
   }
 };
 
-const getAgrupacionById = async (id: string): Promise<Agrupacion | null> => {
+const getAgrupacionById = async (id: string): Promise<Agrupaciona | null> => {
   try {
     const docRef = doc(db, "agrupaciones_estudiantiles", id);
     const docSnap = await getDoc(docRef);

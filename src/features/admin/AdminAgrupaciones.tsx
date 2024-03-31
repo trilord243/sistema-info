@@ -99,9 +99,11 @@ export const AdminAgrupaciones = () => {
               defaultValue="Todos"
             >
               <option>Todos</option>
-              <option>Tecnologia</option>
               <option>Social</option>
+              <option>Tecnologia</option>
               <option>Ciencia</option>
+              <option>Musica</option>
+              <option>Debate</option>
             </select>
           </div>
 

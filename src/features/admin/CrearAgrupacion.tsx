@@ -89,6 +89,8 @@ export const CrearAgrupacion = () => {
                   <option>Social</option>
                   <option>Tecnologia</option>
                   <option>Ciencia</option>
+                  <option>Musica</option>
+                  <option>Debate</option>
                 </select>
               </div>
             </div>

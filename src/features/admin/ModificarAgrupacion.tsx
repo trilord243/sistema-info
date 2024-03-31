@@ -1,16 +1,15 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
+
 import {
-  collection,
-  doc,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
-import { Form, redirect, useLoaderData, useNavigation } from "react-router-dom";
+  Form,
+  Link,
+  redirect,
+  useLoaderData,
+  useNavigation,
+} from "react-router-dom";
 import { db, storage } from "../../firebase/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
+
 import { ChangeEvent, useState } from "react";
 import Loader from "../../ui/loader/Loader";
 import { getAgrupacionById } from "../../api/Agrupaciones";
@@ -18,6 +17,7 @@ import { LoaderFunctionArgs } from "react-router-dom";
 type ActionParams = {
   request: Request;
 };
+import { doc, updateDoc } from "firebase/firestore";
 
 export interface Agrupacion {
   id: string;
@@ -73,7 +73,12 @@ export const ModificarAgrupacion = () => {
             </p>
           </div>
 
-          <Form encType="multipart/form-data" action="#" method="POST">
+          <Form encType="multipart/form-data" action="#" method="PUT">
+            <input
+              type="hidden"
+              name="agrupacion-id"
+              value={loader?.id || ""}
+            />
             <div className="w-full flex flex-col items-center ">
               <div>
                 <label
@@ -90,7 +95,6 @@ export const ModificarAgrupacion = () => {
                     className="block  w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     placeholder="Club de moda"
                     defaultValue={loader?.nombre_agrupacion || ""}
-                    required
                   />
                 </div>
               </div>
@@ -111,6 +115,8 @@ export const ModificarAgrupacion = () => {
                   <option>Social</option>
                   <option>Tecnologia</option>
                   <option>Ciencia</option>
+                  <option>Musica</option>
+                  <option>Debate</option>
                 </select>
               </div>
             </div>
@@ -130,7 +136,6 @@ export const ModificarAgrupacion = () => {
                     id="mision"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={loader?.mision || ""}
-                    required
                   />
                 </div>
               </div>
@@ -149,7 +154,6 @@ export const ModificarAgrupacion = () => {
                     id="vision"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={loader?.vision || ""}
-                    required
                   />
                 </div>
               </div>
@@ -187,7 +191,6 @@ export const ModificarAgrupacion = () => {
                           accept="image/*"
                           className="sr-only"
                           onChange={(e) => handleFileChangeProfile(e)}
-                          required
                         />
                       </label>
                       <p className="pl-1 text-white font-bold ">
@@ -203,12 +206,12 @@ export const ModificarAgrupacion = () => {
             </div>
 
             <div className="mt-6 flex items-center justify-end gap-x-10 mr-7 mb-3">
-              <button
-                type="button"
+              <Link
+                to="/administrar-agrupaciones"
                 className="text-sm font-semibold leading-6 text-gray-500 hover:text-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
               >
                 Cancel
-              </button>
+              </Link>
               <button
                 type="submit"
                 className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
@@ -218,69 +221,52 @@ export const ModificarAgrupacion = () => {
             </div>
           </Form>
         </div>
-
-        {/*       <div className="  lg:block hidden  ">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/gropu.png?alt=media&token=dc98dedc-5d6a-48fc-b5fa-ca5237804345"
-            alt="asdasd"
-            className="w-full h-full object-cover"
-          />
-        </div> */}
       </div>
     </>
   );
 };
 
 export async function action({ request }: ActionParams) {
-  const fechaCreacion = new Date();
   const formData = await request.formData();
   const nombreAgrupacion = formData.get("nombre-agrupacion")?.toString();
   const tag = formData.get("tag-agrupacion")?.toString();
   const mision = formData.get("mision")?.toString();
   const vision = formData.get("vision")?.toString();
-  const file = formData.get("cover-photo");
+  const fileEntry = formData.get("cover-photo");
+  const agrupacionId = formData.get("agrupacion-id")?.toString();
+
   try {
-    const querySnapshot = await getDocs(
-      query(
-        collection(db, "agrupaciones_estudiantiles"),
-        where("nombre", "==", nombreAgrupacion)
-      )
-    );
+    let photoURL: string;
 
-    if (!querySnapshot.empty) {
-      console.log("El nombre de la agrupación ya está en uso.");
-      return { error: "El nombre de la agrupación ya está en uso." };
-    }
-
-    if (file instanceof File) {
-      const id = uuidv4();
-      const storageRef = ref(storage, `agrupaciones/${id}/${file.name}`);
-      await uploadBytes(storageRef, file);
-      const photoURL = await getDownloadURL(storageRef);
-      console.log(photoURL);
-
-      const agrupacionData = {
-        nombre_agrupacion: nombreAgrupacion,
-        tag,
-        mision,
-        vision,
-        foto_agrupacion: photoURL,
-        estudiantes_registrados: [],
-        fecha_creacion: fechaCreacion,
-        redes_sociales: [],
-        puntuacion: 0,
-      };
-
-      await setDoc(doc(db, "agrupaciones_estudiantiles", id), agrupacionData);
-
-      return redirect("/administrar-agrupaciones");
+    if (fileEntry instanceof File && fileEntry.size > 0) {
+      const storageRef = ref(
+        storage,
+        `agrupaciones/${agrupacionId}/${fileEntry.name}`
+      );
+      await uploadBytes(storageRef, fileEntry);
+      photoURL = await getDownloadURL(storageRef);
     } else {
-      console.error("Error al subir la imagen de portada.");
-      return { error: "Error al subir la imagen de portada." };
+      const agrupacionExistente = await getAgrupacionById(agrupacionId ?? "");
+      photoURL = agrupacionExistente?.foto_agrupacion ?? "";
     }
+
+    const agrupacionRef = doc(
+      db,
+      "agrupaciones_estudiantiles",
+      agrupacionId ?? ""
+    );
+    await updateDoc(agrupacionRef, {
+      nombre_agrupacion: nombreAgrupacion,
+      tag,
+      mision,
+      vision,
+      foto_agrupacion: photoURL,
+    });
+
+    return redirect("/administrar-agrupaciones");
   } catch (error) {
-    console.error("Error al crear la agrupación: ", error);
-    return { error: "Error al crear la agrupación." };
+    console.error("Error al actualizar la agrupación: ", error);
+    return { error: "Error al actualizar la agrupación." };
   }
 }
 

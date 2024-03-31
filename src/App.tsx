@@ -56,6 +56,7 @@ function App() {
       action: loginAction,
       loader: loginLoader,
     },
+    { path: "/test", element: <Test /> },
     {
       path: "/test",
       element: <Test />,
