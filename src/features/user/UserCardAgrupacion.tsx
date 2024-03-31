@@ -20,6 +20,8 @@ interface StudentCardProps {
   id: string;
   estudiantes_registrados: string[];
   dashed?: boolean;
+  setAgrupacionPuntuar: (id: string) => void;
+  setOpen: (open: boolean) => void;
 }
 
 const UserCardAgrupacion: React.FC<StudentCardProps> = ({
@@ -28,12 +30,18 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   id,
   nombre_agrupacion,
   dashed = false,
+  setAgrupacionPuntuar,
+  setOpen,
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isMember, setIsMember] = useState(false);
   const miembros = useSelector(getUserAgrupaciones);
   const idUser = useSelector(getUserId);
+  const handlePuntaje = () => {
+    setAgrupacionPuntuar(id);
+    setOpen(true);
+  };
 
   useEffect(() => {
     if (miembros.includes(id as never)) {
@@ -93,7 +101,6 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
             alt={nombre_agrupacion}
           />
         </figure>
-
         <div className="card-body p-3">
           <h2 className="text-black text-2xl text-center font-semibold">
             {nombre_agrupacion}
@@ -170,9 +177,12 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
           <div className="flex justify-between items-center px-4 ">
             <Paypal height={24} weight={24} />
 
-            <h3 className="font-bold text-secondary text-xl">
+            <button
+              onClick={handlePuntaje}
+              className="font-bold text-secondary text-xl"
+            >
               Puntua! <FontAwesomeIcon icon={faArrowRight} />
-            </h3>
+            </button>
           </div>
         </div>
       </div>

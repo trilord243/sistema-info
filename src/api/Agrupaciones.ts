@@ -22,6 +22,7 @@ interface Agrupaciona {
   vision: string;
   tag: string;
   puntuacion: number;
+  puntuaciones?: [];
 }
 
 const getAgrupacionesEstudiantiles = async (): Promise<

@@ -4,6 +4,7 @@ import { getAgrupacionById } from "../../api/Agrupaciones";
 import { getUserAgrupaciones } from "./userSlice";
 import { NoMember } from "./NoMember";
 import { UserCardAgrupacion } from "./UserCardAgrupacion";
+import Modal from "../../ui/Modal";
 
 interface Agrupacion {
   id: string;
@@ -18,6 +19,9 @@ interface Agrupacion {
 }
 
 export const MisAgrupaciones = () => {
+  const [open, setOpen] = useState(false);
+  const [agrupacionPuntuar, setAgrupacionPuntuar] = useState("");
+
   const membresia = useSelector(getUserAgrupaciones);
   const [agrupaciones, setAgrupaciones] = useState<Agrupacion[]>([]);
 
@@ -47,6 +51,7 @@ export const MisAgrupaciones = () => {
 
   return (
     <div className="h-screen  lg:mt-28 mt-14">
+      <Modal open={open} setOpen={setOpen} agrupacion={agrupacionPuntuar} />
       <div className="  lg:w-[60rem]   lg:mx-auto mb-11 ">
         <h2 className="text-center text-2xl px-5 lg:text-3xl ">
           Puntua tus agrupaciones, colabora con ellos via paypal y ve los
@@ -57,6 +62,8 @@ export const MisAgrupaciones = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-7  justify-items-center mt-3 ">
         {agrupaciones.map((agrupacion) => (
           <UserCardAgrupacion
+            setAgrupacionPuntuar={setAgrupacionPuntuar}
+            setOpen={setOpen}
             key={agrupacion.id}
             dashed={true}
             foto_agrupacion={agrupacion.foto_agrupacion}

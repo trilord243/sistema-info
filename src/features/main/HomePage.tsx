@@ -71,7 +71,7 @@ const HomePage: React.FC = () => {
           NOTICIAS
         </h4>
         <div
-          className="bg-blue-600 drop-shadow-xl p-3"
+          className="bg-blue-50 drop-shadow-2xl p-3"
           style={{ boxSizing: "border-box" }}
         >
           <Carrousel images={images}></Carrousel>

@@ -86,9 +86,9 @@ export const StarRating: React.FC<StarRatingProps> = ({
         {Array.from({ length: maxRating }, (_, i) => (
           <Star
             onHoverIn={() => setTempRating(i + 1)}
-            onHoverOut={() => setTempRating(null)} // Volver a null para que se muestre la calificación actual al salir
+            onHoverOut={() => setTempRating(null)}
             key={i}
-            isFull={displayRating >= i + 1} // Determina si la imagen debe estar completamente opaca o no
+            isFull={displayRating >= i + 1}
             onClick={() => handleRatingClick(i + 1)}
             imageSrc={imageSrc}
             size={size}

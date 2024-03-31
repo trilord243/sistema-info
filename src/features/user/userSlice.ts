@@ -11,6 +11,7 @@ interface UserState {
   sobre_mi: string;
   rol: string;
   banner: string;
+  puntuados?: never[];
 }
 
 const initialState = {
@@ -25,6 +26,7 @@ const initialState = {
   rol: "",
   banner: "",
   email: "",
+  puntuados: [],
 };
 
 const userSlice = createSlice({
@@ -40,6 +42,7 @@ const userSlice = createSlice({
         imagen_perfil,
         sobre_ti,
         banner,
+        puntuados,
       } = action.payload;
       state.nombre = nombre;
       state.id = id;
@@ -49,6 +52,9 @@ const userSlice = createSlice({
       state.login = true;
       state.sobre_mi = sobre_ti;
       state.banner = banner;
+      if (puntuados !== undefined) {
+        state.puntuados = puntuados;
+      }
     },
 
     updateName: (state, action) => {
@@ -81,6 +87,9 @@ const userSlice = createSlice({
     },
     resetUserState: () => {
       return initialState;
+    },
+    updatePuntuados: (state, action) => {
+      state.puntuados = action.payload;
     },
   },
 });

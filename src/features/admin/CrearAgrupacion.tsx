@@ -198,14 +198,6 @@ export const CrearAgrupacion = () => {
             </div>
           </Form>
         </div>
-
-        {/*       <div className="  lg:block hidden  ">
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/gropu.png?alt=media&token=dc98dedc-5d6a-48fc-b5fa-ca5237804345"
-            alt="asdasd"
-            className="w-full h-full object-cover"
-          />
-        </div> */}
       </div>
     </>
   );
@@ -249,6 +241,7 @@ export async function action({ request }: ActionParams) {
         fecha_creacion: fechaCreacion,
         redes_sociales: [],
         puntuacion: 0,
+        puntuaciones: [],
       };
 
       await setDoc(doc(db, "agrupaciones_estudiantiles", id), agrupacionData);
