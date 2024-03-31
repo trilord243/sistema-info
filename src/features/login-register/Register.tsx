@@ -14,6 +14,7 @@ import { doc, setDoc } from "firebase/firestore";
 import store from "../../store";
 import { updateUser } from "../user/userSlice";
 import Loader from "../../ui/loader/Loader";
+import fetchStudentByEmail from "../../api/Estudiantes";
 
 type ActionParams = {
   request: Request;
@@ -37,25 +38,32 @@ const Register = () => {
       const user = result.user;
 
       const uid = user.uid;
-      const email = user.email;
+      const email = user.email as string;
+      const verificarExiste = await fetchStudentByEmail(db, email);
 
-      const student = {
-        agrupaciones: [],
-        id: uid,
-        email: email,
-        nombre: email,
-        apellido: email,
-        rol: "usuario",
-        sobre_ti: "Me encanta la unimet!",
-        banner:
-          "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
-        imagen_perfil:
-          "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Avatar%20profile.png?alt=media&token=f15c43a4-663d-464b-8499-911c6196a684",
-      };
+      if (verificarExiste === null) {
+        console.log("existe");
+        const student = {
+          agrupaciones: [],
+          id: uid,
+          email: email,
+          nombre: email,
+          apellido: email,
+          rol: "usuario",
+          sobre_ti: "Me encanta la unimet!",
+          banner:
+            "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+          imagen_perfil:
+            "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Avatar%20profile.png?alt=media&token=f15c43a4-663d-464b-8499-911c6196a684",
+        };
 
-      await setDoc(doc(db, "estudiantes", uid), student);
-      store.dispatch(updateUser(student));
-      navigation("/profile");
+        await setDoc(doc(db, "estudiantes", uid), student);
+        store.dispatch(updateUser(student));
+        navigation("/profile");
+      } else {
+        store.dispatch(updateUser(verificarExiste));
+        navigation("/profile");
+      }
     } catch (error: unknown) {
       if (error instanceof Error) {
         error.message === "Firebase: Error (auth/email-already-in-use)."
