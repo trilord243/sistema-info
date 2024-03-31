@@ -39,10 +39,6 @@ const Register = () => {
       const uid = user.uid;
       const email = user.email;
 
-      if (email && !email.includes("unimet.edu.ve")) {
-        throw new Error("El correo debe ser de la Universidad Metropolitana");
-      }
-
       const student = {
         agrupaciones: [],
         id: uid,
@@ -57,7 +53,6 @@ const Register = () => {
           "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Avatar%20profile.png?alt=media&token=f15c43a4-663d-464b-8499-911c6196a684",
       };
 
-      console.log(student);
       await setDoc(doc(db, "estudiantes", uid), student);
       store.dispatch(updateUser(student));
       navigation("/profile");

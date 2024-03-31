@@ -5,31 +5,75 @@ import {
   Link,
   redirect,
   useActionData,
+  useNavigate,
   useNavigation,
 } from "react-router-dom";
-import { onAuthStateChanged, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
+import {
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signInWithPopup,
+} from "firebase/auth";
+import { auth, db, googleProvider } from "../../firebase/firebase";
 // import { googleProvider} from "../../firebase/firebase";
 // import { signInWithPopup } from "firebase/auth";
 import Loader from "../../ui/loader/Loader";
 
 import store from "../../store";
+import { doc, setDoc } from "firebase/firestore";
+import { updateUser } from "../user/userSlice";
 
 type ActionParams = {
   request: Request;
 };
-
+interface ActionErrors {
+  message?: string;
+}
 interface ActionErrors {
   credential?: string;
 }
 
 const Login = () => {
+  const navigation = useNavigate();
   const navigate = useNavigation();
   const isSubmiting = navigate.state === "submitting";
 
   const formErrors = useActionData();
 
+  const registerWithGoogle = async () => {
+    const errors: ActionErrors = {};
+    try {
+      const provider = googleProvider;
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
 
+      const uid = user.uid;
+      const email = user.email;
+
+      const student = {
+        agrupaciones: [],
+        id: uid,
+        email: email,
+        nombre: email,
+        apellido: email,
+        rol: "usuario",
+        sobre_ti: "Me encanta la unimet!",
+        banner:
+          "https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80",
+        imagen_perfil:
+          "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Avatar%20profile.png?alt=media&token=f15c43a4-663d-464b-8499-911c6196a684",
+      };
+
+      await setDoc(doc(db, "estudiantes", uid), student);
+      store.dispatch(updateUser(student));
+      navigation("/profile");
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        error.message === "Firebase: Error (auth/email-already-in-use)."
+          ? (errors.message = "El correo ya esta en uso")
+          : (errors.message = error.message);
+      }
+    }
+  };
 
   return (
     <>
@@ -119,7 +163,7 @@ const Login = () => {
                     </div>
 
                     <div className="mt-6 mx-auto gap-4">
-                      <button 
+                      <button
                         // onClick={handleSignInWithGoogle}
                         className="flex w-full items-center justify-center gap-3 rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm  hover:bg-gray-50 focus-visible:ring-transparent"
                       >
@@ -145,7 +189,10 @@ const Login = () => {
                             fill="#34A853"
                           />
                         </svg>
-                        <span className="text-sm font-semibold leading-6">
+                        <span
+                          onClick={registerWithGoogle}
+                          className="text-sm font-semibold leading-6"
+                        >
                           Inicia sesion con
                           <span className="font-bold"> Google</span>
                         </span>
@@ -195,9 +242,6 @@ export async function action({ request }: ActionParams) {
 }
 
 //Google
-
-
-
 
 export async function loader() {
   const checkAuth = new Promise((resolve, reject) => {

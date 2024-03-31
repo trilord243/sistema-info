@@ -47,6 +47,7 @@ export default function Profile() {
   const navigate1 = useNavigation();
   const isSubmiting = navigate1.state === "submitting";
 
+  const [previewPhoto, setPreviewPhoto] = useState<string | null>(null);
   const [coverPhoto, setcoverPhoto] = useState<string | null>(null);
   const formData = useActionData() as ActionData | undefined;
 
@@ -61,7 +62,9 @@ export default function Profile() {
       const reader = new FileReader();
       reader.onloadend = () => {
         if (typeof reader.result === "string") {
-          type === "profile" ? "" : setcoverPhoto(reader.result);
+          type === "profile"
+            ? setPreviewPhoto(reader.result)
+            : setcoverPhoto(reader.result);
         }
       };
       reader.readAsDataURL(file);
@@ -180,7 +183,7 @@ export default function Profile() {
                       />
                     </div>
                     <p className="mt-3 text-sm leading-6 text-gray-600">
-                      Escribe una breve descripción sobre ti
+                      Escrieb una breve descipción sobre ti.
                     </p>
                   </div>
 
@@ -196,9 +199,8 @@ export default function Profile() {
                         className="h-12 w-12 text-gray-300"
                         aria-hidden="true"
                       /> */}
-
                       <img
-                        src={profilePhoto || profilePhoto}
+                        src={previewPhoto || profilePhoto}
                         className="h-16 w-16 rounded-full"
                         alt="Profile foto"
                       />
