@@ -9,7 +9,7 @@ import {
 import { useEffect, useState } from "react";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-
+import { useParams } from "react-router-dom";
 export interface Agrupacion {
   id: string;
   estudiantes_registradors: string[];
@@ -29,6 +29,7 @@ interface AgrupacionData {
 
 export default function AgrupacionPage() {
   const { agrupacion } = useLoaderData() as AgrupacionData;
+  const params = useParams();
 
   const idUser = useSelector(getUserId);
   const miembros = useSelector(getUserAgrupaciones);
@@ -44,9 +45,13 @@ export default function AgrupacionPage() {
   const handleJoinClub = async () => {
     if (!isMember) {
       const userRef = doc(db, "estudiantes", idUser);
+      const groupRef = doc(db, "agrupaciones_estudiantiles", params.id ?? "");
       try {
         await updateDoc(userRef, {
           agrupaciones: arrayUnion(agrupacion.id),
+        });
+        await updateDoc(groupRef, {
+          estudiantes_registrados: arrayUnion(idUser),
         });
         const array = [...miembros, agrupacion.id];
         dispatch(updateAgrupaciones(array));
@@ -61,9 +66,13 @@ export default function AgrupacionPage() {
   const handleDeleteClub = async () => {
     if (isMember) {
       const userRef = doc(db, "estudiantes", idUser);
+      const groupRef = doc(db, "agrupaciones_estudiantiles", params.id ?? "");
       try {
         await updateDoc(userRef, {
           agrupaciones: arrayRemove(agrupacion.id),
+        });
+        await updateDoc(groupRef, {
+          estudiantes_registrados: arrayRemove(idUser),
         });
         const array = miembros.filter((id) => id !== agrupacion.id);
         dispatch(updateAgrupaciones(array));

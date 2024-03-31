@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { formatTimestampToDate } from "../../utils/DateConverter";
 import { AgrupacionCard } from "./AdminAgrupaciones";
 
@@ -81,12 +81,12 @@ const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
           }  my-4 `}
         >
           {!agrupacionesVacias ? (
-            <button
-              type="button"
-              className="rounded-md bg-blue-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            <Link
+              to={`/miembros-agrupacion/${id}`}
+              className="rounded-md bg-blue-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 flex justify-center items-center"
             >
               Ver miembros
-            </button>
+            </Link>
           ) : (
             <button
               onClick={deleteButton}

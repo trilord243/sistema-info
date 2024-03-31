@@ -43,6 +43,10 @@ import { BuscarAgrupaciones } from "./features/user/BuscarAgrupaciones";
 import UsuariosRegistrados, {
   loader as registerUserLoader,
 } from "./features/admin/UsariosRegistrados";
+import {
+  MiembrosAgrupacion,
+  loader as memberLoader,
+} from "./features/user/MiembrosAgrupacion";
 
 function App() {
   const router = createBrowserRouter([
@@ -81,6 +85,11 @@ function App() {
           loader: protectedLoader,
           children: [
             {
+              path: "/miembros-agrupacion/:id",
+              element: <MiembrosAgrupacion />,
+              loader: memberLoader,
+            },
+            {
               element: <UserLayout />,
               loader: userLoader,
 
@@ -94,6 +103,7 @@ function App() {
                   path: "/mis-agrupaciones",
                   element: <MisAgrupaciones />,
                 },
+
                 {
                   path: "/buscar-agrupaciones",
                   element: <BuscarAgrupaciones />,

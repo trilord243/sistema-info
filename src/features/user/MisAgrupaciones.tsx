@@ -7,7 +7,7 @@ import { UserCardAgrupacion } from "./UserCardAgrupacion";
 
 interface Agrupacion {
   id: string;
-  estudiantes_registradors: string[];
+  estudiantes_registrados: string[];
   foto_agrupacion: string;
   mision: string;
   nombre_agrupacion: string;
@@ -46,7 +46,7 @@ export const MisAgrupaciones = () => {
   }
 
   return (
-    <div className="h-screen lg:mt-28 mt-14">
+    <div className="h-screen  lg:mt-28 mt-14">
       <div className="  lg:w-[60rem]   lg:mx-auto mb-11 ">
         <h2 className="text-center text-2xl px-5 lg:text-3xl ">
           Puntua tus agrupaciones, colabora con ellos via paypal y ve los
@@ -64,7 +64,7 @@ export const MisAgrupaciones = () => {
             tag={agrupacion.tag}
             nombre_agrupacion={agrupacion.nombre_agrupacion}
             id={agrupacion.id}
-            estudiantes_registrados={agrupacion.estudiantes_registradors}
+            estudiantes_registrados={agrupacion.estudiantes_registrados}
           />
         ))}
       </div>

@@ -4,6 +4,8 @@ import {
   where,
   getDocs,
   Firestore,
+  doc,
+  getDoc,
 } from "firebase/firestore";
 
 export interface Student {
@@ -57,5 +59,25 @@ export async function fetchStudents(db: Firestore): Promise<Student[]> {
   } catch (error) {
     console.error("Error al buscar los estudiantes:", error);
     throw new Error("Error al buscar los estudiantes");
+  }
+}
+
+export async function fetchStudentById(
+  db: Firestore,
+  id: string
+): Promise<Student | null> {
+  try {
+    const studentRef = doc(db, "estudiantes", id);
+    const docSnapshot = await getDoc(studentRef);
+
+    if (docSnapshot.exists()) {
+      const studentData = docSnapshot.data() as Student;
+      return studentData;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.error("Error al buscar el estudiante por ID:", error);
+    throw new Error("Error al buscar el estudiante por ID");
   }
 }

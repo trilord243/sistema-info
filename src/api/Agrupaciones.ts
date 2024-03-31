@@ -12,6 +12,18 @@ interface Agrupacion {
   id: string;
 }
 
+interface Agrupaciona {
+  id: string;
+  estudiantes_registrados: string[];
+  foto_agrupacion: string;
+  mision: string;
+  nombre_agrupacion: string;
+  redes_sociales: string[];
+  vision: string;
+  tag: string;
+  puntuacion: number;
+}
+
 const getAgrupacionesEstudiantiles = async (): Promise<
   Agrupacion[] | Error
 > => {
@@ -33,7 +45,7 @@ const getAgrupacionesEstudiantiles = async (): Promise<
   }
 };
 
-const getAgrupacionById = async (id: string): Promise<Agrupacion | Error> => {
+const getAgrupacionById = async (id: string): Promise<Agrupacion | null> => {
   try {
     const docRef = doc(db, "agrupaciones_estudiantiles", id);
     const docSnap = await getDoc(docRef);
@@ -42,13 +54,13 @@ const getAgrupacionById = async (id: string): Promise<Agrupacion | Error> => {
       return {
         id: docSnap.id,
         ...docSnap.data(),
-      } as Agrupacion;
+      } as Agrupaciona;
     } else {
-      throw new Error("No existe una agrupación con el ID proporcionado");
+      return null;
     }
   } catch (error) {
     console.error("Error al obtener la agrupación:", error);
-    return new Error("Error al obtener la agrupación");
+    return null;
   }
 };
 
