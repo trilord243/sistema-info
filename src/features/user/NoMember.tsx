@@ -25,9 +25,8 @@ export const NoMember = () => {
           </h2>
 
           <p>
-            Unete a una agrupacion para poder tener una aprendizaje integro,
-            compartas personas con los mismos conocimienos y mucho mas. la
-            universideas
+            Únete a una agrupación para poder tener un aprendizaje íntegro,
+            compartas con personas con los mismos intereses y mucho más.
           </p>
           <Link
             to="/buscar-agrupaciones"
