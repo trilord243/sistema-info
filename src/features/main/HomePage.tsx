@@ -42,7 +42,7 @@ const HomePage: React.FC = () => {
     useState(agrupaciones);
 
   const images = [
-    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-FERIA-DE-EMPLEO-2024-6-980x653.jpg",
+    "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/roversismo.jpg?alt=media&token=acfd3253-89d1-4395-87cc-0467ee0265fb",
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-2-980x653.jpg",
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-5-980x653.jpg",
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-CONVERSATORIO-DE-NIXON-8-980x653.jpg",
