@@ -162,7 +162,7 @@ export const MisAgrupaciones = () => {
             htmlFor="categoria"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Categoria
+            Categoría
           </label>
           <select
             id="categoria"
