@@ -45,6 +45,7 @@ export default function AgrupacionPage() {
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedAmount(event.target.value);
   };
+  console.log(selectedAmount);
 
   const { agrupacion } = useLoaderData() as AgrupacionData;
   const params = useParams();
@@ -57,9 +58,7 @@ export default function AgrupacionPage() {
   const dispatch = useDispatch();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const puntuados = useSelector(getPuntuados) || [];
-  console.log(puntuados);
-  console.log(params.id);
-  console.log(puntuados.includes(params.id as never));
+
   useEffect(() => {
     if (miembros.includes(agrupacion.id as never)) {
       setIsMember(true);

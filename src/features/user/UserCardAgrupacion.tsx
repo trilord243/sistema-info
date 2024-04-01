@@ -38,7 +38,6 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   setAgrupacionPuntuar = () => {},
   setOpen = () => {},
 }) => {
-  console.log(id);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const puntuados = useSelector(getPuntuados) || [];
   console.log(puntuados);
