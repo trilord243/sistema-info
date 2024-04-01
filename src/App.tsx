@@ -47,7 +47,7 @@ import {
   MiembrosAgrupacion,
   loader as memberLoader,
 } from "./features/user/MiembrosAgrupacion";
-
+import "./index.css";
 function App() {
   const router = createBrowserRouter([
     {

@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import { StarFijo } from "./StarFijo";
 
 interface CardProps {
   foto_agrupacion: string;
@@ -6,6 +7,7 @@ interface CardProps {
   tag: string;
   nombre_agrupacion: string;
   id: string;
+  puntaje: number;
 }
 
 const Card: React.FC<CardProps> = ({
@@ -13,8 +15,10 @@ const Card: React.FC<CardProps> = ({
   mision,
   id,
   nombre_agrupacion,
+  puntaje,
 }) => {
   const navigate = useNavigate();
+  const puntajeRedondeado = Math.round(puntaje);
   return (
     <div className="card w-80   bg-white shadow-2xl">
       <figure className="h-48 p-4 ">
@@ -24,6 +28,15 @@ const Card: React.FC<CardProps> = ({
           alt={nombre_agrupacion}
         />
       </figure>
+      <div className="flex justify-center items-center">
+        <h3>{puntajeRedondeado}/5</h3>
+        <StarFijo
+          maxRating={5}
+          size={48}
+          onsetRating={(rating) => console.log(rating)}
+          fixedRating={puntajeRedondeado}
+        />
+      </div>
 
       <div className="card-body p-3">
         <h2 className="text-black text-2xl text-center font-semibold">

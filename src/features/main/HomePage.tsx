@@ -1,16 +1,21 @@
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useLoaderData } from "react-router-dom";
-import { getAgrupacionesEstudiantiles } from "../../api/Agrupaciones";
+import {
+  getAgrupacionesEstudiantiles,
+  obtenerTopAgrupaciones,
+} from "../../api/Agrupaciones";
 
 import Card from "../../ui/Card";
 
 import MainPageComponent from "./MainPageComponent";
 import Carrousel from "./Carrousel";
+import { useEffect, useState } from "react";
+import Top4 from "./Top4";
 
-export interface Agrupacion {
+interface Agrupacion {
   id: string;
-  estudiantes_registradors: string[];
+  estudiantes_registrados: string[];
   foto_agrupacion: string;
   mision: string;
   nombre_agrupacion: string;
@@ -18,13 +23,14 @@ export interface Agrupacion {
   vision: string;
   tag: string;
   puntuacion: number;
-  fecha_creacion: string;
+  puntuaciones?: number[];
 }
 
 const HomePage: React.FC = () => {
   const { agrupaciones = [] } = useLoaderData() as {
     agrupaciones: Agrupacion[];
   };
+  const [topAgrupaciones, setTopAgrupaciones] = useState([] as Agrupacion[]);
 
   const images = [
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-FERIA-DE-EMPLEO-2024-6-980x653.jpg",
@@ -34,6 +40,18 @@ const HomePage: React.FC = () => {
     "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-CONVERSATORIO-DE-NIXON-4-980x653.jpg",
   ];
 
+  useEffect(() => {
+    const cargarTopAgrupaciones = async () => {
+      try {
+        const agrupaciones = await obtenerTopAgrupaciones();
+        setTopAgrupaciones(agrupaciones);
+      } catch (error) {
+        console.error("Error al cargar las top agrupaciones:", error);
+      }
+    };
+
+    cargarTopAgrupaciones();
+  }, []);
   return (
     <div className="bg-gray-50" id="hola">
       <MainPageComponent />
@@ -53,6 +71,7 @@ const HomePage: React.FC = () => {
           {agrupaciones.map((agrupacion: Agrupacion) => (
             <Card
               key={agrupacion.id}
+              puntaje={agrupacion.puntuacion}
               id={agrupacion.id}
               foto_agrupacion={agrupacion.foto_agrupacion}
               mision={agrupacion.mision}
@@ -76,7 +95,15 @@ const HomePage: React.FC = () => {
         >
           <Carrousel images={images}></Carrousel>
         </div>
-        <div className=" w-full h-10 mt-24 bg-red-600"></div>
+        <div className=" w-full h-10 mt-24 ">
+          <h3 className="text-center text-4xl font-bold text-primary">
+            Top 4 agrupaciones
+          </h3>
+          <p className="text-center bg-white  text-gray-500 font-light mt-6 ">
+            Estas son las 4 agrupaciones con la mayor cantidad de eugenios
+          </p>
+          <Top4 agrupaciones={topAgrupaciones} />
+        </div>
       </div>
     </div>
   );

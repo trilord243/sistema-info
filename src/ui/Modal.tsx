@@ -1,21 +1,80 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useRef, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { StarRating } from "./StarRating";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  getPuntuados,
+  getUserId,
+  updatePuntuados,
+} from "../features/user/userSlice";
+import { arrayUnion, doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase/firebase";
 
 interface ModalProps {
   open: boolean;
   setOpen: (open: boolean) => void;
   agrupacion: string;
 }
+interface AgrupacionData {
+  puntuaciones: number[];
+}
 
 export default function Modal({ open, setOpen, agrupacion }: ModalProps) {
+  const userId = useSelector(getUserId);
+  const puntuados = useSelector(getPuntuados) || [];
+  const dispatch = useDispatch();
   const cancelButtonRef = useRef(null);
+
   const [rating, setRating] = useState(0);
-  console.log(agrupacion);
+
   const handleSetRating = (newRating: number) => {
     setRating(newRating);
   };
-  console.log(rating);
+
+  const handlePuntuar = async () => {
+    const agrupacionRef = doc(db, "agrupaciones_estudiantiles", agrupacion);
+
+    try {
+      // Obtener el documento actual de la agrupación
+      const agrupacionDoc = await getDoc(agrupacionRef);
+      let agrupacionData = agrupacionDoc.data() as AgrupacionData;
+      if (!agrupacionData || !agrupacionData.puntuaciones) {
+        agrupacionData = { puntuaciones: [] };
+      }
+
+      // Agregar la nueva puntuación al array de puntuaciones
+      const nuevasPuntuaciones = [...agrupacionData.puntuaciones, rating];
+
+      // Calcular el promedio de las puntuaciones
+      const promedioPuntuacion =
+        nuevasPuntuaciones.reduce((acc, curr) => acc + curr, 0) /
+        nuevasPuntuaciones.length;
+
+      // Actualizar el documento de la agrupación con las nuevas puntuaciones y el promedio
+      await updateDoc(agrupacionRef, {
+        puntuaciones: nuevasPuntuaciones,
+        puntuacion: promedioPuntuacion,
+      });
+
+      // Actualizar el documento del estudiante para reflejar que ha puntuado esta agrupación
+      const estudianteRef = doc(db, "estudiantes", userId);
+      await updateDoc(estudianteRef, {
+        puntuados: arrayUnion(agrupacion),
+      });
+
+      // Actualizar el estado local
+      const array = [...puntuados, agrupacion];
+      dispatch(updatePuntuados(array));
+
+      setOpen(false);
+    } catch (error) {
+      console.error("Error al puntuar la agrupación:", error);
+    }
+  };
+
+  useEffect(() => {
+    setRating(0);
+  }, [agrupacion]);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -76,7 +135,7 @@ export default function Modal({ open, setOpen, agrupacion }: ModalProps) {
                   <button
                     type="button"
                     className="inline-flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 sm:col-start-2"
-                    onClick={() => setOpen(false)}
+                    onClick={handlePuntuar}
                   >
                     Puntuar
                   </button>

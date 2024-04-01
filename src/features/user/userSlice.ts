@@ -108,7 +108,8 @@ export const getUserSobreMi = (state: { user: UserState }) =>
   state.user.sobre_mi;
 
 export const getUserId = (state: { user: UserState }) => state.user.id;
-
+export const getPuntuados = (state: { user: UserState }) =>
+  state.user.puntuados;
 export const getBannerImage = (state: { user: UserState }) => state.user.banner;
 export const getUserLogin = (state: { user: UserState }) => state.user.login;
 export const {
@@ -122,6 +123,7 @@ export const {
   updateSobreMi,
   updateUser,
   resetUserState,
+  updatePuntuados,
 } = userSlice.actions;
 
 export default userSlice.reducer;

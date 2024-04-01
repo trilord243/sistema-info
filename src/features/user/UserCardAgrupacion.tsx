@@ -5,6 +5,7 @@ import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getPuntuados,
   getUserAgrupaciones,
   getUserId,
   updateAgrupaciones,
@@ -33,9 +34,14 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   setAgrupacionPuntuar = () => {},
   setOpen = () => {},
 }) => {
+  console.log(id);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const puntuados = useSelector(getPuntuados) || [];
+  console.log(puntuados);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isMember, setIsMember] = useState(false);
+  const [isPuntaje, setIsPuntaje] = useState(false);
   const miembros = useSelector(getUserAgrupaciones);
   const idUser = useSelector(getUserId);
   const handlePuntaje = () => {
@@ -47,7 +53,10 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
     if (miembros.includes(id as never)) {
       setIsMember(true);
     }
-  }, [miembros, id]);
+    if (puntuados.includes(id as never)) {
+      setIsPuntaje(true);
+    }
+  }, [miembros, id, puntuados]);
 
   const handleJoinClub = async () => {
     if (!isMember) {
@@ -81,7 +90,9 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
         await updateDoc(groupRef, {
           estudiantes_registrados: arrayRemove(idUser),
         });
-        const array = miembros.filter((id) => id !== id);
+        const array = miembros.filter((memberId) => memberId !== id);
+
+        console.log(array);
         dispatch(updateAgrupaciones(array));
 
         setIsMember(false);
@@ -177,12 +188,25 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
           <div className="flex justify-between items-center px-4 ">
             <Paypal height={24} weight={24} />
 
-            <button
-              onClick={handlePuntaje}
-              className="font-bold text-secondary text-xl"
-            >
-              Puntua! <FontAwesomeIcon icon={faArrowRight} />
-            </button>
+            {!isPuntaje ? (
+              <button
+                onClick={handlePuntaje}
+                className="font-bold text-secondary text-xl"
+              >
+                Puntua! <FontAwesomeIcon icon={faArrowRight} />
+              </button>
+            ) : (
+              <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-100 px-2  text-xs font-medium text-green-700">
+                <svg
+                  className="h-1.5 w-1.5 fill-green-500"
+                  viewBox="0 0 6 6"
+                  aria-hidden="true"
+                >
+                  <circle cx={3} cy={3} r={3} />
+                </svg>
+                Ya puntuase!
+              </span>
+            )}
           </div>
         </div>
       </div>

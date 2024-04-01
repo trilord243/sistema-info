@@ -6,6 +6,9 @@ import {
   DocumentData,
   doc,
   getDoc,
+  query,
+  orderBy,
+  limit,
 } from "firebase/firestore";
 
 interface Agrupacion {
@@ -65,4 +68,28 @@ const getAgrupacionById = async (id: string): Promise<Agrupaciona | null> => {
   }
 };
 
-export { getAgrupacionesEstudiantiles, getAgrupacionById };
+const obtenerTopAgrupaciones = async (): Promise<Agrupaciona[]> => {
+  const agrupacionesRef = collection(db, "agrupaciones_estudiantiles");
+  const q = query(agrupacionesRef, orderBy("puntuacion", "desc"), limit(4));
+
+  try {
+    const querySnapshot = await getDocs(q);
+    const topAgrupaciones: Agrupaciona[] = [];
+    querySnapshot.forEach((doc) => {
+      topAgrupaciones.push({
+        id: doc.id,
+        ...(doc.data() as Omit<Agrupaciona, "id">),
+      });
+    });
+    return topAgrupaciones;
+  } catch (error) {
+    console.error("Error al obtener las top agrupaciones:", error);
+    return [];
+  }
+};
+
+export {
+  getAgrupacionesEstudiantiles,
+  getAgrupacionById,
+  obtenerTopAgrupaciones,
+};
