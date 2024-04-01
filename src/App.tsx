@@ -15,7 +15,7 @@ import {
 } from "./features/layout/ProtectedRoute";
 
 import Profile, { action as ProfieAction } from "./features/user/Profile";
-import { Test } from "./ui/Test";
+
 import { UserLayout, loader as userLoader } from "./features/user/UserLayout";
 import {
   AdminLayout,
@@ -56,11 +56,7 @@ function App() {
       action: loginAction,
       loader: loginLoader,
     },
-    { path: "/test", element: <Test /> },
-    {
-      path: "/test",
-      element: <Test />,
-    },
+
     {
       path: "/register",
       element: <Register />,

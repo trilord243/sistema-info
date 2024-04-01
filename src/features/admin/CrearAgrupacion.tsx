@@ -133,6 +133,24 @@ export const CrearAgrupacion = () => {
                   />
                 </div>
               </div>
+              <div>
+                <label
+                  htmlFor="correo-agrupacion"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Correo de la agrupación
+                </label>
+                <div className="mt-2">
+                  <input
+                    type="email"
+                    name="correo-agrupacion"
+                    id="correo-agrupacion"
+                    className="block w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="ejemplo@correo.com"
+                    required
+                  />
+                </div>
+              </div>
 
               <div className="col-span-full">
                 <label
@@ -210,6 +228,7 @@ export async function action({ request }: ActionParams) {
   const tag = formData.get("tag-agrupacion")?.toString();
   const mision = formData.get("mision")?.toString();
   const vision = formData.get("vision")?.toString();
+  const correoAgrupacion = formData.get("correo-agrupacion")?.toString();
   const file = formData.get("cover-photo");
   try {
     const querySnapshot = await getDocs(
@@ -240,6 +259,7 @@ export async function action({ request }: ActionParams) {
         estudiantes_registrados: [],
         fecha_creacion: fechaCreacion,
         redes_sociales: [],
+        correo: correoAgrupacion,
         puntuacion: 0,
         puntuaciones: [],
       };

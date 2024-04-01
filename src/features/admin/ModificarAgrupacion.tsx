@@ -30,6 +30,7 @@ export interface Agrupacion {
   tag: string;
   fecha_creacion: Timestamp;
   puntuacion: number;
+  correo: string;
 }
 
 export interface Timestamp {
@@ -120,7 +121,24 @@ export const ModificarAgrupacion = () => {
                 </select>
               </div>
             </div>
-
+            <div>
+              <label
+                htmlFor="correo-agrupacion"
+                className="block text-sm font-medium leading-6 text-gray-900"
+              >
+                Correo de la agrupación
+              </label>
+              <div className="mt-2">
+                <input
+                  type="email"
+                  name="correo-agrupacion"
+                  id="correo-agrupacion"
+                  className="block w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  placeholder="ejemplo@correo.com"
+                  defaultValue={loader?.correo || ""}
+                />
+              </div>
+            </div>
             <div className="flex flex-col px-7 w-full">
               <div>
                 <label
@@ -234,7 +252,7 @@ export async function action({ request }: ActionParams) {
   const vision = formData.get("vision")?.toString();
   const fileEntry = formData.get("cover-photo");
   const agrupacionId = formData.get("agrupacion-id")?.toString();
-
+  const correoAgrupacion = formData.get("correo-agrupacion")?.toString();
   try {
     let photoURL: string;
 
@@ -257,6 +275,7 @@ export async function action({ request }: ActionParams) {
     );
     await updateDoc(agrupacionRef, {
       nombre_agrupacion: nombreAgrupacion,
+      correo: correoAgrupacion,
       tag,
       mision,
       vision,

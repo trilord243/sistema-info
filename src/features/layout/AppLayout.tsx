@@ -21,6 +21,8 @@ const AppLayout: React.FC = () => {
       if (currentUser) {
         const email = currentUser.email || "";
         fetchStudentByEmail(db, email).then((student) => {
+          console.log("Estudiante", student);
+
           if (student?.rol === "admin") {
             dispatch(updateAdmin(student?.nombre));
             setUserType("admin");
