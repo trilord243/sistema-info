@@ -202,7 +202,7 @@ const HomePage: React.FC = () => {
 
       {agrupacionesFiltradas.length === 0 && (
         <h1 className="text-center text-5xl mb-36 font-bold text-primary">
-          No se encontró Agrupaciones :c
+          No se encontró la agrupación :c
         </h1>
       )}
 
