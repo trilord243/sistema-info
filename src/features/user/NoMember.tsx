@@ -16,8 +16,8 @@ export const NoMember = () => {
             <Group />
           </div>
           <h2 className="text-4xl  lg:block hidden  ">
-            No eres miembro de ninguna <br /> agrupacion{" "}
-            <span className="text-primary font-bold "> !Unete! </span>
+            No eres miembro de ninguna <br /> agrupación{" "}
+            <span className="text-primary font-bold "> ¡Únete! </span>
           </h2>
           <h2 className="text-3xl lg:hidden text-center  ">
             No eres miembro de ninguna agrupacion{" "}
