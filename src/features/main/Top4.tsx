@@ -1,3 +1,5 @@
+import Footer from "./Footer";
+
 interface Agrupacion {
   nombre_agrupacion: string;
   foto_agrupacion: string;
@@ -33,6 +35,7 @@ export default function Top4({ agrupaciones }: Top4Props) {
           ))}
         </ul>
       </div>
+      <Footer />
     </div>
   );
 }

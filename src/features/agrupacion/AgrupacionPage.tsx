@@ -1,4 +1,4 @@
-import { LoaderFunctionArgs, useLoaderData } from "react-router-dom";
+import { Link, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { getAgrupacionById } from "../../api/Agrupaciones";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useParams } from "react-router-dom";
+import { getIsLogged } from "../admin/adminSlice";
 export interface Agrupacion {
   id: string;
   estudiantes_registradors: string[];
@@ -30,6 +31,8 @@ interface AgrupacionData {
 export default function AgrupacionPage() {
   const { agrupacion } = useLoaderData() as AgrupacionData;
   const params = useParams();
+  const isLogged = useSelector(getIsLogged);
+  console.log(isLogged);
 
   const idUser = useSelector(getUserId);
   const miembros = useSelector(getUserAgrupaciones);
@@ -98,27 +101,38 @@ export default function AgrupacionPage() {
             <p className="mt-6 text-base leading-7 text-gray-600">
               {agrupacion.vision}
             </p>
-            <div className="mt-10 flex">
-              {!isMember ? (
-                <button
-                  onClick={handleJoinClub}
-                  className="rounded-md bg-secondary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-                >
-                  Únete <span aria-hidden="true">&rarr;</span>
-                </button>
-              ) : (
-                <div className="flex">
+            {isLogged ? (
+              <div className="mt-10 flex">
+                {!isMember ? (
                   <button
-                    onClick={handleDeleteClub}
-                    className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                    onClick={handleJoinClub}
+                    className="rounded-md bg-secondary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
-                    Abandonar
+                    Únete <span aria-hidden="true">&rarr;</span>
                   </button>
+                ) : (
+                  <div className="flex">
+                    <button
+                      onClick={handleDeleteClub}
+                      className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+                    >
+                      Abandonar
+                    </button>
 
-                  <h1>Ya eres miembro!</h1>
-                </div>
-              )}
-            </div>
+                    <h1>Ya eres miembro!</h1>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="mt-10">
+                <Link
+                  to="/login"
+                  className="rounded-md bg-secondary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 "
+                >
+                  Loggeate!
+                </Link>
+              </div>
+            )}
           </div>
           <div className="flex flex-wrap items-start justify-end gap-6 sm:gap-8 lg:contents">
             <div className="w-0 flex-auto lg:ml-auto lg:w-auto lg:flex-none lg:self-end">

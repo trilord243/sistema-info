@@ -53,7 +53,7 @@ const HomePage: React.FC = () => {
     cargarTopAgrupaciones();
   }, []);
   return (
-    <div className="bg-gray-50" id="hola">
+    <div className="bg-white" id="hola">
       <MainPageComponent />
       <div className="w-full lg:mt-32 mt-12 ">
         <h3 className="text-center lg:text-6xl text-3xl   ">

@@ -1,3 +1,5 @@
+import { PaypalButton } from "./PaypalButton";
+
 export const Test = () => {
-  return <div>Test</div>;
+  return <PaypalButton totalValue="100" invoice="Bolas de mono " />;
 };
