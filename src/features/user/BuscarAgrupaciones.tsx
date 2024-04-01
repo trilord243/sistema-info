@@ -61,7 +61,7 @@ export const BuscarAgrupaciones = () => {
       <h3 className="text-center font-semibold text-3xl my-12">
         Busca las agrupaciones que más te gusten y
         <br />
-        <span className="text-primary font-bold">¡UNETE!</span>
+        <span className="text-primary font-bold">¡ÚNETE!</span>
       </h3>
       <div className="flex lg:flex-row flex-col lg:px-0 px-5 justify-center gap-16 mt-10 ">
         <div>
