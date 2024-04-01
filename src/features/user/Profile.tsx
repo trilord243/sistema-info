@@ -261,7 +261,7 @@ export default function Profile() {
                             />
                           </label>
                           <p className="pl-1 text-white font-bold ">
-                            O arrastrala{" "}
+                            O arrástrala{" "}
                           </p>
                         </div>
                         <p className="text-xs leading-5 text-gray-600 font-semibold">
