@@ -173,7 +173,7 @@ export const MisAgrupaciones = () => {
           >
             <option>Todos</option>
             <option>Social</option>
-            <option>Tecnologia</option>
+            <option>Tecnología</option>
             <option>Ciencia</option>
             <option>Musica</option>
             <option>Debate</option>
