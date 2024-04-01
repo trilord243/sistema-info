@@ -8,20 +8,20 @@ export const InformationBar = () => {
         <img src={creacion} alt="xd" />
         <h3 className="text-black font-bold">Creacion de proyectos </h3>
         <p className="text-sm">
-          Crea proyectos con tus compaleros en la universidad
+          Crea proyectos con tus compañeros en la universidad
         </p>
       </div>
       <div className="w-24 h-full lg:w-64  ">
         <img src={social} alt="xd" />
         <h3 className="text-black font-bold">Conecta compañeros </h3>
         <p className="text-sm">
-          Haz una agrupacion con los compañeros cpon los mismos intereses
+          Haz una agrupacion con compañeros con los mismos intereses
         </p>
       </div>
       <div className="w-24 h-full lg:w-64  ">
         <img src={organizate} alt="xd" />
-        <h3 className="text-black font-bold">Organizate </h3>
-        <p className="text-sm">Organiza los proyectos con tu agrupacion</p>
+        <h3 className="text-black font-bold">Organízate </h3>
+        <p className="text-sm">Organiza los proyectos con tu agrupación</p>
       </div>
     </div>
   );

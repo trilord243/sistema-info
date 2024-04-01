@@ -130,7 +130,7 @@ const HomePage: React.FC = () => {
             htmlFor="nombre"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Buscar agrupacion
+            Buscar agrupación
           </label>
           <div className="mt-2 flex rounded-md shadow-sm">
             <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -144,7 +144,8 @@ const HomePage: React.FC = () => {
                 type="nombre"
                 name="nombre"
                 id="nombre"
-                className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full 
+                text-white rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="Metrotech"
                 onChange={(e) => setNombreFiltro(e.target.value)}
               />
@@ -165,7 +166,7 @@ const HomePage: React.FC = () => {
             htmlFor="categoria"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Categoria
+            Categoría
           </label>
           <select
             id="categoria"
@@ -176,9 +177,9 @@ const HomePage: React.FC = () => {
           >
             <option>Todos</option>
             <option>Social</option>
-            <option>Tecnologia</option>
+            <option>Tecnología</option>
             <option>Ciencia</option>
-            <option>Musica</option>
+            <option>Música</option>
             <option>Debate</option>
           </select>
         </div>
@@ -202,7 +203,7 @@ const HomePage: React.FC = () => {
 
       {agrupacionesFiltradas.length === 0 && (
         <h1 className="text-center text-5xl mb-36 font-bold text-primary">
-          No se encontro Agrupaciones :c
+          No se encontró la agrupación :c
         </h1>
       )}
 
@@ -220,7 +221,8 @@ const HomePage: React.FC = () => {
           <Carrousel images={images}></Carrousel>
         </div>
         <div className=" w-full h-10 mt-24 ">
-          <h3 className="text-center text-4xl font-bold text-primary">
+          <h3 className="text-center text-4xl font-bold text-primary" 
+          id="Top4">
             Top 4 agrupaciones
           </h3>
           <p className="text-center bg-white  text-gray-500 font-light mt-6 ">

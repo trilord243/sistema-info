@@ -45,10 +45,10 @@ export const CrearAgrupacion = () => {
         <div className="w-full h-full   ">
           <div className="w-full  p-9 mb-">
             <h3 className="lg:text-4xl text-3xl text-center font-bold mb-2 ">
-              Crear una <span className="text-primary">agrupacion</span>
+              Crear una <span className="text-primary">agrupación</span>
             </h3>
             <p className="text-lg text-gray-500 font-normal leading-7  text-center">
-              Pon toda la información que necesita de la agrupacion
+              Proporcione toda la información necesaria para crear la agrupación
             </p>
           </div>
 
@@ -59,7 +59,7 @@ export const CrearAgrupacion = () => {
                   htmlFor="nombre-agrupacion"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Nombre de la agrupacion
+                  Nombre de la agrupación
                 </label>
                 <div className="mt-2">
                   <input
@@ -78,7 +78,7 @@ export const CrearAgrupacion = () => {
                   htmlFor="tag-agrupacion"
                   className="block text-sm font-medium leading-6 mt-3 text-gray-900"
                 >
-                  Tag de la agrupacion
+                  Tag de la agrupación
                 </label>
                 <select
                   id="tag-agrupacion"
@@ -87,11 +87,13 @@ export const CrearAgrupacion = () => {
                   defaultValue="Social"
                 >
                   <option>Social</option>
-                  <option>Tecnologia</option>
+                  <option>Tecnología</option>
                   <option>Ciencia</option>
-                  <option>Musica</option>
+
+                  <option>Música</option>
+
                   <option>Arte</option>
-                  <option>Debate</option>
+   <option>Debate</option>
                 </select>
               </div>
               <div className="mt-5">
@@ -120,7 +122,7 @@ export const CrearAgrupacion = () => {
                   htmlFor="mision"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Mision
+                  Misión
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -139,7 +141,7 @@ export const CrearAgrupacion = () => {
                   htmlFor="vision"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Vision
+                  Visión
                 </label>
                 <div className="mt-2">
                   <textarea
@@ -190,7 +192,7 @@ export const CrearAgrupacion = () => {
                         />
                       </label>
                       <p className="pl-1 text-white font-bold ">
-                        O arrastrala{" "}
+                        O arrástrala{" "}
                       </p>
                     </div>
                     <p className="text-xs leading-5 text-gray-600 font-semibold">
@@ -206,13 +208,13 @@ export const CrearAgrupacion = () => {
                 type="button"
                 className="text-sm font-semibold leading-6 text-gray-500 hover:text-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 type="submit"
                 className="rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
-                Save
+                Guardar
               </button>
             </div>
           </Form>

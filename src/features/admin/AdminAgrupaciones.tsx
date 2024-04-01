@@ -140,7 +140,7 @@ export const AdminAgrupaciones = () => {
                 htmlFor="estudiantes"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Filtrar por agrupacioenes vacias
+                Filtrar por agrupaciones vacías
               </label>
               <select
                 id="estudiantes"
@@ -182,7 +182,7 @@ export const AdminAgrupaciones = () => {
                 htmlFor="nombre"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Buscar agrupacion
+                Buscar agrupación
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -217,7 +217,7 @@ export const AdminAgrupaciones = () => {
                 htmlFor="categoria"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Categoria
+                Categoría
               </label>
               <select
                 id="categoria"
@@ -228,9 +228,9 @@ export const AdminAgrupaciones = () => {
               >
                 <option>Todos</option>
                 <option>Social</option>
-                <option>Tecnologia</option>
+                <option>Tecnología</option>
                 <option>Ciencia</option>
-                <option>Musica</option>
+                <option>Música</option>
                 <option>Debate</option>
               </select>
             </div>
@@ -241,7 +241,7 @@ export const AdminAgrupaciones = () => {
             type="button"
             className="inline-flex items-center gap-x-2 rounded-md bg-secondary px-2 h-10 mt-auto   text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Crear agrupacion
+            Crear agrupación
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

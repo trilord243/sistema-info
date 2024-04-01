@@ -26,7 +26,7 @@ const loginNavigation = [
 
 const adminNavigation = [
   { name: "Agrupaciones", href: "administrar-agrupaciones", current: false },
-  { name: "Crear agrupacion", href: "crear-agrupacion", current: false },
+  { name: "Crear agrupación", href: "crear-agrupacion", current: false },
   {
     name: "Ver registro de usuarios",
     href: "registro-usuario",
@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
     navigation: [
       { name: "Agrupaciones", href: "#Agrupaciones", current: false },
       { name: "Noticias", href: "#Noticias", current: false },
-      { name: "Top 4 agrupaciones", href: "#", current: false },
+      { name: "Top 4 agrupaciones", href: "#Top4", current: false },
     ],
     admin: false,
   };
@@ -183,7 +183,7 @@ const Navbar: React.FC = () => {
                     className="hidden md:block lg:block  text-white"
                   >
                     {" "}
-                    Iniciar sesion
+                    Iniciar sesión
                   </Link>
 
                   {/* Profile dropdown */}
@@ -194,7 +194,7 @@ const Navbar: React.FC = () => {
                           to="/register"
                           className=" w-full h-full py-2 px-4 rounded-md bg-secondary "
                         >
-                          Registrate!
+                          ¡Regístrate!
                         </Link>
                       </div>
                     </div>
@@ -217,7 +217,7 @@ const Navbar: React.FC = () => {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Your Profile
+                              Tu perfíl
                             </a>
                           )}
                         </Menu.Item>
@@ -230,7 +230,7 @@ const Navbar: React.FC = () => {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Settings
+                              Configuración
                             </a>
                           )}
                         </Menu.Item>
@@ -243,7 +243,7 @@ const Navbar: React.FC = () => {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Sign out
+                              Cerrar sesión
                             </a>
                           )}
                         </Menu.Item>
@@ -258,7 +258,7 @@ const Navbar: React.FC = () => {
                     <div>
                       <Menu.Button className="relative flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="absolute -inset-1.5" />
-                        <span className="sr-only">Open user menu</span>
+                        <span className="sr-only">Abrir menú de usuario</span>
                         <img
                           className="h-8 w-8 rounded-full"
                           src={image}
@@ -286,7 +286,7 @@ const Navbar: React.FC = () => {
                                   "block px-4 py-2 text-sm text-gray-700"
                                 )}
                               >
-                                Your Profile
+                                Tu perfíl
                               </Link>
                             )}
                           </Menu.Item>
@@ -302,7 +302,7 @@ const Navbar: React.FC = () => {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Sign out
+                              Cerrar sesión
                             </Link>
                           )}
                         </Menu.Item>
@@ -321,14 +321,14 @@ const Navbar: React.FC = () => {
                   onClick={() => navigate("/login")}
                   className="bg-blue-400 rounded-full p-1"
                 >
-                  Inicia Sesion!
+                  ¡Inicia Sesión!
                 </Disclosure.Button>
 
                 <Disclosure.Button
                   onClick={() => navigate("/login")}
                   className="bg-secondary rounded-full p-1"
                 >
-                  Registrate
+                  Regístrate
                 </Disclosure.Button>
               </div>
             </Disclosure.Panel>

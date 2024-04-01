@@ -101,10 +101,10 @@ const Login = () => {
                     />
                   </Link>
                   <h2 className=" text-center mt-3 text-2xl font-bold leading-9 tracking-tight text-gray-900 ">
-                    INICIAR SESION
+                    INICIAR SESIÓN
                   </h2>
                   <p className="text-center mt-1 mb-2">
-                    Empieza con una agrupacion!
+                  ¡Empieza con una agrupación!
                   </p>
                 </div>
                 {(formErrors as ActionErrors)?.credential && (
@@ -149,7 +149,7 @@ const Login = () => {
                           type="submit"
                           className="flex mx-auto w-1/3 justify-center rounded-md bg-primary px-3    bg-gradient-to-r from-[#253A80] to-[#5038ED]  py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >
-                          Inicia Sesion
+                          Inicia Sesión
                         </button>
                       </div>
                     </Form>
@@ -165,7 +165,7 @@ const Login = () => {
                       </div>
                       <div className="relative flex justify-center text-sm font-medium leading-6">
                         <span className="bg-white px-6 text-gray-900 font-bold text-xl mt-5">
-                          Inicia sesion con:
+                          Inicia sesión con:
                         </span>
                       </div>
                     </div>
@@ -201,7 +201,7 @@ const Login = () => {
                           onClick={registerWithGoogle}
                           className="text-sm font-semibold leading-6"
                         >
-                          Inicia sesion con
+                          Inicia sesión con
                           <span className="font-bold"> Google</span>
                         </span>
                       </button>

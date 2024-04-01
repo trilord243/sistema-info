@@ -127,7 +127,7 @@ export const MisAgrupaciones = () => {
             htmlFor="nombre"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Buscar agrupacion
+            Buscar agrupación
           </label>
           <div className="mt-2 flex rounded-md shadow-sm">
             <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -162,7 +162,7 @@ export const MisAgrupaciones = () => {
             htmlFor="categoria"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Categoria
+            Categoría
           </label>
           <select
             id="categoria"
@@ -173,9 +173,9 @@ export const MisAgrupaciones = () => {
           >
             <option>Todos</option>
             <option>Social</option>
-            <option>Tecnologia</option>
+            <option>Tecnología</option>
             <option>Ciencia</option>
-            <option>Musica</option>
+            <option>Música</option>
             <option>Debate</option>
           </select>
         </div>

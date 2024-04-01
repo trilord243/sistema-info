@@ -59,9 +59,9 @@ export const BuscarAgrupaciones = () => {
   return (
     <div>
       <h3 className="text-center font-semibold text-3xl my-12">
-        Busca las agrupaciones que mas te gusten y
+        Busca las agrupaciones que más te gusten y
         <br />
-        <span className="text-primary font-bold">¡UNETE!</span>
+        <span className="text-primary font-bold">¡ÚNETE!</span>
       </h3>
       <div className="flex lg:flex-row flex-col lg:px-0 px-5 justify-center gap-16 mt-10 ">
         <div>
@@ -92,7 +92,7 @@ export const BuscarAgrupaciones = () => {
             htmlFor="nombre"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Buscar agrupacion
+            Buscar agrupación
           </label>
           <div className="mt-2 flex rounded-md shadow-sm">
             <div className="relative flex flex-grow items-stretch focus-within:z-10">
@@ -106,7 +106,8 @@ export const BuscarAgrupaciones = () => {
                 type="nombre"
                 name="nombre"
                 id="nombre"
-                className="block w-full rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                className="block w-full
+                text-white rounded-none rounded-l-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 placeholder="Metrotech"
                 onChange={(e) => setNombreFiltro(e.target.value)}
               />
@@ -127,7 +128,7 @@ export const BuscarAgrupaciones = () => {
             htmlFor="categoria"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Categoria
+            Categoría
           </label>
           <select
             id="categoria"
@@ -138,9 +139,9 @@ export const BuscarAgrupaciones = () => {
           >
             <option>Todos</option>
             <option>Social</option>
-            <option>Tecnologia</option>
+            <option>Tecnología</option>
             <option>Ciencia</option>
-            <option>Musica</option>
+            <option>Música</option>
             <option>Debate</option>
           </select>
         </div>
