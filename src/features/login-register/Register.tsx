@@ -94,7 +94,7 @@ const Register = () => {
                     REGISTRATE
                   </h2>
                   <p className="text-center mt-1 mb-2">
-                    Empieza con una agrupacion!
+                  ¡Empieza con una agrupación!
                   </p>
                 </div>
                 {(formErrors as ActionErrors)?.message && (
@@ -202,8 +202,7 @@ const Register = () => {
                           />
                         </svg>
                         <span
-                          className="text-2xl font-semibold leading-6
-                                          "
+                          className="text-2xl font-semibold leading-6 text-white"
                         >
                           Google
                         </span>
