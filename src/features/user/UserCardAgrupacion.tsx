@@ -24,7 +24,7 @@ interface StudentCardProps {
   dashed?: boolean;
   setAgrupacionPuntuar?: (id: string) => void;
   setOpen?: (open: boolean) => void;
-  email: string;
+  email?: string;
 }
 
 const UserCardAgrupacion: React.FC<StudentCardProps> = ({
@@ -33,7 +33,7 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   id,
   nombre_agrupacion,
   dashed = false,
-  email,
+  email = "",
   setAgrupacionPuntuar = () => {},
   setOpen = () => {},
 }) => {
