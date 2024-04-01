@@ -140,7 +140,7 @@ export const AdminAgrupaciones = () => {
                 htmlFor="estudiantes"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Filtrar por agrupacioenes vacías
+                Filtrar por agrupaciones vacías
               </label>
               <select
                 id="estudiantes"
@@ -182,7 +182,7 @@ export const AdminAgrupaciones = () => {
                 htmlFor="nombre"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Buscar agrupacion
+                Buscar agrupación
               </label>
               <div className="mt-2 flex rounded-md shadow-sm">
                 <div className="relative flex flex-grow items-stretch focus-within:z-10">
