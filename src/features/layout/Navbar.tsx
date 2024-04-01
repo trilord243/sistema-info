@@ -321,7 +321,7 @@ const Navbar: React.FC = () => {
                   onClick={() => navigate("/login")}
                   className="bg-blue-400 rounded-full p-1"
                 >
-                  Inicia Sesion!
+                  ¡Inicia Sesion!
                 </Disclosure.Button>
 
                 <Disclosure.Button
