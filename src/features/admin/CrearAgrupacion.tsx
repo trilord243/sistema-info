@@ -45,10 +45,10 @@ export const CrearAgrupacion = () => {
         <div className="w-full h-full   ">
           <div className="w-full  p-9 mb-">
             <h3 className="lg:text-4xl text-3xl text-center font-bold mb-2 ">
-              Crear una <span className="text-primary">agrupacion</span>
+              Crear una <span className="text-primary">agrupación</span>
             </h3>
             <p className="text-lg text-gray-500 font-normal leading-7  text-center">
-              Pon toda la información que necesita de la agrupacion
+              Proporcione toda la información necesaria para crear la agrupacion
             </p>
           </div>
 

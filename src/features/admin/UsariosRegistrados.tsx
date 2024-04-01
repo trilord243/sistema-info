@@ -25,7 +25,7 @@ export default function UsuariosRegistrados() {
             Miembros Registrados
           </h2>
           <p className="mt-6 text-lg leading-8 text-gray-600 text-center">
-            Estas son todas las agrupaciones que se han registrado en la
+            Éstas son todas las agrupaciones que se han registrado en la
             plataforma
           </p>
         </div>
