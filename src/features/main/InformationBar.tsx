@@ -21,7 +21,7 @@ export const InformationBar = () => {
       <div className="w-24 h-full lg:w-64  ">
         <img src={organizate} alt="xd" />
         <h3 className="text-black font-bold">Organízate </h3>
-        <p className="text-sm">Organiza los proyectos con tu agrupacion</p>
+        <p className="text-sm">Organiza los proyectos con tu agrupación</p>
       </div>
     </div>
   );
