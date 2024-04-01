@@ -20,6 +20,7 @@ interface Agrupacion {
   vision: string;
   tag: string;
   puntuacion: number;
+  email: string;
 }
 
 export const MisAgrupaciones = () => {
@@ -182,6 +183,7 @@ export const MisAgrupaciones = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-7  justify-items-center mt-3 ">
         {agrupacionesFiltradas.map((agrupacion) => (
           <UserCardAgrupacion
+            email={agrupacion.email}
             setAgrupacionPuntuar={setAgrupacionPuntuar}
             setOpen={setOpen}
             key={agrupacion.id}

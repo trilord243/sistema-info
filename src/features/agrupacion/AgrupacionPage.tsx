@@ -2,15 +2,19 @@ import { Link, LoaderFunctionArgs, useLoaderData } from "react-router-dom";
 import { getAgrupacionById } from "../../api/Agrupaciones";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  getPuntuados,
   getUserAgrupaciones,
   getUserId,
+  getUserLogin,
   updateAgrupaciones,
 } from "../user/userSlice";
 import { useEffect, useState } from "react";
 import { doc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
 import { useParams } from "react-router-dom";
-import { getIsLogged } from "../admin/adminSlice";
+import Modal from "../../ui/Modal";
+import { PaypalButton } from "../../ui/PaypalButton";
+
 export interface Agrupacion {
   id: string;
   estudiantes_registradors: string[];
@@ -22,6 +26,7 @@ export interface Agrupacion {
   tag: string;
   puntuacion: number;
   fecha_creacion: string;
+  correo: string;
 }
 
 interface AgrupacionData {
@@ -31,19 +36,26 @@ interface AgrupacionData {
 export default function AgrupacionPage() {
   const { agrupacion } = useLoaderData() as AgrupacionData;
   const params = useParams();
-  const isLogged = useSelector(getIsLogged);
-  console.log(isLogged);
-
+  const isLogged = useSelector(getUserLogin);
+  const [isPuntaje, setIsPuntaje] = useState(false);
+  const [open, setOpen] = useState(false);
   const idUser = useSelector(getUserId);
   const miembros = useSelector(getUserAgrupaciones);
   const [isMember, setIsMember] = useState(false);
   const dispatch = useDispatch();
-
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const puntuados = useSelector(getPuntuados) || [];
+  console.log(puntuados);
+  console.log(params.id);
+  console.log(puntuados.includes(params.id as never));
   useEffect(() => {
     if (miembros.includes(agrupacion.id as never)) {
       setIsMember(true);
     }
-  }, [miembros, agrupacion.id]);
+    if (puntuados.includes(params.id as never)) {
+      setIsPuntaje(true);
+    }
+  }, [miembros, agrupacion.id, puntuados, params.id]);
 
   const handleJoinClub = async () => {
     if (!isMember) {
@@ -89,10 +101,11 @@ export default function AgrupacionPage() {
 
   return (
     <div className="overflow-hidden bg-white py-32">
+      <Modal open={open} setOpen={setOpen} agrupacion={params.id ?? ""} />
       <div className="mx-auto max-w-7xl px-6 lg:flex lg:px-8">
         <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-12 gap-y-16 lg:mx-0 lg:min-w-full lg:max-w-none lg:flex-none lg:gap-y-8">
           <div className="lg:col-end-1 lg:w-full lg:max-w-lg lg:pb-8">
-            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            <h2 className="text-3xl font-bold tracking-tight text-primary sm:text-4xl">
               {agrupacion.nombre_agrupacion}
             </h2>
             <p className="mt-6 text-xl leading-8 text-gray-600">
@@ -102,7 +115,7 @@ export default function AgrupacionPage() {
               {agrupacion.vision}
             </p>
             {isLogged ? (
-              <div className="mt-10 flex">
+              <div className="mt-10 flex gap-7">
                 {!isMember ? (
                   <button
                     onClick={handleJoinClub}
@@ -111,7 +124,7 @@ export default function AgrupacionPage() {
                     Únete <span aria-hidden="true">&rarr;</span>
                   </button>
                 ) : (
-                  <div className="flex">
+                  <div className="flex gap-10">
                     <button
                       onClick={handleDeleteClub}
                       className="rounded-md bg-red-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-red-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
@@ -119,7 +132,19 @@ export default function AgrupacionPage() {
                       Abandonar
                     </button>
 
-                    <h1>Ya eres miembro!</h1>
+                    {!isPuntaje ? (
+                      <button
+                        type="button"
+                        onClick={() => setOpen(true)}
+                        className="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                      >
+                        Puntuar
+                      </button>
+                    ) : (
+                      <span className="inline-flex items-center rounded-full bg-green-100 px-1.5 py-0.5 text-lf font-medium text-green-700">
+                        Ya puntuaste!
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
@@ -141,6 +166,18 @@ export default function AgrupacionPage() {
                 alt=""
                 className="aspect-[7/5] w-[37rem] max-w-none rounded-2xl bg-gray-50 object-cover"
               />
+              {isMember && (
+                <div className="mt-10">
+                  <h2 className="mb-5 text-primary text-lg  font-bold text-center">
+                    Si deseas contribuir Puedes contribuir mediante paypal
+                  </h2>
+                  <PaypalButton
+                    email={agrupacion.correo}
+                    totalValue="10"
+                    invoice="Agrupacion"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { Paypal } from "../../ui/Paypal";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
@@ -12,6 +12,7 @@ import {
 } from "./userSlice";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
+import { PaypalButton } from "../../ui/PaypalButton";
 
 interface StudentCardProps {
   foto_agrupacion: string;
@@ -23,6 +24,7 @@ interface StudentCardProps {
   dashed?: boolean;
   setAgrupacionPuntuar?: (id: string) => void;
   setOpen?: (open: boolean) => void;
+  email: string;
 }
 
 const UserCardAgrupacion: React.FC<StudentCardProps> = ({
@@ -31,6 +33,7 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   id,
   nombre_agrupacion,
   dashed = false,
+  email,
   setAgrupacionPuntuar = () => {},
   setOpen = () => {},
 }) => {
@@ -186,7 +189,11 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
           </Link>
 
           <div className="flex justify-between items-center px-4 ">
-            <Paypal height={24} weight={24} />
+            <PaypalButton
+              totalValue="10.00"
+              invoice="Donación para la agrupación XYZ"
+              email={email}
+            />
 
             {!isPuntaje ? (
               <button

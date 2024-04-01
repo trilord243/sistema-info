@@ -72,7 +72,7 @@ const Login = () => {
         navigation("/profile");
       } else {
         store.dispatch(updateUser(verificarExiste));
-        navigation("/profile");
+        navigation("/");
       }
     } catch (error: unknown) {
       if (error instanceof Error) {
