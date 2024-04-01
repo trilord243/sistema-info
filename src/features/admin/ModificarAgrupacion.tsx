@@ -117,28 +117,30 @@ export const ModificarAgrupacion = () => {
                   <option>Tecnologia</option>
                   <option>Ciencia</option>
                   <option>Musica</option>
+                  <option>Arte</option>
                   <option>Debate</option>
                 </select>
               </div>
-            </div>
-            <div>
-              <label
-                htmlFor="correo-agrupacion"
-                className="block text-sm font-medium leading-6 text-gray-900"
-              >
-                Correo de la agrupación
-              </label>
-              <div className="mt-2">
-                <input
-                  type="email"
-                  name="correo-agrupacion"
-                  id="correo-agrupacion"
-                  className="block w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  placeholder="ejemplo@correo.com"
-                  defaultValue={loader?.correo || ""}
-                />
+              <div className="mt-5">
+                <label
+                  htmlFor="correo-agrupacion"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Correo de la agrupación
+                </label>
+                <div className="mt-">
+                  <input
+                    type="email"
+                    name="correo-agrupacion"
+                    id="correo-agrupacion"
+                    className="block w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="ejemplo@correo.com"
+                    required
+                  />
+                </div>
               </div>
             </div>
+
             <div className="flex flex-col px-7 w-full">
               <div>
                 <label

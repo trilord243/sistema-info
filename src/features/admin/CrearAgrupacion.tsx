@@ -90,8 +90,27 @@ export const CrearAgrupacion = () => {
                   <option>Tecnologia</option>
                   <option>Ciencia</option>
                   <option>Musica</option>
+                  <option>Arte</option>
                   <option>Debate</option>
                 </select>
+              </div>
+              <div className="mt-5">
+                <label
+                  htmlFor="correo-agrupacion"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Correo de la agrupación
+                </label>
+                <div className="mt-">
+                  <input
+                    type="email"
+                    name="correo-agrupacion"
+                    id="correo-agrupacion"
+                    className="block w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    placeholder="ejemplo@correo.com"
+                    required
+                  />
+                </div>
               </div>
             </div>
 
@@ -129,24 +148,6 @@ export const CrearAgrupacion = () => {
                     id="vision"
                     className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     defaultValue={""}
-                    required
-                  />
-                </div>
-              </div>
-              <div>
-                <label
-                  htmlFor="correo-agrupacion"
-                  className="block text-sm font-medium leading-6 text-gray-900"
-                >
-                  Correo de la agrupación
-                </label>
-                <div className="mt-2">
-                  <input
-                    type="email"
-                    name="correo-agrupacion"
-                    id="correo-agrupacion"
-                    className="block w-60 rounded-lg border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    placeholder="ejemplo@correo.com"
                     required
                   />
                 </div>
