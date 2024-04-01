@@ -138,7 +138,7 @@ export default function Profile() {
                           name="nombre"
                           id="nombre"
                           className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                          placeholder="janesmith"
+                          placeholder="Ramón"
                           defaultValue={nombre}
                         />
                       </div>
@@ -159,7 +159,7 @@ export default function Profile() {
                           name="apellido"
                           id="apellidp"
                           className="block flex-1 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm sm:leading-6"
-                          placeholder="janesmith"
+                          placeholder="DelaSoledadPalacios"
                           defaultValue={apellido}
                         />
                       </div>
@@ -183,7 +183,7 @@ export default function Profile() {
                       />
                     </div>
                     <p className="mt-3 text-sm leading-6 text-gray-600">
-                      Escrieb una breve descipción sobre ti.
+                      Escribe una breve descripción sobre ti.
                     </p>
                   </div>
 
