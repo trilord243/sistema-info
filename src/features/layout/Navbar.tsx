@@ -60,7 +60,7 @@ const Navbar: React.FC = () => {
     navigation: [
       { name: "Agrupaciones", href: "#Agrupaciones", current: false },
       { name: "Noticias", href: "#Noticias", current: false },
-      { name: "Top 4 agrupaciones", href: "#", current: false },
+      { name: "Top 4 agrupaciones", href: "#Top4", current: false },
     ],
     admin: false,
   };
@@ -194,7 +194,7 @@ const Navbar: React.FC = () => {
                           to="/register"
                           className=" w-full h-full py-2 px-4 rounded-md bg-secondary "
                         >
-                          Registrate!
+                          ¡Registrate!
                         </Link>
                       </div>
                     </div>

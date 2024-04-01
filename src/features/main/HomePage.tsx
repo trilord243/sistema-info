@@ -220,7 +220,8 @@ const HomePage: React.FC = () => {
           <Carrousel images={images}></Carrousel>
         </div>
         <div className=" w-full h-10 mt-24 ">
-          <h3 className="text-center text-4xl font-bold text-primary">
+          <h3 className="text-center text-4xl font-bold text-primary" 
+          >
             Top 4 agrupaciones
           </h3>
           <p className="text-center bg-white  text-gray-500 font-light mt-6 ">
