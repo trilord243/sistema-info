@@ -31,7 +31,6 @@ export const MiembrosAgrupacion = () => {
     agrupacion: Agrupaciona;
     estudiantesRegistrados: Student[] | [];
   };
-  console.log(estudiantesRegistrados);
 
   return (
     <div className="bg-white py-6 sm:py-11">
