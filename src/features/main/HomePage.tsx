@@ -42,11 +42,11 @@ const HomePage: React.FC = () => {
     useState(agrupaciones);
 
   const images = [
-    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-FERIA-DE-EMPLEO-2024-6-980x653.jpg",
-    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-2-980x653.jpg",
-    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-DE-CONVERSATORIO-DE-TINOCO-5-980x653.jpg",
-    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-CONVERSATORIO-DE-NIXON-8-980x653.jpg",
-    "https://www.unimet.edu.ve/wp-content/uploads/2024/03/FOTOS-CONVERSATORIO-DE-NIXON-4-980x653.jpg",
+    "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/roversismo.jpg?alt=media&token=acfd3253-89d1-4395-87cc-0467ee0265fb",
+    "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/Tinoco.jpg?alt=media&token=6c37f924-c840-4362-855f-0c45f2aaa0cc",
+    "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/conversatorio.jpg?alt=media&token=3accadb8-ab9a-4298-acd2-c362527a99a6",
+    "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/progresista.jpg?alt=media&token=38bce9c0-acce-42b2-b9b5-4ab837c3492e",
+    "https://firebasestorage.googleapis.com/v0/b/sistema-info-d52b6.appspot.com/o/watergate.jpg?alt=media&token=2cbe4479-7225-48e8-9b76-32a7f27f0d3e",
   ];
 
   useEffect(() => {
