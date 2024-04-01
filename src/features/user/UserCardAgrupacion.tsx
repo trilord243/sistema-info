@@ -146,7 +146,7 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
                 type="button"
                 className="rounded-md bg-green-600 px-2 py-1 mb-3 text-sm font-semibold text-white shadow-sm hover:bg-green-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-green-600 h-9"
               >
-                ¡Unete!
+                ¡Únete!
               </button>
             ) : (
               <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-100 px-2  text-xs font-medium text-green-700">
