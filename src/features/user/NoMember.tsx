@@ -20,7 +20,7 @@ export const NoMember = () => {
             <span className="text-primary font-bold "> ¡Únete! </span>
           </h2>
           <h2 className="text-3xl lg:hidden text-center  ">
-            No eres miembro de ninguna agrupacion{" "}
+            No eres miembro de ninguna agrupación{" "}
             <span className="text-primary font-bold">Unete!</span>
           </h2>
 
