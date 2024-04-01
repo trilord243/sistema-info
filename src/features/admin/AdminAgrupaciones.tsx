@@ -228,9 +228,9 @@ export const AdminAgrupaciones = () => {
               >
                 <option>Todos</option>
                 <option>Social</option>
-                <option>Tecnologia</option>
+                <option>Tecnología</option>
                 <option>Ciencia</option>
-                <option>Musica</option>
+                <option>Música</option>
                 <option>Debate</option>
               </select>
             </div>
