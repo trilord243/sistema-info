@@ -241,7 +241,7 @@ export const AdminAgrupaciones = () => {
             type="button"
             className="inline-flex items-center gap-x-2 rounded-md bg-secondary px-2 h-10 mt-auto   text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
           >
-            Crear agrupacion
+            Crear agrupación
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
