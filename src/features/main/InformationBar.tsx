@@ -20,7 +20,7 @@ export const InformationBar = () => {
       </div>
       <div className="w-24 h-full lg:w-64  ">
         <img src={organizate} alt="xd" />
-        <h3 className="text-black font-bold">Organizate </h3>
+        <h3 className="text-black font-bold">Organízate </h3>
         <p className="text-sm">Organiza los proyectos con tu agrupacion</p>
       </div>
     </div>
