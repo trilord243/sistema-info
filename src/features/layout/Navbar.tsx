@@ -183,7 +183,7 @@ const Navbar: React.FC = () => {
                     className="hidden md:block lg:block  text-white"
                   >
                     {" "}
-                    Iniciar sesion
+                    Iniciar sesión
                   </Link>
 
                   {/* Profile dropdown */}
@@ -194,7 +194,7 @@ const Navbar: React.FC = () => {
                           to="/register"
                           className=" w-full h-full py-2 px-4 rounded-md bg-secondary "
                         >
-                          ¡Registrate!
+                          ¡Regístrate!
                         </Link>
                       </div>
                     </div>
@@ -217,7 +217,7 @@ const Navbar: React.FC = () => {
                                 "block px-4 py-2 text-sm text-gray-700"
                               )}
                             >
-                              Your Profile
+                              Tu perfíl
                             </a>
                           )}
                         </Menu.Item>
