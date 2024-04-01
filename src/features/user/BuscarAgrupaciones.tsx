@@ -92,7 +92,7 @@ export const BuscarAgrupaciones = () => {
             htmlFor="nombre"
             className="block text-sm font-medium leading-6 text-gray-900"
           >
-            Buscar agrupacion
+            Buscar agrupación
           </label>
           <div className="mt-2 flex rounded-md shadow-sm">
             <div className="relative flex flex-grow items-stretch focus-within:z-10">
