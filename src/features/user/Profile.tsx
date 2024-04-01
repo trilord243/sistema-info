@@ -192,7 +192,7 @@ export default function Profile() {
                       htmlFor="photo"
                       className="block text-sm font-medium leading-6 text-gray-900"
                     >
-                      Foto de perfil
+                      Foto de perfíl
                     </label>
                     <div className="mt-2 flex items-center gap-x-3">
                       {/*  <UserCircleIcon
