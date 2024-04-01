@@ -205,7 +205,7 @@ export const CrearAgrupacion = () => {
                 type="button"
                 className="text-sm font-semibold leading-6 text-gray-500 hover:text-gray-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-gray-500"
               >
-                Cancel
+                Cancelar
               </button>
               <button
                 type="submit"
