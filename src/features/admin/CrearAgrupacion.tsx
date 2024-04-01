@@ -78,7 +78,7 @@ export const CrearAgrupacion = () => {
                   htmlFor="tag-agrupacion"
                   className="block text-sm font-medium leading-6 mt-3 text-gray-900"
                 >
-                  Tag de la agrupacion
+                  Tag de la agrupación
                 </label>
                 <select
                   id="tag-agrupacion"
