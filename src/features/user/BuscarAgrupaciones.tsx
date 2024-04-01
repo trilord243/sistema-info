@@ -59,7 +59,7 @@ export const BuscarAgrupaciones = () => {
   return (
     <div>
       <h3 className="text-center font-semibold text-3xl my-12">
-        Busca las agrupaciones que mas te gusten y
+        Busca las agrupaciones que más te gusten y
         <br />
         <span className="text-primary font-bold">¡UNETE!</span>
       </h3>
