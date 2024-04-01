@@ -175,7 +175,7 @@ export const MisAgrupaciones = () => {
             <option>Social</option>
             <option>Tecnología</option>
             <option>Ciencia</option>
-            <option>Musica</option>
+            <option>Música</option>
             <option>Debate</option>
           </select>
         </div>
