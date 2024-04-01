@@ -328,7 +328,7 @@ const Navbar: React.FC = () => {
                   onClick={() => navigate("/login")}
                   className="bg-secondary rounded-full p-1"
                 >
-                  Registrate
+                  Regístrate
                 </Disclosure.Button>
               </div>
             </Disclosure.Panel>
