@@ -36,14 +36,18 @@ const MainPageComponent = () => {
         <div className="absolute inset-0 flex flex-col justify-center items-center p-4 text-center">
           <h1 className="text-3xl md:text-4xl font-extrabold text-white leading-tight">
             <span className="text-secondary"> ¡Únete!</span>
-            <br /> dolor sit amet consectetur.
-            <br /> netus egestas
+            <br /> Universidad.
+            <br />
+            Metropolitana
           </h1>
           <p className="text-white mt-4 text-lg md:text-xl">
-            Lorem ipsum dolor sit amet consectetur. Ut faucibus curabitur metus
-            sit eget convallis ridiculus nunc. Sclerisque egestas vitae eget
-            est.
+            La bandera de la Universidad Metropolitana tiene como fondo el color
+            blanco y en el centro el logo de la institución.
+            <br />
+            Las franjas color naranja simbolizan el ondear de la enseñanza y la
+            sabiduría.
           </p>
+
           {!isLogged ? (
             <Link
               to="/register"
