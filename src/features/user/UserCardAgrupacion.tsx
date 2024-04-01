@@ -12,7 +12,8 @@ import {
 } from "./userSlice";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase/firebase";
-import { PaypalButton } from "../../ui/PaypalButton";
+
+import { Paypal } from "../../ui/Paypal";
 
 interface StudentCardProps {
   foto_agrupacion: string;
@@ -33,11 +34,10 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
   id,
   nombre_agrupacion,
   dashed = false,
-  email = "",
+
   setAgrupacionPuntuar = () => {},
   setOpen = () => {},
 }) => {
-  console.log(id);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const puntuados = useSelector(getPuntuados) || [];
   console.log(puntuados);
@@ -189,11 +189,9 @@ const UserCardAgrupacion: React.FC<StudentCardProps> = ({
           </Link>
 
           <div className="flex justify-between items-center px-4 ">
-            <PaypalButton
-              totalValue="10.00"
-              invoice="Donación para la agrupación XYZ"
-              email={email}
-            />
+            <Link to={`/agrupacion/${id}`}>
+              <Paypal weight={24} height={24} />
+            </Link>
 
             {!isPuntaje ? (
               <button

@@ -32,8 +32,21 @@ export interface Agrupacion {
 interface AgrupacionData {
   agrupacion: Agrupacion;
 }
-
+const notificationMethods = [
+  { id: "5", title: "5$" },
+  { id: "10", title: "10$" },
+  { id: "15", title: "15$" },
+  { id: "20", title: "20$" },
+];
 export default function AgrupacionPage() {
+  const [selectedAmount, setSelectedAmount] = useState(
+    notificationMethods[0].id
+  );
+  const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSelectedAmount(event.target.value);
+  };
+  console.log(selectedAmount);
+
   const { agrupacion } = useLoaderData() as AgrupacionData;
   const params = useParams();
   const isLogged = useSelector(getUserLogin);
@@ -45,9 +58,7 @@ export default function AgrupacionPage() {
   const dispatch = useDispatch();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const puntuados = useSelector(getPuntuados) || [];
-  console.log(puntuados);
-  console.log(params.id);
-  console.log(puntuados.includes(params.id as never));
+
   useEffect(() => {
     if (miembros.includes(agrupacion.id as never)) {
       setIsMember(true);
@@ -168,12 +179,46 @@ export default function AgrupacionPage() {
               />
               {isMember && (
                 <div className="mt-10">
-                  <h2 className="mb-5 text-primary text-lg  font-bold text-center">
-                    Si deseas contribuir Puedes contribuir mediante paypal
-                  </h2>
+                  <div>
+                    <label className="text-base font-semibold text-gray-900">
+                      <h2 className="mb-5 text-primary text-lg  font-bold text-center">
+                        Si deseas contribuir Puedes contribuir mediante paypal
+                      </h2>
+                    </label>
+                    <p className="text-sm text-gray-500">
+                      Escoge la cantidad que deseas contribuir
+                    </p>
+                    <fieldset className="mt-4">
+                      <legend className="sr-only">Notification method</legend>
+                      <div className="space-y-4">
+                        {notificationMethods.map((notificationMethod) => (
+                          <div
+                            key={notificationMethod.id}
+                            className="flex items-center"
+                          >
+                            <input
+                              id={notificationMethod.id}
+                              name="notification-method"
+                              type="radio"
+                              value={notificationMethod.id}
+                              onChange={handleAmountChange}
+                              checked={selectedAmount === notificationMethod.id}
+                              className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                            />
+                            <label
+                              htmlFor={notificationMethod.id}
+                              className="ml-3 block text-sm font-medium leading-6 text-gray-900"
+                            >
+                              {notificationMethod.title}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
                   <PaypalButton
                     email={agrupacion.correo}
-                    totalValue="10"
+                    totalValue={selectedAmount}
                     invoice="Agrupacion"
                   />
                 </div>

@@ -27,7 +27,7 @@ export const PaypalButton: React.FC<PaypalButtonProps> = ({
             {
               amount: {
                 currency_code: "USD",
-                value: totalValue.toString(),
+                value: totalValue,
               },
               payee: {
                 email_address: email,
