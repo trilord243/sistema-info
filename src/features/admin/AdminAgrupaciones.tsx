@@ -140,7 +140,7 @@ export const AdminAgrupaciones = () => {
                 htmlFor="estudiantes"
                 className="block text-sm font-medium leading-6 text-gray-900"
               >
-                Filtrar por agrupacioenes vacias
+                Filtrar por agrupacioenes vacías
               </label>
               <select
                 id="estudiantes"

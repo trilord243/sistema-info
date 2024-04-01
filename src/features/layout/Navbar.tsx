@@ -26,7 +26,7 @@ const loginNavigation = [
 
 const adminNavigation = [
   { name: "Agrupaciones", href: "administrar-agrupaciones", current: false },
-  { name: "Crear agrupacion", href: "crear-agrupacion", current: false },
+  { name: "Crear agrupación", href: "crear-agrupacion", current: false },
   {
     name: "Ver registro de usuarios",
     href: "registro-usuario",
