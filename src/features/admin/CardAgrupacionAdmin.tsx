@@ -93,7 +93,7 @@ const CardAgrupacionAdmin: React.FC<AgrupacionCard> = ({
               type="button"
               className="rounded-md bg-red-600 px-2 py-1  text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
             >
-              Eliminar agrupacion
+              Eliminar agrupación
             </button>
           )}
           <button
