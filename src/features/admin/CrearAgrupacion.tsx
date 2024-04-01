@@ -101,7 +101,7 @@ export const CrearAgrupacion = () => {
                   htmlFor="mision"
                   className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Mision
+                  Misión
                 </label>
                 <div className="mt-2">
                   <textarea
